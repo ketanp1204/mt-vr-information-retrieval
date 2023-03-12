@@ -1,0 +1,69 @@
+#
+# Wavefront material file
+# Created in RealityCapture
+# Engine version v1.1.1.15122
+#
+
+newmtl gropiuszimmer_1M_u1_v1
+Ka 1 1 1
+Kd 1 1 1
+d 1
+Ns 0
+illum 1
+map_Kd gropiuszimmer_1M_u1_v1.png
+
+newmtl gropiuszimmer_1M_u2_v1
+Ka 1 1 1
+Kd 1 1 1
+d 1
+Ns 0
+illum 1
+map_Kd gropiuszimmer_1M_u2_v1.png
+
+newmtl gropiuszimmer_1M_u3_v1
+Ka 1 1 1
+Kd 1 1 1
+d 1
+Ns 0
+illum 1
+map_Kd gropiuszimmer_1M_u3_v1.png
+
+newmtl gropiuszimmer_1M_u1_v2
+Ka 1 1 1
+Kd 1 1 1
+d 1
+Ns 0
+illum 1
+map_Kd gropiuszimmer_1M_u1_v2.png
+
+newmtl gropiuszimmer_1M_u2_v2
+Ka 1 1 1
+Kd 1 1 1
+d 1
+Ns 0
+illum 1
+map_Kd gropiuszimmer_1M_u2_v2.png
+
+newmtl gropiuszimmer_1M_u3_v2
+Ka 1 1 1
+Kd 1 1 1
+d 1
+Ns 0
+illum 1
+map_Kd gropiuszimmer_1M_u3_v2.png
+
+newmtl gropiuszimmer_1M_u1_v3
+Ka 1 1 1
+Kd 1 1 1
+d 1
+Ns 0
+illum 1
+map_Kd gropiuszimmer_1M_u1_v3.png
+
+newmtl gropiuszimmer_1M_u2_v3
+Ka 1 1 1
+Kd 1 1 1
+d 1
+Ns 0
+illum 1
+map_Kd gropiuszimmer_1M_u2_v3.png
