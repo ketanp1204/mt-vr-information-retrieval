@@ -1,10 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MenuAction : MonoBehaviour
 {
+    /* Public Variables */
+
+    public UnityEvent actionHoverEnteredEvents;
+    public UnityEvent actionHoverExitedEvents;
+
+    /* Private Variables */
     // All child actions of this action
     [SerializeField] private List<GameObject> childActions = new List<GameObject>();
 
@@ -34,8 +42,23 @@ public class MenuAction : MonoBehaviour
         
     }
 
+    public void HandleHoverEntered()
+    {
+        if (!isSelected)
+        {
+            actionHoverEnteredEvents.Invoke();
+        }
+    }
 
-    public void HandleSelectEntered()
+    public void HandleHoverExited()
+    {
+        if (!isSelected)
+        {
+            actionHoverExitedEvents.Invoke();
+        }
+    }
+
+    public void HandleMenuSelect()
     {
         if (!isSelected)
         {
@@ -44,13 +67,13 @@ public class MenuAction : MonoBehaviour
 
             isSelected = true;
 
-            // Hide the other actions and the main menu sphere
+            // Hide the other menu items and the main menu sphere
             StartCoroutine(FadeOutParentAndOtherActions());
 
-            // Reposition this action to zero local position after a delay
+            // Reposition this menu item to zero local position after a delay
             StartCoroutine(TranslateToZeroPosition());
 
-            // Animate children of this action to their circular arrangement positions after delay
+            // Animate children of this menu item to their circular arrangement positions after delay
             StartCoroutine(AnimateChildrenToCircle());
 
         }
@@ -58,14 +81,52 @@ public class MenuAction : MonoBehaviour
         {
             isSelected = false;
 
-            // Show the other actions and the main menu sphere after a delay
+            // Show the other menu items and the main menu sphere after a delay
+            StartCoroutine(FadeInParentAndOtherActions());
+
+            // Reposition this menu item to its original position
+            StartCoroutine(TranslateToFinalPosition());
+
+            // Animate children of this menu item to their zero positions
+            StartCoroutine(AnimateChildrenToZero());
+        }
+    }
+
+    public void HandleActionSelect()
+    {
+        if (!isSelected)
+        {
+            // Get current localPosition
+            actionPosition = transform.localPosition;
+
+            isSelected = true;
+
+            // Hide hover preview if exists
+            if (actionHoverExitedEvents.GetPersistentEventCount() > 0)
+                actionHoverExitedEvents.Invoke();
+
+            // Hide other actions and the parent sphere
+            StartCoroutine(FadeOutParentAndOtherActions());
+
+            // Reposition this action to zero local position after a delay
+            StartCoroutine(TranslateToZeroPosition());
+
+            // Set child object active after delay
+            StartCoroutine(SetChildActiveAfterDelay());
+        }
+        else
+        {
+            isSelected = false;
+
+            // Show the other actions and the parent sphere after a delay
             StartCoroutine(FadeInParentAndOtherActions());
 
             // Reposition this action to its original position
             StartCoroutine(TranslateToFinalPosition());
 
-            // TODO: Animate children of this action to their zero positions
-            StartCoroutine(AnimateChildrenToZero());
+            // Set child object inactive
+            childActions[0].SetActive(false);
+
         }
     }
 
@@ -76,6 +137,10 @@ public class MenuAction : MonoBehaviour
 
         // Disable parent collider
         parent.GetComponent<SphereCollider>().enabled = false;
+
+        // Hide parent display text
+        GameObject displayText = parent.GetComponentInChildren<TextMeshPro>(true).gameObject;
+        displayText.SetActive(false);
 
         float t = 0f;
         while (t < animDuration)
@@ -144,6 +209,10 @@ public class MenuAction : MonoBehaviour
 
         // Enable parent collider
         parent.GetComponent<SphereCollider>().enabled = true;
+
+        // Show parent display text
+        GameObject displayText = parent.GetComponentInChildren<TextMeshPro>(true).gameObject;
+        displayText.SetActive(true);
     }
 
     private IEnumerator TranslateToZeroPosition()
@@ -279,8 +348,12 @@ public class MenuAction : MonoBehaviour
         return new Vector3(x, y, 0f);
     }
 
-    public void HandleSelectExited()
+    private IEnumerator SetChildActiveAfterDelay()
     {
-        
+        yield return new WaitForSeconds(animDuration);
+
+        childActions[0].SetActive(true);
     }
+
+
 }

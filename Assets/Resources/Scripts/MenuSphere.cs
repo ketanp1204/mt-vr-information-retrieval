@@ -51,6 +51,12 @@ public class MenuSphere : MonoBehaviour
         }
     }
 
+    public void HandleBlur()
+    {
+        SelectiveBlur selectiveBlur = Vrsys.NetworkUser.localNetworkUser.GetCamera().gameObject.GetComponent<SelectiveBlur>();
+        selectiveBlur.SetSelectedObject(transform);
+    }
+
     public void HandleSelectEntered()
     {
         if (!isSelected)
