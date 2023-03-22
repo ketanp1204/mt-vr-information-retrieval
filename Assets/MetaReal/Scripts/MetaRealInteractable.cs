@@ -58,7 +58,7 @@ public class MetaRealInteractable : XRBaseInteractable
     {
         if (gameObject.name == "JoinUserCollider")
         {
-            detailView.JoinDetailView();
+
         }
         else
         {

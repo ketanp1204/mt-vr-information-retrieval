@@ -1,66 +1,99 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Vrsys;
 
 public class DetailView : MonoBehaviour
 {
-    public InputActionProperty selectHoldAction;
-    public MetaRealObject mro;
-    public GameObject joinUserGO;
+    /* Public Variables */
+    public GameObject detailViewGO;
 
-    public Transform playerSpawnLoc;
-    public Transform objectSpawnLoc;
+    /* Private Variables */
+    [SerializeField] private List<GameObject> focusObjects;
+    private bool isInDetailView = false;
+    private SphereCollider col;
+    private ScreenFade screenFade;
 
-    private GameObject localUser;
-    private GameObject dViewObjectGO;
-    private GameObject userDisplay;
-    private GameObject userDisplayAtOrigLoc;
-
-    // temporary
-    public InputActionProperty select2;
-
-    private bool isHolding = false;
-
-    // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        selectHoldAction.action.performed += StartHoldAction;
-        // select2.action.performed += StartHoldAction;
+        col = GetComponent<SphereCollider>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void HandleSelect()
     {
-        
-    }
-
-    public void StartHoldAction(InputAction.CallbackContext context)
-    {
-        localUser = Vrsys.NetworkUser.localNetworkUser.gameObject;
-        userDisplay = localUser.GetComponent<NetworkUser>().userDisplayGO;
-        Vector3 origLoc = localUser.transform.position;
-        userDisplay.transform.position = origLoc;
-
-        localUser.transform.position = playerSpawnLoc.position;
-        PhotonView photonView = localUser.GetComponent<PhotonView>();
-        if(photonView.IsMine)
+        if (!isInDetailView)
         {
-            photonView.RPC("SyncUserDisplay", RpcTarget.All, true);
-            // PhotonNetwork.Instantiate("UtilityPrefabs/JoinUser", origLoc.position, Vrsys.Utility.FindRecursive(localUser, "Main Camera").transform.localRotation, 0);
-            
+            // Get screen fade component of user
+            screenFade = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "Main Camera").GetComponentInChildren<ScreenFade>();
+
+            // Enter detail view
+            StartCoroutine(EnterDetailView());
+
+            isInDetailView = true;
         }
-        Vector3 objectOrigLoc = mro.gameObject.transform.position;
-        mro.gameObject.transform.position = objectSpawnLoc.position;
-        mro.HideDetailViewOption();
-        mro.isInDetailView = true;
+        else
+        {
+            // Get screen fade component of user
+            screenFade = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "Main Camera").GetComponentInChildren<ScreenFade>();
+
+            // Exit detail view
+            StartCoroutine(ExitDetailView());
+
+            isInDetailView = false;
+        }
     }
 
-    public void JoinDetailView()
+    private IEnumerator EnterDetailView()
     {
-        // localUser = Vrsys.NetworkUser.localNetworkUser.gameObject;
-        // localUser.transform.position = playerSpawnLoc.position;
+        // Fade the screen out
+        screenFade.FadeOut();
+
+        // Disable collider
+        col.enabled = false;
+
+        // Wait for screen fade
+        yield return new WaitForSeconds(screenFade.fadeDuration);
+
+        // Load detail view objects
+        detailViewGO.SetActive(true);
+
+        // Set focused objects
+        var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();
+        focus.SetFocused(focusObjects);
+        
+        // Enable collider
+        col.enabled = true;
+
+        // Fade the screen in
+        screenFade.FadeIn();
+    }
+
+    private IEnumerator ExitDetailView()
+    {
+        // Fade the screen out
+        screenFade.FadeOut();
+
+        // Disable collider
+        col.enabled = false;
+
+        // Wait for screen fade
+        yield return new WaitForSeconds(screenFade.fadeDuration);
+
+        // Hide detail view objects
+        detailViewGO.SetActive(false);
+
+        // Unset focused objects
+        var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();
+        List<GameObject> n = null;
+        focus.SetFocused(n);
+
+        // Enable collider
+        col.enabled = true;
+
+        // Fade the screen in
+        screenFade.FadeIn();
     }
 }

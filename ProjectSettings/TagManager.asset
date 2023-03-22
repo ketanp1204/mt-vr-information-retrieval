@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - AudioTrigger
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - Interactable
   - VRMenu
   - VRBody
-  - 
-  - 
+  - PostProcessing
+  - Focused
   - 
   - 
   - 
