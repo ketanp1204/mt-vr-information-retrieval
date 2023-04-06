@@ -9,22 +9,25 @@ public class FaceCamera : MonoBehaviour
     public Vector3 rotationOffset;
     public bool rotateTowardsUser = true;
     public bool isInitialized = false;
+    public bool objectActiveOnStart = false;
 
     // Start is called before the first frame update
     void Start()
     {
-
-        if (cam == null)
+        if (!objectActiveOnStart)
         {
-            cam = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localGameObject, "Main Camera");
-        }
-        if (cam == null)
-        {
-            cam = Camera.main.gameObject;
-        }
-        if (cam != null)
-        {
-            isInitialized = true;
+            if (cam == null)
+            {
+                cam = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localGameObject, "Main Camera");
+            }
+            if (cam == null)
+            {
+                cam = Camera.main.gameObject;
+            }
+            if (cam != null)
+            {
+                isInitialized = true;
+            }
         }
     }
 

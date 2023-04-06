@@ -8,26 +8,43 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
+using Unity.VisualScripting;
 
 public class MenuSphere : MonoBehaviour
 {
     /* Public Variables */
-    public GameObject linePrefab;
     [SerializeField] public List<GameObject> menuActionSpheres = new List<GameObject>();
 
 
     /* Private Variables */
     [SerializeField] private float animDuration = 0.1f;                 // Duration of the animation of the child spheres
     [SerializeField] private float circleRadius = 2f;                   // Radius of the circle arrangement of the child spheres
+    [SerializeField] private float fadeDuration = 0.4f;                 // Duration of the fade animation of the menu sphere
+    [SerializeField] private float fadeOutDelay = 1f;                   // Delay after which menu sphere disappears after player leaves the area
     private GameObject hoveredChildSphere;
     private GameObject currentHoverLine;
     private bool isSelected = false;
     private bool faceCameraSet = false;
 
+    private List<GameObject> usersInDetailView;
 
+    private BoxCollider boxCol;
+    private SphereCollider sphCol;
+    private Renderer meshRend;
 
     private void Start()
     {
+        boxCol = GetComponent<BoxCollider>();
+        sphCol = GetComponent<SphereCollider>();
+        meshRend = GetComponent<MeshRenderer>();
+        
+        // Hide the menu sphere on start
+        // Color col = meshRend.material.color;
+        // col.a = 0f;
+        // meshRend.material.SetColor("_Color", col);
+
+        usersInDetailView = new List<GameObject>();
+
         // Hide action spheres at start
         foreach (GameObject menuAction in menuActionSpheres)
         {
@@ -35,6 +52,78 @@ public class MenuSphere : MonoBehaviour
             Color c = menuAction.GetComponent<MeshRenderer>().material.color;
             c.a = 0f;
             menuAction.GetComponent<MeshRenderer>().material.color = c;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Check if object is player
+        if (other.gameObject == Vrsys.NetworkUser.localNetworkUser.gameObject)
+        {
+            // Show the menu sphere
+            // StartCoroutine(ToggleVisibility(true));
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        // Check if object is player
+        if (other.gameObject == Vrsys.NetworkUser.localNetworkUser.gameObject)
+        {
+            // Hide the menu sphere after delay
+            // StartCoroutine(ToggleVisibility(false));
+        }
+    }
+
+    private IEnumerator ToggleVisibility(bool isEntering)
+    {
+        if (isEntering)
+        {
+            Debug.Log("player enter");
+            Color sphColor = meshRend.material.color;
+            Color c;
+
+            //meshRend.enabled = true;
+
+            float timer = 0f;
+            while (timer <= fadeDuration)
+            {
+                c = sphColor;
+                c.a = Mathf.Lerp(0f, 1f, timer / fadeDuration);
+
+                meshRend.material.SetColor("_Color", c);
+
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            sphCol.enabled = true;
+            c = sphColor;
+            c.a = 1f;
+            meshRend.material.SetColor("_Color", c);
+        }
+        else
+        {
+            Debug.Log("Player exit");
+            yield return new WaitForSeconds(fadeOutDelay);
+
+            Color sphColor = meshRend.material.color;
+            Color c;
+
+            float timer = 0f;
+            while (timer <= fadeDuration)
+            {
+                c = sphColor;
+                c.a = Mathf.Lerp(1f, 0f, timer / fadeDuration);
+
+                meshRend.material.color = c;
+
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            sphCol.enabled = false;
+            //meshRend.enabled = false;
         }
     }
 
@@ -51,13 +140,7 @@ public class MenuSphere : MonoBehaviour
         }
     }
 
-    public void HandleBlur()
-    {
-        SelectiveBlur selectiveBlur = Vrsys.NetworkUser.localNetworkUser.GetCamera().gameObject.GetComponent<SelectiveBlur>();
-        selectiveBlur.SetSelectedObject(transform);
-    }
-
-    public void HandleSelectEntered()
+    public void HandleSelect()
     {
         if (!isSelected)
         {
@@ -69,39 +152,6 @@ public class MenuSphere : MonoBehaviour
             StartCoroutine(AnimateChildrenToZero());
             isSelected = false;
         }
-    }
-
-    public void HandleSelectExited()
-    {
-        if (hoveredChildSphere != null)
-        {
-
-        }
-    }
-
-    public void SetHoveredChildSphere(GameObject childSphere)
-    {
-        hoveredChildSphere = childSphere;
-
-        /*
-        // Instantiate line prefab
-        GameObject line = Instantiate(linePrefab);
-        currentHoverLine = line;
-
-        // Set line positions and scale
-        line.transform.parent = transform;
-        line.transform.localPosition = Vector3.zero;
-        line.transform.localScale = new Vector3(0.1f, 0.1f, Vector3.Distance(transform.position, hoveredChildSphere.transform.position));
-        line.transform.LookAt(hoveredChildSphere.transform);
-        line.transform.position = (transform.position + hoveredChildSphere.transform.position) / 2;
-        Vector3 direction = Vector3.Normalize(hoveredChildSphere.transform.position - line.transform.position);
-        line.transform.localRotation = Quaternion.LookRotation(direction, line.transform.up);
-        */
-    }
-
-    public void DestroyHoverLine()
-    {
-        Destroy(currentHoverLine);
     }
 
     private IEnumerator AnimateChildrenToCircle()

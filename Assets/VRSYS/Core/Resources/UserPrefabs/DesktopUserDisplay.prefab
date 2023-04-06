@@ -89,14 +89,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4666486088247307507}
-  - component: {fileID: 6210041368613811832}
-  m_Layer: 0
+  - component: {fileID: 7256644145588895584}
+  m_Layer: 7
   m_Name: DesktopUserDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4666486088247307507
 Transform:
   m_ObjectHideFlags: 0
@@ -113,7 +113,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6210041368613811832
+--- !u!114 &7256644145588895584
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,12 +122,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1741586689444940728}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 584721a485b643549a007bca413096f0, type: 3}
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  head: {fileID: 4903166168913691498}
-  nameTag: {fileID: 1598488764905011772}
-  body: {fileID: 4127027052126194338}
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1689083658713640360}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2624389241351012189
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +197,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f5ed60f29b67dc941aaf4b3391d97a0b, type: 2}
+  - {fileID: 2100000, guid: 10ffcfc9905892649b9163a39ef0604d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -448,7 +456,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 916b8cd1452f76947a3b315960a1c88a, type: 2}
+  - {fileID: 2100000, guid: 051be54ed35984f4a8771eb04d623c5f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -531,7 +539,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 916b8cd1452f76947a3b315960a1c88a, type: 2}
+  - {fileID: 2100000, guid: 051be54ed35984f4a8771eb04d623c5f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -710,7 +718,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3b1391242cf9e6945b7b0e294175d479, type: 2}
+  - {fileID: 2100000, guid: a7fbca5ce99fbd84d841a4855b681048, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1019,6 +1027,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 889c2c55a91243f44bfde26e9bf82b10, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb6ecc256ea2b2c4693941efb43037db, type: 2}
     - target: {fileID: 919132149155446097, guid: 889c2c55a91243f44bfde26e9bf82b10, type: 3}
       propertyPath: m_Name
       value: shirtMale

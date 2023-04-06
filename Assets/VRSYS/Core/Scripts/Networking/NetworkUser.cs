@@ -52,8 +52,6 @@ namespace Vrsys
         public static GameObject localGameObject;
         public static GameObject localHead;
 
-        public GameObject userDisplayGO;
-
         public static NetworkUser localNetworkUser
         {
             get
@@ -90,7 +88,9 @@ namespace Vrsys
         public ViewingSetupAnatomy viewingSetupAnatomy { get; private set; }
 
         private Vector3 receivedScale = Vector3.one;
-        
+
+        private GameObject userDisplayGO;
+
 
         private bool hasPendingScaleUpdate
         {
@@ -133,11 +133,9 @@ namespace Vrsys
             {
                 gameObject.name = photonView.Owner.NickName + (photonView.IsMine ? " [Local User]" : " [External User]");
                 var nameTagTextComponent = avatarAnatomy.nameTag.GetComponentInChildren<TMP_Text>();
-                var userDisplayNameTagComponent = userDisplayGO.GetComponentInChildren<TMP_Text>();
                 if (nameTagTextComponent && setNameTagToNickname)
                 {
                     nameTagTextComponent.text = photonView.Owner.NickName;
-                    userDisplayNameTagComponent.text = photonView.Owner.NickName;
                 }
             }
 
@@ -245,12 +243,6 @@ namespace Vrsys
             return cam;
         }
 
-        [PunRPC]
-        private void SyncUserDisplay(bool isActive)
-        {
-            userDisplayGO.SetActive(isActive);
-        }
-
         public static Color ParseColorFromPrefs(Color fallback)
         {
             Color color;
@@ -265,6 +257,18 @@ namespace Vrsys
                 default: color = fallback; break;
             }
             return color;
+        }
+
+        public void ShowUserDisplay()
+        {
+            userDisplayGO = PhotonNetwork.Instantiate("UserPrefabs/XRUserDisplay", transform.position + new Vector3(0f, -0.6f, 0f), Quaternion.identity);
+            var userDisplayNameTagComponent = userDisplayGO.GetComponentInChildren<TMP_Text>();
+            userDisplayNameTagComponent.text = photonView.Owner.NickName;
+        }
+
+        public void DestroyUserDisplay()
+        {
+            PhotonNetwork.Destroy(userDisplayGO);
         }
     }
 }
