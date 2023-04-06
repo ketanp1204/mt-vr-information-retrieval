@@ -59,7 +59,9 @@ sysinfo.txt
 crashlytics-build.properties
 
 # BAUHAUS UNIVERSITÄT WEIMAR
-# GOETHE MODELS
+# GOETHE & GROPIUS MODELS
 [Aa]ssets/AT/
 [Aa]ssets/AT.meta
+[Aa]ssets/Models/
+[Aa]ssets/Models.meta
 
