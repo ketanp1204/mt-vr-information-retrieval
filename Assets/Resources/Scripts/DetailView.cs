@@ -91,7 +91,7 @@ public class DetailView : MonoBehaviour
 
         // Show the representation of the player in the original location
         userGO.GetComponent<NetworkUser>().ShowUserDisplay();
-
+        
         
         /*
         displayGO.transform.SetParent(userGO.transform.parent);

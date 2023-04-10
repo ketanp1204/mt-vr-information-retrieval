@@ -9,6 +9,8 @@ public class JoinDetailView : XRBaseInteractable
 {
     /* Public Variables */
     public PhotonView photonView;
+    
+    public GameObject userGO;
 
     /* Private Variables */
     private SphereCollider sphCol;
@@ -31,36 +33,15 @@ public class JoinDetailView : XRBaseInteractable
     {
         base.OnSelectEntered(args);
 
-        GameObject player = args.interactorObject.transform.root.gameObject;
-        Debug.Log(player.name);
+        GameObject otherPlayer = args.interactorObject.transform.root.gameObject;
 
-        if (player != Vrsys.NetworkUser.localNetworkUser.gameObject)
-        {
-            /*
-            // Create a representation of the other player in the original location
-            var displayGO = player.GetComponent<NetworkUser>().userDisplayGO;
-            Debug.Log(displayGO.name);
-            displayGO.SetActive(true);
-            displayGO.transform.SetParent(null);
-            displayGO.GetComponent<UserDisplaySync>().SyncUserDisplay(true);
-            */
+        // Show the representation of the other player in the original location
+        otherPlayer.GetComponent<NetworkUser>().ShowUserDisplay();
 
-            // Teleport the other player to the detail view area
-            Transform playerTransform = player.transform;
-            playerTransform.position = new Vector3(playerTransform.localPosition.x + detailViewAreaTransform.localPosition.x,
-                                          playerTransform.localPosition.y,
-                                          playerTransform.localPosition.z + detailViewAreaTransform.localPosition.z);
-        }
-    }
-
-    [PunRPC]
-    void SyncUserDisplay(string objName, bool activeState)
-    {
-        GameObject.Find(objName).SetActive(activeState);
-    }
-
-    public void HandleSelect()
-    {
-
+        // Teleport the other player to the detail view area
+        Transform otherPlayerTransform = otherPlayer.transform;
+        otherPlayerTransform.position = new Vector3(otherPlayerTransform.localPosition.x + detailViewAreaTransform.localPosition.x,
+                                      otherPlayerTransform.localPosition.y,
+                                      otherPlayerTransform.localPosition.z + detailViewAreaTransform.localPosition.z);
     }
 }

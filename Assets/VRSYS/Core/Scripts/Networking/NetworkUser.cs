@@ -261,9 +261,19 @@ namespace Vrsys
 
         public void ShowUserDisplay()
         {
-            userDisplayGO = PhotonNetwork.Instantiate("UserPrefabs/XRUserDisplay", transform.position + new Vector3(0f, -0.6f, 0f), Quaternion.identity);
-            var userDisplayNameTagComponent = userDisplayGO.GetComponentInChildren<TMP_Text>();
-            userDisplayNameTagComponent.text = photonView.Owner.NickName;
+            if (GetComponent<AvatarDesktopAnatomy>() != null)
+            {
+                userDisplayGO = PhotonNetwork.Instantiate("UserPrefabs/DesktopUserDisplay", transform.position + new Vector3(0f, -0.6f, 0f), Quaternion.identity);
+            }
+            else
+            { 
+                userDisplayGO = PhotonNetwork.Instantiate("UserPrefabs/XRUserDisplay", transform.position + new Vector3(0f, -0.6f, 0f), Quaternion.identity);
+            }
+
+            userDisplayGO.GetComponent<UserDisplay>().SetUsername(photonView.Owner.NickName);
+
+            // var userDisplayNameTagComponent = userDisplayGO.GetComponentInChildren<TMP_Text>();
+            // userDisplayNameTagComponent.text = photonView.Owner.NickName;
         }
 
         public void DestroyUserDisplay()
