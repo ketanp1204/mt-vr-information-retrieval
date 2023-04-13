@@ -5,11 +5,13 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Vrsys;
+using System.Linq;
 
 public class DetailView : MonoBehaviour
 {
     /* Public Variables */
     public GameObject detailViewGO;
+    public DetailViewManager detailViewManager;
 
     /* Private Variables */
     [SerializeField] private List<GameObject> focusObjects;
@@ -23,7 +25,6 @@ public class DetailView : MonoBehaviour
     public void Start()
     {
         col = GetComponent<SphereCollider>();
-        detailViewAreaTransform = GameObject.Find("DetailViewingArea").transform;
     }
 
     public void HandleSelect()
@@ -89,21 +90,35 @@ public class DetailView : MonoBehaviour
         // Wait for screen fade
         yield return new WaitForSeconds(screenFade.fadeDuration);
 
+        // Get new photon network interest group number
+        int iG = detailViewManager.interestGroupNumbersInUse.Last() + 1;
+        detailViewManager.interestGroupNumbersInUse.Add(iG);
+
+        // Subscribe to the interest group
+        PhotonNetwork.SetInterestGroups((byte)iG, true);
+
+        
+
+
+        // Create detail viewing area
+        var DVA = PhotonNetwork.Instantiate("UtilityPrefabs/DetailViewingArea", 
+                                            new Vector3(-20, -20, -20), 
+                                            Quaternion.identity, 
+                                            group: (byte)(iG));
+
         // Show the representation of the player in the original location
-        userGO.GetComponent<NetworkUser>().ShowUserDisplay();
-        
-        
-        /*
-        displayGO.transform.SetParent(userGO.transform.parent);
-        displayGO.SetActive(true);
-        displayGO.GetComponent<UserDisplaySync>().SyncUserDisplay(true);
-        */
+        displayGO = userGO.GetComponent<NetworkUser>().CreateUserDisplay();
+
+        // Update parameters in the user display GO
+        displayGO.GetComponent<UserDisplay>().SetDVAPosition(DVA.transform.position);
+        displayGO.GetComponent<UserDisplay>().SetInterestGroup(iG);
+
 
         // TODO: Teleport the player to the detail viewing area
         var player = Vrsys.NetworkUser.localNetworkUser.gameObject.transform;
-        player.position = new Vector3(player.localPosition.x + detailViewAreaTransform.localPosition.x,
-                                      player.localPosition.y,
-                                      player.localPosition.z + detailViewAreaTransform.localPosition.z);
+        player.position = new Vector3(player.localPosition.x + DVA.transform.localPosition.x,
+                                      player.localPosition.y + DVA.transform.localPosition.y,
+                                      player.localPosition.z + DVA.transform.localPosition.z);
 
         // Set focused objects
         var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();

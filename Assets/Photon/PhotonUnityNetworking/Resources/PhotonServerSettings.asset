@@ -49,6 +49,9 @@ MonoBehaviour:
   - SyncActiveState
   - GetUserGameObjectRPC
   - UpdateUsername
+  - UpdateDVATransform
+  - UpdateInterestGroup
+  - UpdateDVAPosition
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

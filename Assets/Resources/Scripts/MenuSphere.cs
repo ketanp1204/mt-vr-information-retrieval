@@ -26,7 +26,7 @@ public class MenuSphere : MonoBehaviour
     private bool isSelected = false;
     private bool faceCameraSet = false;
 
-    private List<GameObject> usersInDetailView;
+    
 
     private BoxCollider boxCol;
     private SphereCollider sphCol;
@@ -43,7 +43,7 @@ public class MenuSphere : MonoBehaviour
         // col.a = 0f;
         // meshRend.material.SetColor("_Color", col);
 
-        usersInDetailView = new List<GameObject>();
+        
 
         // Hide action spheres at start
         foreach (GameObject menuAction in menuActionSpheres)

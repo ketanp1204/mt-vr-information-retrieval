@@ -10,24 +10,12 @@ public class JoinDetailView : XRBaseInteractable
     /* Public Variables */
     public PhotonView photonView;
     
+
     public GameObject userGO;
 
     /* Private Variables */
     private SphereCollider sphCol;
     private Transform detailViewAreaTransform;
-    
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        detailViewAreaTransform = GameObject.Find("DetailViewingArea").transform;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
@@ -36,12 +24,19 @@ public class JoinDetailView : XRBaseInteractable
         GameObject otherPlayer = args.interactorObject.transform.root.gameObject;
 
         // Show the representation of the other player in the original location
-        otherPlayer.GetComponent<NetworkUser>().ShowUserDisplay();
+        otherPlayer.GetComponent<NetworkUser>().CreateUserDisplay();
+
+        // Get the transform for the detail viewing area
+        detailViewAreaTransform.localPosition = transform.root.GetComponent<UserDisplay>().detailViewingAreaPosition;
+
+        // Update the interest group that the other player subscribes to
+        int iG = transform.root.GetComponent<UserDisplay>().interestGroup;
+        otherPlayer.GetComponent<NetworkUser>().UpdateInterestGroup(iG);
 
         // Teleport the other player to the detail view area
         Transform otherPlayerTransform = otherPlayer.transform;
         otherPlayerTransform.position = new Vector3(otherPlayerTransform.localPosition.x + detailViewAreaTransform.localPosition.x,
-                                      otherPlayerTransform.localPosition.y,
-                                      otherPlayerTransform.localPosition.z + detailViewAreaTransform.localPosition.z);
+                                                    otherPlayerTransform.localPosition.y + detailViewAreaTransform.localPosition.y,
+                                                    otherPlayerTransform.localPosition.z + detailViewAreaTransform.localPosition.z);
     }
 }

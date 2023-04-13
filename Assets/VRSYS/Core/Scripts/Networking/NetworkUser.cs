@@ -259,7 +259,7 @@ namespace Vrsys
             return color;
         }
 
-        public void ShowUserDisplay()
+        public GameObject CreateUserDisplay()
         {
             if (GetComponent<AvatarDesktopAnatomy>() != null)
             {
@@ -274,11 +274,17 @@ namespace Vrsys
 
             // var userDisplayNameTagComponent = userDisplayGO.GetComponentInChildren<TMP_Text>();
             // userDisplayNameTagComponent.text = photonView.Owner.NickName;
+            return userDisplayGO;
         }
 
         public void DestroyUserDisplay()
         {
             PhotonNetwork.Destroy(userDisplayGO);
+        }
+
+        public void UpdateInterestGroup(int iG)
+        {
+            PhotonNetwork.SetInterestGroups((byte)iG, true);
         }
     }
 }
