@@ -815,6 +815,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detailViewingAreaPosition: {x: 0, y: 0, z: 0}
   interestGroup: 0
+  dVAIndex: 0
+  dVManager: {fileID: 0}
 --- !u!1 &5280540736945934436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1298,6 +1300,7 @@ MonoBehaviour:
       m_Calls: []
   photonView: {fileID: 6870339060845994214}
   userGO: {fileID: 0}
+  uD: {fileID: 0}
 --- !u!1 &6999513693069207750
 GameObject:
   m_ObjectHideFlags: 0

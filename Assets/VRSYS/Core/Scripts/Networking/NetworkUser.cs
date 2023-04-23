@@ -41,6 +41,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using System.Collections.Generic;
+using Photon.Voice;
 
 namespace Vrsys
 {
@@ -259,32 +260,59 @@ namespace Vrsys
             return color;
         }
 
+        public void EnterDetailViewingArea()
+        {
+            DetailViewManager dVManager = FindObjectOfType<DetailViewManager>();
+
+            int index = dVManager.GetCurrentCount();
+            object[] indexObj = new object[] { index };
+            GameObject dVAObject = PhotonNetwork.Instantiate("UtilityPrefabs/DVA",
+                                                                dVManager.detailViewingAreaSpawnLoc + new Vector3(-20f, -20f, -20f),
+                                                                Quaternion.identity,
+                                                                data: indexObj);
+
+            // Update spawn location of DVA for further DVAs
+            dVManager.detailViewingAreaSpawnLoc += new Vector3(-20f, -20f, -20f);
+
+            // Add DVA to DV Manager
+            dVManager.AddDVAObjectWrapper(dVAObject.name);
+
+            // Show the representation of the player in the original location
+            userDisplayGO = CreateUserDisplay();
+
+            // Update index in displayGO
+            userDisplayGO.GetComponent<UserDisplay>().SetDVAIndexWrapper(index);
+
+            // Teleport the player to the detail viewing area
+            var player = Vrsys.NetworkUser.localNetworkUser.gameObject.transform;
+            player.position = new Vector3(player.localPosition.x + dVAObject.transform.localPosition.x,
+                                          player.localPosition.y + dVAObject.transform.localPosition.y,
+                                          player.localPosition.z + dVAObject.transform.localPosition.z);
+        }
+
         public GameObject CreateUserDisplay()
         {
             if (GetComponent<AvatarDesktopAnatomy>() != null)
             {
-                userDisplayGO = PhotonNetwork.Instantiate("UserPrefabs/DesktopUserDisplay", transform.position + new Vector3(0f, -0.6f, 0f), Quaternion.identity);
+                userDisplayGO = PhotonNetwork.Instantiate("UserPrefabs/DesktopUserDisplay", 
+                                                            transform.position + new Vector3(0f, -0.6f, 0f), 
+                                                            Quaternion.identity);
             }
             else
-            { 
-                userDisplayGO = PhotonNetwork.Instantiate("UserPrefabs/XRUserDisplay", transform.position + new Vector3(0f, -0.6f, 0f), Quaternion.identity);
+            {
+                userDisplayGO = PhotonNetwork.Instantiate("UserPrefabs/XRUserDisplay",
+                                                            transform.position + new Vector3(0f, -0.6f, 0f),
+                                                            Quaternion.identity);
             }
 
-            userDisplayGO.GetComponent<UserDisplay>().SetUsername(photonView.Owner.NickName);
+            userDisplayGO.GetComponent<UserDisplay>().SetUsernameWrapper(photonView.Owner.NickName);
 
-            // var userDisplayNameTagComponent = userDisplayGO.GetComponentInChildren<TMP_Text>();
-            // userDisplayNameTagComponent.text = photonView.Owner.NickName;
             return userDisplayGO;
         }
 
         public void DestroyUserDisplay()
         {
             PhotonNetwork.Destroy(userDisplayGO);
-        }
-
-        public void UpdateInterestGroup(int iG)
-        {
-            PhotonNetwork.SetInterestGroups((byte)iG, true);
         }
     }
 }

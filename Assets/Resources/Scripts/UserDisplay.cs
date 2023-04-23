@@ -4,15 +4,19 @@ using UnityEngine;
 using Photon.Pun;
 using TMPro;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 
 public class UserDisplay : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 {
     /* Public Variables */
     public Vector3 detailViewingAreaPosition;
     public int interestGroup;
+    public int dVAIndex;
+    public DetailViewManager dVManager;
 
     /* Private Variables */
     private TMP_Text nameTag;
+    private int viewID;
 
     public void OnPhotonInstantiate(PhotonMessageInfo info)
     {
@@ -21,14 +25,14 @@ public class UserDisplay : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallba
         nameTag = GetComponentInChildren<TMP_Text>();
     }
 
-    public void SetUsername(string name)
+    public void SetUsernameWrapper(string name)
     {
-        photonView.RPC(nameof(UpdateUsername), RpcTarget.AllBuffered, name);
+        photonView.RPC(nameof(SetUsername), RpcTarget.AllBuffered, name);
     }
 
-    public void SetDVAPosition(Vector3 t)
+    public void SetDVAPositionWrapper(Vector3 t)
     {
-        photonView.RPC(nameof(UpdateDVAPosition), RpcTarget.AllBuffered, t);
+        photonView.RPC(nameof(SetDVAPosition), RpcTarget.AllBuffered, t);
     }
 
     public void SetInterestGroup(int iG)
@@ -36,14 +40,24 @@ public class UserDisplay : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallba
         photonView.RPC(nameof(UpdateInterestGroup), RpcTarget.AllBuffered, iG);
     }
 
+    public void SetDVAIndexWrapper(int index)
+    {
+        photonView.RPC(nameof(SetDVAIndex), RpcTarget.AllBuffered, index);
+    }
+
+    public void SetDVManagerWrapper(int id)
+    {
+        photonView.RPC(nameof(SetDVManager), RpcTarget.AllBuffered, id);
+    }
+
     [PunRPC]
-    void UpdateUsername(string name)
+    void SetUsername(string name)
     {
         nameTag.text = name;
     }
 
     [PunRPC]
-    void UpdateDVAPosition(Vector3 t)
+    void SetDVAPosition(Vector3 t)
     {
         detailViewingAreaPosition = t;
     }
@@ -52,5 +66,18 @@ public class UserDisplay : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallba
     void UpdateInterestGroup(int iG)
     {
         interestGroup = iG;
+    }
+
+    [PunRPC]
+    void SetDVAIndex(int index)
+    {
+        dVAIndex = index;
+    }
+
+    [PunRPC]
+    void SetDVManager(int id)
+    {
+        viewID = id;
+        dVManager = PhotonView.Find(viewID).GetComponent<DetailViewManager>();
     }
 }

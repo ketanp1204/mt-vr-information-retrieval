@@ -393,6 +393,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6378188e6d8c5084da927d6771d728b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  detailViewingAreaPosition: {x: 0, y: 0, z: 0}
+  interestGroup: 0
+  dVAIndex: 0
+  dVManager: {fileID: 0}
 --- !u!1 &1912768284706042552
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,6 +580,7 @@ MonoBehaviour:
       m_Calls: []
   photonView: {fileID: 7256644145588895584}
   userGO: {fileID: 0}
+  uD: {fileID: 0}
 --- !u!1 &2624389241351012189
 GameObject:
   m_ObjectHideFlags: 0

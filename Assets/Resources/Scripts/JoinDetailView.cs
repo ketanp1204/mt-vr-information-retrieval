@@ -9,13 +9,18 @@ public class JoinDetailView : XRBaseInteractable
 {
     /* Public Variables */
     public PhotonView photonView;
-    
 
     public GameObject userGO;
 
     /* Private Variables */
     private SphereCollider sphCol;
     private Transform detailViewAreaTransform;
+    public UserDisplay uD;
+
+    void Start()
+    {
+        uD = transform.root.GetComponent<UserDisplay>();
+    }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
@@ -27,11 +32,16 @@ public class JoinDetailView : XRBaseInteractable
         otherPlayer.GetComponent<NetworkUser>().CreateUserDisplay();
 
         // Get the transform for the detail viewing area
-        detailViewAreaTransform.localPosition = transform.root.GetComponent<UserDisplay>().detailViewingAreaPosition;
+        DetailViewManager dVManager = FindObjectOfType<DetailViewManager>();
+        detailViewAreaTransform = dVManager.GetDVATransform(uD.dVAIndex);
+        // detailViewAreaTransform.localPosition = transform.root.GetComponent<UserDisplay>().detailViewingAreaPosition;
 
+        /*
         // Update the interest group that the other player subscribes to
         int iG = transform.root.GetComponent<UserDisplay>().interestGroup;
         otherPlayer.GetComponent<NetworkUser>().UpdateInterestGroup(iG);
+        otherPlayer.GetComponent<NetworkUser>().DebugInterestGroup();
+        */
 
         // Teleport the other player to the detail view area
         Transform otherPlayerTransform = otherPlayer.transform;

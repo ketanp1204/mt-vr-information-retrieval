@@ -52,6 +52,14 @@ MonoBehaviour:
   - UpdateDVATransform
   - UpdateInterestGroup
   - UpdateDVAPosition
+  - UpdateDVAIndex
+  - UpdateDVAName
+  - AddDVAObject
+  - UpdateDVASpawnLoc
+  - SetDVAIndex
+  - SetDVAPosition
+  - SetDVManager
+  - SetUsername
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -11,10 +11,12 @@ public class DetailView : MonoBehaviour
 {
     /* Public Variables */
     public GameObject detailViewGO;
-    public DetailViewManager detailViewManager;
+    
+    public GameObject dVAWrapperGO;
 
     /* Private Variables */
     [SerializeField] private List<GameObject> focusObjects;
+    public DetailViewManager detailViewManager;
     private bool isInDetailView = false;
     private SphereCollider col;
     private ScreenFade screenFade;
@@ -25,6 +27,7 @@ public class DetailView : MonoBehaviour
     public void Start()
     {
         col = GetComponent<SphereCollider>();
+        detailViewManager = GetComponent<DetailViewManager>();
     }
 
     public void HandleSelect()
@@ -90,35 +93,58 @@ public class DetailView : MonoBehaviour
         // Wait for screen fade
         yield return new WaitForSeconds(screenFade.fadeDuration);
 
-        // Get new photon network interest group number
-        int iG = detailViewManager.interestGroupNumbersInUse.Last() + 1;
-        detailViewManager.interestGroupNumbersInUse.Add(iG);
+        userGO.GetComponent<NetworkUser>().EnterDetailViewingArea();
 
-        // Subscribe to the interest group
-        PhotonNetwork.SetInterestGroups((byte)iG, true);
-
-        
-
+        /*
+        int index = detailViewManager.GetCurrentIndex();
 
         // Create detail viewing area
-        var DVA = PhotonNetwork.Instantiate("UtilityPrefabs/DetailViewingArea", 
-                                            new Vector3(-20, -20, -20), 
-                                            Quaternion.identity, 
-                                            group: (byte)(iG));
+        var dVAObject = PhotonNetwork.Instantiate("UtilityPrefabs/DVA", 
+                                                    detailViewManager.detailViewingAreaSpawnLoc + new Vector3(-20f, -20f, -20f), 
+                                                    Quaternion.identity,
+                                                    (byte)index);
+
+        // Update spawn location of DVA for further DVAs
+        detailViewManager.detailViewingAreaSpawnLoc += new Vector3(-20f, -20f, -20f);
+
+        // Name of DVA Object
+        string name = "DVA" + index.ToString();
+
+        // Add DVA to DV Manager and get index of DVA
+        detailViewManager.AddDVAObject(dVAObject);
 
         // Show the representation of the player in the original location
         displayGO = userGO.GetComponent<NetworkUser>().CreateUserDisplay();
 
-        // Update parameters in the user display GO
-        displayGO.GetComponent<UserDisplay>().SetDVAPosition(DVA.transform.position);
-        displayGO.GetComponent<UserDisplay>().SetInterestGroup(iG);
+        // Update index in displayGO
+        displayGO.GetComponent<UserDisplay>().SetDVAIndex(index);
+        */
 
+        /*
+        // Get new photon network interest group number
+        int iG = detailViewManager.interestGroupNumbersInUse.Last() + 1;
+        detailViewManager.interestGroupNumbersInUse.Add(iG);
 
-        // TODO: Teleport the player to the detail viewing area
+        
+        // Subscribe to the interest group
+        PhotonNetwork.SetInterestGroups((byte)iG, true);
+        userGO.GetPhotonView().Group = (byte)iG;
+        
+
+        // Create detail viewing area
+        var DVA = PhotonNetwork.Instantiate("UtilityPrefabs/DetailViewingArea", 
+                                            new Vector3(-20, -20, -20), 
+                                            Quaternion.identity,
+                                            group: (byte)(iG));
+        */
+
+        /*
+        // Teleport the player to the detail viewing area
         var player = Vrsys.NetworkUser.localNetworkUser.gameObject.transform;
-        player.position = new Vector3(player.localPosition.x + DVA.transform.localPosition.x,
-                                      player.localPosition.y + DVA.transform.localPosition.y,
-                                      player.localPosition.z + DVA.transform.localPosition.z);
+        player.position = new Vector3(player.localPosition.x + dVAObject.transform.localPosition.x,
+                                      player.localPosition.y + dVAObject.transform.localPosition.y,
+                                      player.localPosition.z + dVAObject.transform.localPosition.z);
+        */
 
         // Set focused objects
         var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();
