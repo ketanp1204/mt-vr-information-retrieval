@@ -174,8 +174,7 @@ GameObject:
   - component: {fileID: 8573847804700908070}
   - component: {fileID: 5583485353946357912}
   - component: {fileID: 3828532039848499763}
-  - component: {fileID: 2110229411}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Raum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,20 +246,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2110229411
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1210472091876017916}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1026592504135756251, guid: 0cc4bbbcf9403e44792757eab321cf0f, type: 3}
 --- !u!1 &1332558907559990925
 GameObject:
   m_ObjectHideFlags: 0

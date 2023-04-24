@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 7478813707156310247}
   - component: {fileID: 428823115706788760}
   - component: {fileID: 6454348494273741187}
-  - component: {fileID: 1431230657}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Raum_Boden
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,20 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1431230657
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 351552948115259786}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3242663032695120826, guid: d9b507d805ead224cb12c9862cc7cca7, type: 3}
 --- !u!1 &541238800616813865
 GameObject:
   m_ObjectHideFlags: 0

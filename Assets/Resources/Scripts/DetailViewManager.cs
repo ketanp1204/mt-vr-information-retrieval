@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 using Vrsys;
 
 public class DetailViewManager : MonoBehaviourPunCallbacks
@@ -173,7 +175,7 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
     // Returns the index of the detail viewing area object created
     public void AddDVAObjectWrapper(string name)
     {
-        photonView.RPC(nameof(AddDVAObject), RpcTarget.AllBuffered, name);
+        photonView.RPC(nameof(AddDVAObject), RpcTarget.All, name);
     }
 
     [PunRPC]
@@ -196,5 +198,24 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
     public Transform GetDVATransform(int index)
     {
         return detailViewingAreaGOs[index].transform;
+    }
+    
+    // Late join stuff
+
+    [PunRPC]
+    public void LateJoinDVAUpdate(string[] dvaObjects)
+    {
+        foreach (var name in dvaObjects)
+        {
+            detailViewingAreaGOs.Add(GameObject.Find(name));     
+        }
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC(nameof(LateJoinDVAUpdate), newPlayer, detailViewingAreaGOs.Select(x => x.name).ToArray());
+        }
     }
 }
