@@ -260,36 +260,6 @@ namespace Vrsys
             return color;
         }
 
-        public void EnterDetailViewingArea()
-        {
-            DetailViewManager dVManager = FindObjectOfType<DetailViewManager>();
-
-            int index = dVManager.GetCurrentCount();
-            object[] indexObj = new object[] { index };
-            GameObject dVAObject = PhotonNetwork.Instantiate("UtilityPrefabs/DVA",
-                                                                dVManager.detailViewingAreaSpawnLoc + new Vector3(-20f, -20f, -20f),
-                                                                Quaternion.identity,
-                                                                data: indexObj);
-
-            // Update spawn location of DVA for further DVAs
-            dVManager.detailViewingAreaSpawnLoc += new Vector3(-20f, -20f, -20f);
-
-            // Add DVA to DV Manager
-            dVManager.AddDVAObjectWrapper(dVAObject.name);
-
-            // Show the representation of the player in the original location
-            userDisplayGO = CreateUserDisplay();
-
-            // Update index in displayGO
-            userDisplayGO.GetComponent<UserDisplay>().SetDVAIndexWrapper(index);
-
-            // Teleport the player to the detail viewing area
-            var player = Vrsys.NetworkUser.localNetworkUser.gameObject.transform;
-            player.position = new Vector3(player.localPosition.x + dVAObject.transform.localPosition.x,
-                                          player.localPosition.y + dVAObject.transform.localPosition.y,
-                                          player.localPosition.z + dVAObject.transform.localPosition.z);
-        }
-
         public GameObject CreateUserDisplay()
         {
             if (GetComponent<AvatarDesktopAnatomy>() != null)

@@ -7,9 +7,8 @@ using Vrsys;
 public class DetailViewManager : MonoBehaviourPunCallbacks
 {
     /* Public Variables */
-    // public GameObject detailViewingAreaPrefab;
-    // public List<int> interestGroupNumbersInUse;
-    public Vector3 detailViewingAreaSpawnLoc;
+    public List<GameObject> detailViewingAreaGOs;
+    public string itemName;
 
     /* Private Variables */
     [SerializeField] private List<GameObject> focusObjects;
@@ -19,10 +18,8 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
     private GameObject userGO;
     private Transform detailViewAreaTransform;
     private GameObject userDisplayGO;
+    private Vector3 detailViewingAreaSpawnLoc;
 
-
-    public List<GameObject> detailViewingAreaGOs;
-    //private List<GameObject> usersInDetailView;
 
     
     
@@ -33,7 +30,7 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
         col = GetComponent<SphereCollider>();
         detailViewingAreaSpawnLoc = Vector3.zero;
         detailViewingAreaGOs = new List<GameObject>();
-        //usersInDetailView = new List<GameObject>();
+        focusObjects = new List<GameObject>();
     }
 
     public void HandleSelect()
@@ -74,13 +71,17 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
         // Wait for screen fade
         yield return new WaitForSeconds(screenFade.fadeDuration);
 
-        // Create detail viewing area
+        // Initialize instantiation parameters
         int index = GetCurrentCount();
-        object[] indexObj = new object[] { index };
+
+        object[] info = new object[] { index, itemName, photonView.ViewID };
+
+        // Create detail viewing area
+
         GameObject dVAObject = PhotonNetwork.Instantiate("UtilityPrefabs/DVA",
                                                             detailViewingAreaSpawnLoc + new Vector3(-20f, -20f, -20f),
                                                             Quaternion.identity,
-                                                            data: indexObj);
+                                                            data: info);
 
         // Update spawn location of DVA for further DVAs
         UpdateDVASpawnLocWrapper(new Vector3(-20f, -20f, -20f));
@@ -97,11 +98,20 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
 
         // Teleport the player to the detail viewing area
         var player = Vrsys.NetworkUser.localNetworkUser.gameObject.transform;
-        player.position = new Vector3(player.localPosition.x + dVAObject.transform.localPosition.x,
-                                      player.localPosition.y + dVAObject.transform.localPosition.y,
-                                      player.localPosition.z + dVAObject.transform.localPosition.z);
+        player.position = new Vector3(player.localPosition.x + detailViewingAreaSpawnLoc.x,
+                                      player.localPosition.y + detailViewingAreaSpawnLoc.y,
+                                      player.localPosition.z + detailViewingAreaSpawnLoc.z);
 
-        // Set focused objects
+        // Get focus objects
+        foreach (Transform child in dVAObject.GetComponentsInChildren<Transform>())
+        {
+            if (child.gameObject.name.Contains(itemName))
+            {
+                focusObjects.Add(child.gameObject);
+            }
+        }
+
+        // Set focus objects
         var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();
         focus.SetFocused(focusObjects);
 
@@ -123,11 +133,11 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
         // Wait for screen fade
         yield return new WaitForSeconds(screenFade.fadeDuration);
 
-        // TODO: Teleport the player back to the original location
+        // Teleport the player back to the original location
         var player = Vrsys.NetworkUser.localNetworkUser.gameObject.transform;
-        player.position = new Vector3(player.localPosition.x - detailViewAreaTransform.localPosition.x,
-                                      player.localPosition.y,
-                                      player.localPosition.z - detailViewAreaTransform.localPosition.z);
+        player.position = new Vector3(player.localPosition.x - detailViewingAreaSpawnLoc.x,
+                                      player.localPosition.y - detailViewingAreaSpawnLoc.y,
+                                      player.localPosition.z - detailViewingAreaSpawnLoc.z);
 
 
         // Remove the representation of the user from the original location
@@ -152,6 +162,8 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
         // Fade the screen in
         screenFade.FadeIn();
     }
+
+    
 
     public int GetCurrentCount()
     {

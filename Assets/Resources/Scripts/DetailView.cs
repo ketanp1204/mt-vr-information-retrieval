@@ -93,7 +93,7 @@ public class DetailView : MonoBehaviour
         // Wait for screen fade
         yield return new WaitForSeconds(screenFade.fadeDuration);
 
-        userGO.GetComponent<NetworkUser>().EnterDetailViewingArea();
+        // userGO.GetComponent<NetworkUser>().EnterDetailViewingArea();
 
         /*
         int index = detailViewManager.GetCurrentIndex();
