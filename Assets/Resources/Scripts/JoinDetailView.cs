@@ -32,7 +32,7 @@ public class JoinDetailView : XRBaseInteractable
         otherPlayer.GetComponent<NetworkUser>().CreateUserDisplay();
 
         // Get the transform for the detail viewing area
-        DetailViewManager dVManager = FindObjectOfType<DetailViewManager>();
+        DetailViewManager dVManager = uD.dVManager;
         detailViewAreaTransform = dVManager.GetDVATransform(uD.dVAIndex);
         // detailViewAreaTransform.localPosition = transform.root.GetComponent<UserDisplay>().detailViewingAreaPosition;
 
