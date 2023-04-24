@@ -215,7 +215,13 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            photonView.RPC(nameof(LateJoinDVAUpdate), newPlayer, detailViewingAreaGOs.Select(x => x.name).ToArray());
+            List<string> names = new List<string>();
+
+            foreach (var obj in detailViewingAreaGOs)
+            {
+                names.Add(obj.name);
+            }
+            photonView.RPC(nameof(LateJoinDVAUpdate), newPlayer, names.ToArray());
         }
     }
 }
