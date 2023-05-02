@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
-public class DVNavMenu : MonoBehaviour
+public class DVNavMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public UnityEvent hoverEnterEvents;
     public UnityEvent hoverExitEvents;
@@ -43,6 +44,22 @@ public class DVNavMenu : MonoBehaviour
             isSelected = true;
 
             selectEnterEvents.Invoke();
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!isSelected)
+        {
+            hoverEnterEvents.Invoke();
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (!isSelected)
+        {
+            hoverExitEvents.Invoke();
         }
     }
 }
