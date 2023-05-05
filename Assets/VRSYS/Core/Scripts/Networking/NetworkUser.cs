@@ -265,13 +265,13 @@ namespace Vrsys
             if (GetComponent<AvatarDesktopAnatomy>() != null)
             {
                 userDisplayGO = PhotonNetwork.Instantiate("UserPrefabs/DesktopUserDisplay", 
-                    NetworkUser.localHead.transform.position + new Vector3(0f, -0.6f, 0f), 
+                    NetworkUser.localHead.transform.position + new Vector3(0f, 0f, 0f), 
                                                             Quaternion.identity);
             }
             else
             {
                 userDisplayGO = PhotonNetwork.Instantiate("UserPrefabs/XRUserDisplay",
-                    NetworkUser.localHead.transform.position + new Vector3(0f, -0.6f, 0f),
+                    NetworkUser.localHead.transform.position + new Vector3(0f, 0f, 0f),
                                                             Quaternion.identity);
             }
 
