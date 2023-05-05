@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 930325096893210767}
   - component: {fileID: 930325096893210764}
   - component: {fileID: 930325096893210765}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: LeftHand Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -686,7 +686,7 @@ GameObject:
   - component: {fileID: 930325097486056931}
   - component: {fileID: 930325097486056928}
   - component: {fileID: 930325097486056929}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: RightHand Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1450,10 +1450,10 @@ MonoBehaviour:
   m_TrackingStateInput:
     m_UseReference: 0
     m_Action:
-      m_Name: 
+      m_Name: Tracking State Input
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: 
+      m_Id: 26c6ac5e-c788-4fb1-8382-46a91a4ff7c8
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
@@ -1633,7 +1633,7 @@ GameObject:
   - component: {fileID: 8477209785878585630}
   - component: {fileID: 6827553258553564727}
   - component: {fileID: 4546737548842042056}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: DirectInteractor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2041,7 +2041,7 @@ GameObject:
   - component: {fileID: 3882910444052499916}
   - component: {fileID: 5996138473116312027}
   - component: {fileID: 5419619960005620201}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: DirectInteractor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

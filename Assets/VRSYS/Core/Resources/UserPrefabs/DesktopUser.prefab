@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3879778610608459309}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Offset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3866240093602963116}
   - component: {fileID: 5517935847789719671}
   - component: {fileID: 2048678947575924025}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube_Cube.001_Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 7954549156049901125}
   - component: {fileID: 3893646552888802211}
   - component: {fileID: 6779531055218508010}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube_Cube.001_Antenna
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7325821279949913102}
   - component: {fileID: 5516285202713630698}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 8770080166462758628}
   - component: {fileID: 647570038807096146}
   - component: {fileID: 2847240802155828550}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: UserInfoCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 9082894868112456951}
   - component: {fileID: 2339140360643795914}
   - component: {fileID: 6485277515781222969}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -494,7 +494,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 697921291654089615}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HandRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 4444641783541308776}
   - component: {fileID: 4707746566224888241}
   - component: {fileID: 7336374412630615463}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube_Cube.001_Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -609,7 +609,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7666932937166905413}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HandLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -648,7 +648,7 @@ GameObject:
   - component: {fileID: 5481984693841934937}
   - component: {fileID: -6544988730231639150}
   - component: {fileID: 7249228281877465212}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DesktopUser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -758,7 +758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c7d925252d18046a8511adbbfbd2ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layer: 0
+  layer: 9
   targets:
   - {fileID: 5608078406893420670}
   - {fileID: 6290896561354145215}
@@ -856,7 +856,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6209423333982536166}
   - component: {fileID: 4656934305232421193}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: NameTag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -900,7 +900,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5965516297031107437}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HeadModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -936,7 +936,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7814024085407213026}
   - component: {fileID: 7982287737856490735}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -985,7 +985,7 @@ GameObject:
   - component: {fileID: 8830845230799030721}
   - component: {fileID: 8972516112693318492}
   - component: {fileID: 2856990325583310884}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: UserInfoPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1062,7 +1062,7 @@ GameObject:
   - component: {fileID: 332102826993459499}
   - component: {fileID: 4450098788575730719}
   - component: {fileID: 2187742945404438023}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube_Cube.001_Neon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1201,9 +1201,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: HandMesh
       objectReference: {fileID: 0}
+    - target: {fileID: -2884639134055194704, guid: 4a8b33210e9906a41a781fc38b30cb39, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4a8b33210e9906a41a781fc38b30cb39, type: 3}
       propertyPath: m_Name
       value: HandRightModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4a8b33210e9906a41a781fc38b30cb39, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a8b33210e9906a41a781fc38b30cb39, type: 3}
@@ -1279,9 +1287,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: HandMesh
       objectReference: {fileID: 0}
+    - target: {fileID: -2884639134055194704, guid: 4a8b33210e9906a41a781fc38b30cb39, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4a8b33210e9906a41a781fc38b30cb39, type: 3}
       propertyPath: m_Name
       value: HandLeftModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4a8b33210e9906a41a781fc38b30cb39, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a8b33210e9906a41a781fc38b30cb39, type: 3}
@@ -1344,6 +1360,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 889c2c55a91243f44bfde26e9bf82b10, type: 3}
       propertyPath: m_Name
       value: shirtMale
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 889c2c55a91243f44bfde26e9bf82b10, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 889c2c55a91243f44bfde26e9bf82b10, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 889c2c55a91243f44bfde26e9bf82b10, type: 3}
