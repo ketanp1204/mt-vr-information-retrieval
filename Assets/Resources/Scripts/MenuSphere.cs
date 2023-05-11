@@ -136,6 +136,7 @@ public class MenuSphere : MonoBehaviour
             {
                 faceCamera.cam = Vrsys.NetworkUser.localNetworkUser.GetCamera().gameObject;
                 faceCamera.isInitialized = true;
+                faceCameraSet = true;
             }
         }
     }

@@ -6943,7 +6943,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transVel: 5
-  rotVel: 20
+  rotVel: 45
   scaleInputFactor: 1
   pitchEnabled: 0
   verticalTransEnabled: 1
