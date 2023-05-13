@@ -36,6 +36,7 @@ public class FaceCamera : MonoBehaviour
         if (cam == null)
         {
             cam = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localGameObject, "Main Camera");
+            isInitialized = true;
         }
     }
 
