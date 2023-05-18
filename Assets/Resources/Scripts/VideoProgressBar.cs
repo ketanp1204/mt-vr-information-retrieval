@@ -8,7 +8,8 @@ using UnityEngine.EventSystems;
 
 public class VideoProgressBar : MonoBehaviour, IDragHandler, IPointerDownHandler
 {
-    [SerializeField] private VideoPlayer videoPlayer;
+    [HideInInspector]
+    public VideoPlayer videoPlayer;
 
     private Image progress;
 
@@ -47,7 +48,7 @@ public class VideoProgressBar : MonoBehaviour, IDragHandler, IPointerDownHandler
     // Update is called once per frame
     void Update()
     {
-        if (videoPlayer.frameCount > 0)
+        if (videoPlayer != null && videoPlayer.frameCount > 0)
         {
             progress.fillAmount = (float)videoPlayer.frame / (float)videoPlayer.frameCount;
         }
