@@ -9,15 +9,16 @@ using UnityEngine.InputSystem;
 public class MenuAction : MonoBehaviour
 {
     /* Public Variables */
+    public MenuArea.MenuItems menus;
     public MenuArea menuArea;
     public UnityEvent actionHoverEnteredEvents;
     public UnityEvent actionHoverExitedEvents;
     public Tooltip actionSelectTooltip;
     public float scaleAnimDuration = 0.1f;
+    public UnityEvent selectActions; 
+    public List<GameObject> childActions = new List<GameObject>();
 
     /* Private Variables */
-    // All child actions of this action
-    [SerializeField] private List<GameObject> childActions = new List<GameObject>();
 
     // All other actions in the same hierarchy
     [SerializeField] private List<GameObject> otherActions = new List<GameObject>();

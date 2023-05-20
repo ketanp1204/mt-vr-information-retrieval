@@ -15,21 +15,17 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
     /* Private Variables */
     [SerializeField] private List<GameObject> focusObjects;
     private bool isInDetailView = false;
-    private SphereCollider col;
-    private ScreenFade screenFade;
     private GameObject userGO;
     private Transform detailViewAreaTransform;
     private GameObject userDisplayGO;
     private Vector3 detailViewingAreaSpawnLoc;
 
 
-    
-    
+
 
     // Start is called before the first frame update
     void Start()
     {
-        col = GetComponent<SphereCollider>();
         detailViewingAreaSpawnLoc = Vector3.zero;
         detailViewingAreaGOs = new List<GameObject>();
         focusObjects = new List<GameObject>();
@@ -39,9 +35,6 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
     {
         if (!isInDetailView)
         {
-            // Get screen fade component of user
-            screenFade = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "Main Camera").GetComponentInChildren<ScreenFade>();
-
             // Get user GameObject
             userGO = Vrsys.NetworkUser.localNetworkUser.gameObject;
 
@@ -52,9 +45,6 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            // Get screen fade component of user
-            screenFade = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "Main Camera").GetComponentInChildren<ScreenFade>();
-
             // Exit detail view
             StartCoroutine(ExitDetailViewingArea());
 
@@ -65,13 +55,10 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
     private IEnumerator EnterDetailViewingArea()
     {
         // Fade the screen out 
-        screenFade.FadeOut();
-
-        // Disable Collider
-        col.enabled = false;
+        Vrsys.NetworkUser.localNetworkUser.FadeOutScreen();
 
         // Wait for screen fade
-        yield return new WaitForSeconds(screenFade.fadeDuration);
+        yield return new WaitForSeconds(Vrsys.NetworkUser.localNetworkUser.GetScreenFadeDuration());
 
         // Initialize instantiation parameters
         int index = GetCurrentCount();
@@ -79,7 +66,6 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
         object[] info = new object[] { index, itemName, photonView.ViewID };
 
         // Create detail viewing area
-
         GameObject dVAObject = PhotonNetwork.Instantiate("UtilityPrefabs/DVA",
                                                             detailViewingAreaSpawnLoc + new Vector3(-20f, -20f, -20f),
                                                             Quaternion.identity,
@@ -93,6 +79,9 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
 
         // Show the representation of the player in the original location and pass the viewID of this photonView
         userDisplayGO = userGO.GetComponent<NetworkUser>().CreateUserDisplay();
+
+        // Show the transparent sphere near the representation
+        GetComponent<MenuArea>().SetMenuSphereVisibility(true);
 
         // Update parameters in displayGO
         userDisplayGO.GetComponent<UserDisplay>().SetDVAIndexWrapper(index);
@@ -117,23 +106,17 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
         var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();
         focus.SetFocused(focusObjects);
 
-        // Enable collider
-        col.enabled = true;
-
         // Fade the screen in
-        screenFade.FadeIn();
+        Vrsys.NetworkUser.localNetworkUser.FadeInScreen();
     }
 
     private IEnumerator ExitDetailViewingArea()
     {
         // Fade the screen out
-        screenFade.FadeOut();
-
-        // Disable collider
-        col.enabled = false;
+        Vrsys.NetworkUser.localNetworkUser.FadeOutScreen();
 
         // Wait for screen fade
-        yield return new WaitForSeconds(screenFade.fadeDuration);
+        yield return new WaitForSeconds(Vrsys.NetworkUser.localNetworkUser.GetScreenFadeDuration());
 
         // Teleport the player back to the original location
         var player = Vrsys.NetworkUser.localNetworkUser.gameObject.transform;
@@ -158,11 +141,8 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
         List<GameObject> n = null;
         focus.SetFocused(n);
 
-        // Enable collider
-        col.enabled = true;
-
         // Fade the screen in
-        screenFade.FadeIn();
+        Vrsys.NetworkUser.localNetworkUser.FadeInScreen();
     }
 
     

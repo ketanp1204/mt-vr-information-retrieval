@@ -92,6 +92,8 @@ namespace Vrsys
 
         private GameObject userDisplayGO;
 
+        private ScreenFade screenFade;
+
 
         private bool hasPendingScaleUpdate
         {
@@ -266,14 +268,14 @@ namespace Vrsys
             {
                 float height = GetComponent<Groundfollowing>().targetHeight;
                 userDisplayGO = PhotonNetwork.Instantiate("UserPrefabs/DesktopUserDisplay", 
-                    NetworkUser.localHead.transform.position + new Vector3(0f, -height, 0f), 
-                                                            Quaternion.identity);
+                    NetworkUser.localHead.transform.position + new Vector3(0f, -height, 0f), // body height offset
+                                                            transform.rotation);
             }
             else
             {
                 userDisplayGO = PhotonNetwork.Instantiate("UserPrefabs/XRUserDisplay",
-                    NetworkUser.localHead.transform.position,
-                                                            Quaternion.identity);
+                    NetworkUser.localHead.transform.position + new Vector3(0f, -1.75f, 0f), // head height offset
+                                                            transform.rotation); 
             }
 
             userDisplayGO.GetComponent<UserDisplay>().SetUsernameWrapper(photonView.Owner.NickName);
@@ -284,6 +286,24 @@ namespace Vrsys
         public void DestroyUserDisplay()
         {
             PhotonNetwork.Destroy(userDisplayGO);
+        }
+
+        public void FadeOutScreen()
+        {
+            screenFade = Vrsys.Utility.FindRecursive(this.gameObject, "Main Camera").GetComponentInChildren<ScreenFade>();
+            screenFade.FadeOut();
+        }
+
+        public void FadeInScreen()
+        {
+            screenFade = Vrsys.Utility.FindRecursive(this.gameObject, "Main Camera").GetComponentInChildren<ScreenFade>();
+            screenFade.FadeIn();
+        }
+
+        public float GetScreenFadeDuration()
+        {
+            screenFade = Vrsys.Utility.FindRecursive(this.gameObject, "Main Camera").GetComponentInChildren<ScreenFade>();
+            return screenFade.fadeDuration;
         }
     }
 }

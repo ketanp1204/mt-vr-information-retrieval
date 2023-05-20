@@ -10,8 +10,9 @@ using System.Linq;
 public class DetailView : MonoBehaviour
 {
     /* Public Variables */
-    public GameObject detailViewGO;
-    
+    public List<GameObject> detailViewingAreaGOs;
+    public string itemName;
+
     public GameObject dVAWrapperGO;
 
     /* Private Variables */
@@ -57,10 +58,11 @@ public class DetailView : MonoBehaviour
         }
     }
 
-    private IEnumerator EnterDetailView()
+
+    private IEnumerator StartDetailView()
     {
         // Fade the screen out
-        screenFade.FadeOut();
+        Vrsys.NetworkUser.localNetworkUser.FadeOutScreen();
 
         // Disable collider
         col.enabled = false;
@@ -68,8 +70,6 @@ public class DetailView : MonoBehaviour
         // Wait for screen fade
         yield return new WaitForSeconds(screenFade.fadeDuration);
 
-        // Load detail view objects
-        detailViewGO.SetActive(true);
 
         // Set focused objects
         var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();
@@ -79,72 +79,17 @@ public class DetailView : MonoBehaviour
         col.enabled = true;
 
         // Fade the screen in
-        screenFade.FadeIn();
+        Vrsys.NetworkUser.localNetworkUser.FadeInScreen();
     }
-
+    
+    
     private IEnumerator EnterDetailViewingArea()
     {
         // Fade the screen out 
-        screenFade.FadeOut();
-
-        // Disable Collider
-        col.enabled = false;
+        Vrsys.NetworkUser.localNetworkUser.FadeOutScreen();
 
         // Wait for screen fade
-        yield return new WaitForSeconds(screenFade.fadeDuration);
-
-        // userGO.GetComponent<NetworkUser>().EnterDetailViewingArea();
-
-        /*
-        int index = detailViewManager.GetCurrentIndex();
-
-        // Create detail viewing area
-        var dVAObject = PhotonNetwork.Instantiate("UtilityPrefabs/DVA", 
-                                                    detailViewManager.detailViewingAreaSpawnLoc + new Vector3(-20f, -20f, -20f), 
-                                                    Quaternion.identity,
-                                                    (byte)index);
-
-        // Update spawn location of DVA for further DVAs
-        detailViewManager.detailViewingAreaSpawnLoc += new Vector3(-20f, -20f, -20f);
-
-        // Name of DVA Object
-        string name = "DVA" + index.ToString();
-
-        // Add DVA to DV Manager and get index of DVA
-        detailViewManager.AddDVAObject(dVAObject);
-
-        // Show the representation of the player in the original location
-        displayGO = userGO.GetComponent<NetworkUser>().CreateUserDisplay();
-
-        // Update index in displayGO
-        displayGO.GetComponent<UserDisplay>().SetDVAIndex(index);
-        */
-
-        /*
-        // Get new photon network interest group number
-        int iG = detailViewManager.interestGroupNumbersInUse.Last() + 1;
-        detailViewManager.interestGroupNumbersInUse.Add(iG);
-
-        
-        // Subscribe to the interest group
-        PhotonNetwork.SetInterestGroups((byte)iG, true);
-        userGO.GetPhotonView().Group = (byte)iG;
-        
-
-        // Create detail viewing area
-        var DVA = PhotonNetwork.Instantiate("UtilityPrefabs/DetailViewingArea", 
-                                            new Vector3(-20, -20, -20), 
-                                            Quaternion.identity,
-                                            group: (byte)(iG));
-        */
-
-        /*
-        // Teleport the player to the detail viewing area
-        var player = Vrsys.NetworkUser.localNetworkUser.gameObject.transform;
-        player.position = new Vector3(player.localPosition.x + dVAObject.transform.localPosition.x,
-                                      player.localPosition.y + dVAObject.transform.localPosition.y,
-                                      player.localPosition.z + dVAObject.transform.localPosition.z);
-        */
+        yield return new WaitForSeconds(Vrsys.NetworkUser.localNetworkUser.GetScreenFadeDuration());
 
         // Set focused objects
         var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();
@@ -208,9 +153,6 @@ public class DetailView : MonoBehaviour
 
         // Wait for screen fade
         yield return new WaitForSeconds(screenFade.fadeDuration);
-
-        // Hide detail view objects
-        detailViewGO.SetActive(false);
 
         // Unset focused objects
         var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();
