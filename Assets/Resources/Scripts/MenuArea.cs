@@ -5,6 +5,7 @@ using System.Reflection;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -26,7 +27,6 @@ public class MenuArea : XRSimpleInteractable
     [Space(20)]
     [Header("Interaction Properties")]
     public MenuItems menus;
-    public List<GameObject> menuItems = new List<GameObject>();
     public InputActionReference controllerTrigger;
     public InputActionReference controllerPrimaryButton;
     public Tooltip gripHoldTooltip;
@@ -121,7 +121,7 @@ public class MenuArea : XRSimpleInteractable
                 if (currentMenuItems.items.Count > 0)
                 {
                     // Enable item colliders
-                    foreach (GameObject item in menuItems)
+                    foreach (GameObject item in currentMenuItems.items)
                     {
                         item.GetComponent<MenuAction>().EnableCollider();
                     }
@@ -134,7 +134,8 @@ public class MenuArea : XRSimpleInteractable
                 menuItemSelected = true;
 
                 currentMenuItems.isSelected = true;
-
+                
+                /*
                 // Animate all items to the zero position
                 for (int i = 0; i < currentMenuItems.items.Count; i++)
                 {
@@ -144,7 +145,7 @@ public class MenuArea : XRSimpleInteractable
                         StartCoroutine(AnimateMenuItemToZero(i, true));         // Scaling to zero
                 }
 
-                /*
+                
                 // Animate all items to the zero position
                 for (int i = 0; i < menuItems.Count; i++)
                 {
@@ -157,13 +158,33 @@ public class MenuArea : XRSimpleInteractable
 
                 // Check whether there is another layer of menus
                 var mA = currentlyHoveredMenuItem.GetComponent<MenuAction>();
-                if (mA.menus.items.Count > 0)
+                if (mA.menuItems.items.Count > 0)
                 {
                     StartCoroutine(LoadNextMenuLayer(mA));
+
+                    // Animate all items to the zero position
+                    for (int i = 0; i < currentMenuItems.items.Count; i++)
+                    {
+                        if (currentlyHoveredMenuItem.Equals(currentMenuItems.items[i]))
+                            StartCoroutine(AnimateMenuItemToZero(i, false));        // Not scaling the selected object to zero
+                        else
+                            StartCoroutine(AnimateMenuItemToZero(i, true));         // Scaling to zero
+                    }
                 }
                 else
                 {
-                    currentlyHoveredMenuItem.GetComponent<MenuAction>().selectActions.Invoke();
+                    // Animate all items to the zero position
+                    for (int i = 0; i < currentMenuItems.items.Count; i++)
+                    {
+                        StartCoroutine(AnimateMenuItemToZero(i, true));         // Scaling to zero
+                    }
+
+                    UnityEvent<GameObject> selectActions = currentlyHoveredMenuItem.GetComponent<MenuAction>().selectActions;
+
+                    for (int i = 0; i < selectActions.GetPersistentEventCount(); i++)
+                    {
+                        ((MonoBehaviour)selectActions.GetPersistentTarget(i)).SendMessage(selectActions.GetPersistentMethodName(i), controllerTransform.gameObject);
+                    }
                 }
             }
 
@@ -187,7 +208,7 @@ public class MenuArea : XRSimpleInteractable
         // Reset pull distance temporarily for animation
         currentPullDistance = 0f;
 
-        UpdateCurrentMenuItems(mA.menus);
+        UpdateCurrentMenuItems(mA.menuItems);
     }
 
     public void SetHoveredMenuItem(GameObject gO)
@@ -278,6 +299,7 @@ public class MenuArea : XRSimpleInteractable
     private void UpdateCurrentMenuItems(MenuItems menuItems)
     {
         // Set the position of the parent of menu items to the center of interaction
+        menuItems.parent.SetActive(true);
         menuItems.parent.transform.position = interactionInitialPos;
 
         // Set user camera on the items
@@ -337,6 +359,9 @@ public class MenuArea : XRSimpleInteractable
         // Set final scale
         if (scaleToZero)
             currentMenuItems.items[index].transform.localScale = endScale;
+
+        // Disable collider
+        currentMenuItems.items[index].GetComponent<MenuAction>().DisableCollider();
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
@@ -351,7 +376,7 @@ public class MenuArea : XRSimpleInteractable
         }
         else
         {
-            for (int i = 0; i < menuItems.Count; i++)
+            for (int i = 0; i < currentMenuItems.items.Count; i++)
             {
                 StartCoroutine(AnimateMenuItemToZero(i, true));
             }

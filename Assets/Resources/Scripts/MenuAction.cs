@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,49 +10,51 @@ using UnityEngine.InputSystem;
 public class MenuAction : MonoBehaviour
 {
     /* Public Variables */
-    public MenuArea.MenuItems menus;
     public MenuArea menuArea;
-    public UnityEvent actionHoverEnteredEvents;
-    public UnityEvent actionHoverExitedEvents;
+    [Space(20)]
+    public MenuArea.MenuItems menuItems;
+    // public UnityEvent actionHoverEnteredEvents;
+    // public UnityEvent actionHoverExitedEvents;
+    [Space(20)]
     public Tooltip actionSelectTooltip;
+    [Space(20)]
+    [Range(0f, 0.3f)]
     public float scaleAnimDuration = 0.1f;
-    public UnityEvent selectActions; 
-    public List<GameObject> childActions = new List<GameObject>();
+    [Space(20)]
+    public UnityEvent<GameObject> selectActions;
+    [Space(20)]
+    public Vector3 menuActionScale;
+    public Vector3 menuActionHoverScale;
 
     /* Private Variables */
-
-    // All other actions in the same hierarchy
-    [SerializeField] private List<GameObject> otherActions = new List<GameObject>();
-
     // Interaction animation duration 
     [SerializeField, Range(0f, 0.3f)] private float animDuration = 0.1f;
 
     // Radius of the circle arrangement of the child spheres
     [SerializeField] private float circleRadius = 2f;
 
-    private SphereCollider sphCol;
+    private Collider col;
     private bool isSelected = false;
     private GameObject parent;
     private Vector3 actionPosition;
     private TooltipHandler tooltipHandler;
-    private Vector3 menuActionScale = new Vector3(0.03f, 0.03f, 0.03f);
-    private Vector3 menuActionHoverScale = new Vector3(0.05f, 0.05f, 0.05f);
+
     private bool isAnimating = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        sphCol = GetComponent<SphereCollider>();
+        col = GetComponent<Collider>();
         DisableCollider();
 
-        parent = transform.parent.gameObject;
-        StartCoroutine(TranslateToZeroPosition());
+        // parent = transform.parent.gameObject;
+        // StartCoroutine(TranslateToZeroPosition());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -62,7 +65,7 @@ public class MenuAction : MonoBehaviour
 
         // Scale the sphere up
         if (!isAnimating)
-            StartCoroutine(ScaleSphere(true));
+            StartCoroutine(ScaleObject(true));
 
         // Set currently hovered item in MenuArea
         menuArea.SetHoveredMenuItem(gameObject);
@@ -76,13 +79,13 @@ public class MenuAction : MonoBehaviour
 
         // Scale the sphere down
         if (!isAnimating)
-            StartCoroutine(ScaleSphere(false));
+            StartCoroutine(ScaleObject(false));
 
         // Unset currently hovered item in MenuArea
         menuArea.UnsetHoveredMenuItem();
     }
 
-    private IEnumerator ScaleSphere(bool scaleUp)
+    private IEnumerator ScaleObject(bool scaleUp)
     {
         isAnimating = true;
         float t = 0f;
@@ -103,21 +106,45 @@ public class MenuAction : MonoBehaviour
 
     public void EnableCollider()
     {
-        if(!sphCol.enabled)
-            sphCol.enabled = true;
+        if (!col.enabled)
+            col.enabled = true;
     }
 
     public void DisableCollider()
     {
-        if (sphCol.enabled)
-            sphCol.enabled = false;
+        if (col.enabled)
+            col.enabled = false;
     }
 
+    public void DisableMenuItem()
+    {
+        StartCoroutine(ScaleMenuItemToZero());
+
+        DisableCollider();
+    }
+
+    private IEnumerator ScaleMenuItemToZero()
+    {
+        Vector3 startScale = transform.localScale;
+        Vector3 endScale = Vector3.zero;
+
+        float t = 0f;
+        while (t < scaleAnimDuration)
+        {
+            // Animate scale
+            transform.localScale = Vector3.Lerp(startScale, endScale, t / scaleAnimDuration);
+
+            t += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    /*
     public void HandleHoverEntered()
     {
         if (!isSelected)
         {
-            actionHoverEnteredEvents.Invoke();
+            // actionHoverEnteredEvents.Invoke();
         }
     }
 
@@ -125,10 +152,10 @@ public class MenuAction : MonoBehaviour
     {
         if (!isSelected)
         {
-            actionHoverExitedEvents.Invoke();
+            // actionHoverExitedEvents.Invoke();
         }
     }
-
+    
     public void HandleMenuSelect()
     {
         if (!isSelected)
@@ -173,8 +200,8 @@ public class MenuAction : MonoBehaviour
             isSelected = true;
 
             // Hide hover preview if exists
-            if (actionHoverExitedEvents.GetPersistentEventCount() > 0)
-                actionHoverExitedEvents.Invoke();
+            if (// actionHoverExitedEvents.GetPersistentEventCount() > 0)
+                // actionHoverExitedEvents.Invoke();
 
             // Hide other actions and the parent sphere
             StartCoroutine(FadeOutParentAndOtherActions());
@@ -316,7 +343,7 @@ public class MenuAction : MonoBehaviour
 
         transform.localPosition = actionPosition;
     }
-
+    
     private IEnumerator AnimateChildrenToCircle()
     {
         yield return new WaitForSeconds(animDuration);
@@ -363,7 +390,7 @@ public class MenuAction : MonoBehaviour
             displayText.SetActive(true);
         }
     }
-
+    
     private IEnumerator AnimateChildrenToZero()
     {
         for (int i = 0; i < childActions.Count; i++)
@@ -425,6 +452,6 @@ public class MenuAction : MonoBehaviour
 
         childActions[0].SetActive(true);
     }
-
+    */
 
 }

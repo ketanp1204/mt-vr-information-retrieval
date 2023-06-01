@@ -5,8 +5,53 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class SVDragHandler : MonoBehaviour, IPointerExitHandler
+public class SVDragHandler : MonoBehaviour //, IPointerExitHandler
 {
+    public float scrollTime = 3f;
+    public float restartScrollDelay = 1f;
+
+    private ScrollRect scrollRect;
+    private bool isScrolling = true;
+
+    private void Start()
+    {
+        scrollRect = GetComponent<ScrollRect>();
+        scrollRect.verticalNormalizedPosition = 1f;
+        StartCoroutine(AutoScroll());
+    }
+
+    private IEnumerator AutoScroll()
+    {
+        while (isScrolling)
+        {
+            Debug.Log("scroll");
+            StartCoroutine(ScrollDown());
+
+            yield return new WaitForSeconds(scrollTime);
+
+            yield return new WaitForSeconds(restartScrollDelay);
+
+            scrollRect.normalizedPosition = Vector2.zero;
+        }
+    }
+
+    private IEnumerator ScrollDown()
+    {
+        Vector2 startPos = Vector2.zero;
+        Vector2 endPos = new Vector2(0f, 1f);
+
+        float t = 0f;
+        while (t < scrollTime)
+        {
+            
+            scrollRect.normalizedPosition = Vector2.Lerp(startPos, endPos, t / scrollTime);
+
+            t += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    /*
     public InputActionReference uiClickAction;
 
     public static GameObject itemBeingDragged;
@@ -152,4 +197,5 @@ public class SVDragHandler : MonoBehaviour, IPointerExitHandler
         canDrag = false;
         isPointerOverGameObject = false;
     }
+    */
 }
