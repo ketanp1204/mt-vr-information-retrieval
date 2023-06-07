@@ -4,13 +4,35 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using Unity.Mathematics;
+using Photon.Pun;
 
-public class GrabSphere : XRBaseInteractable
+public class GrabSphere : MonoBehaviourPunCallbacks
 {
-    /* Public Variables */
+    // Private Variables
+    private MeshRenderer rend;
+
+    private void Start()
+    {
+        rend = GetComponent<MeshRenderer>();
+    }
+
+    public void SetMeshRendererVisibility(bool visible)
+    {
+        photonView.RPC(nameof(SetMeshRendererVisibilityRPC), RpcTarget.All, visible);
+    }
+
+
+    [PunRPC]
+    void SetMeshRendererVisibilityRPC(bool visible)
+    {
+        rend.enabled = visible;
+    }
+
+    /*
+    // Public Variables 
     public float grabSnapLimit = 0.35f;
 
-    /* Private Variables */
+    // Private Variables
     private Vector3 initialPosition;
     private Vector3 controllerInitPos;
     private Vector3 controllerExitPos;
@@ -148,4 +170,5 @@ public class GrabSphere : XRBaseInteractable
             }
         }
     }
+    */
 }

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -52,7 +53,8 @@ public class MenuArea : XRSimpleInteractable
     private GameObject currentlyHoveredMenuItem;
     private bool menuItemSelected = false;
     private MenuItems currentMenuItems = new MenuItems();
-    
+    private string menuSpherePrefabLoc = "UtilityPrefabs/MenuSphere";
+    private float menuSphereInitialZ = 0f;
 
     
 
@@ -83,6 +85,10 @@ public class MenuArea : XRSimpleInteractable
 
                         // Scaling the menu items based on the displacement
                         float currentActionScale = math.remap(0f, 1f, 0f, currentMenuItems.maxScaleValue, currentPullDistance);
+
+                        // Move the menu sphere
+                        float sphereZ = Mathf.Lerp(menuSphereInitialZ, menuSphereInitialZ + 0.15f, currentPullDistance);
+                        menuSphere.transform.position = new Vector3(menuSphere.transform.position.x, menuSphere.transform.position.y, sphereZ);
 
                         // Move and scale the menu items
                         for (int i = 0; i < currentMenuItems.items.Count; i++)
@@ -224,7 +230,7 @@ public class MenuArea : XRSimpleInteractable
     public void SetMenuSphereVisibility(bool visible)
     {
         if (menuSphere != null)
-            menuSphere.GetComponent<MeshRenderer>().enabled = visible;
+            menuSphere.GetComponent<GrabSphere>().SetMeshRendererVisibility(visible);
     }
 
     protected override void OnHoverEntered(HoverEnterEventArgs args)
@@ -264,8 +270,9 @@ public class MenuArea : XRSimpleInteractable
         Quaternion rotation = Quaternion.LookRotation(directionToHead, Vector3.up);
 
         // Create a sphere at center of interaction
-        menuSphere = GameObject.Instantiate(menuSpherePrefab, interactionInitialPos, rotation);
+        menuSphere = PhotonNetwork.Instantiate(menuSpherePrefabLoc, interactionInitialPos, rotation);
         menuSphere.transform.localScale = Vector3.zero;
+        menuSphereInitialZ = menuSphere.transform.position.z;
 
         // Create a line from the center of interaction to the controller's current position
         menuLine = GameObject.Instantiate(linePrefab, menuSphere.transform);
