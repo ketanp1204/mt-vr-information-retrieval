@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 public class FaceCamera : MonoBehaviour
 {
     public GameObject cam;
-    public Vector3 rotationOffset;
+    public Vector3 rotationOffset = new Vector3(0f, 0f, 0f);
     public bool rotateTowardsUser = true;
     public bool isInitialized = false;
     public bool objectActiveOnStart = false;

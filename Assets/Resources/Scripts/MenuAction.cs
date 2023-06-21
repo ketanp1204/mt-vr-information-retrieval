@@ -10,6 +10,10 @@ using UnityEngine.InputSystem;
 public class MenuAction : MonoBehaviour
 {
     /* Public Variables */
+    public GestureMenu gestureMenu;
+    [Space(20)]
+    public GestureMenu.Menu menuLayer;
+
     public MenuArea menuArea;
     [Space(20)]
     public MenuArea.MenuItems menuItems;
@@ -67,8 +71,8 @@ public class MenuAction : MonoBehaviour
         if (!isAnimating)
             StartCoroutine(ScaleObject(true));
 
-        // Set currently hovered item in MenuArea
-        menuArea.SetHoveredMenuItem(gameObject);
+        // Set currently hovered item in GestureMenu
+        gestureMenu.SetHoveredMenuItem(gameObject);
     }
 
     private void OnTriggerExit(Collider other)
@@ -81,8 +85,8 @@ public class MenuAction : MonoBehaviour
         if (!isAnimating)
             StartCoroutine(ScaleObject(false));
 
-        // Unset currently hovered item in MenuArea
-        menuArea.UnsetHoveredMenuItem();
+        // Unset currently hovered item in GestureMenu
+        gestureMenu.UnsetHoveredMenuItem();
     }
 
     private IEnumerator ScaleObject(bool scaleUp)

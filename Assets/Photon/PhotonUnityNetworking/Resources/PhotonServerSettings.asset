@@ -55,6 +55,7 @@ MonoBehaviour:
   - UpdateDVASpawnLoc
   - UpdateInterestGroup
   - SetMeshRendererVisibilityRPC
+  - SetVisibilityRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

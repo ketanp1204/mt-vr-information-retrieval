@@ -11,21 +11,22 @@ public class GrabSphere : MonoBehaviourPunCallbacks
     // Private Variables
     private MeshRenderer rend;
 
-    private void Start()
+    public void SetVisibility(bool visible)
     {
         rend = GetComponent<MeshRenderer>();
-    }
-
-    public void SetMeshRendererVisibility(bool visible)
-    {
-        photonView.RPC(nameof(SetMeshRendererVisibilityRPC), RpcTarget.All, visible);
+        photonView.RPC(nameof(SetVisibilityRPC), RpcTarget.All, visible);
     }
 
 
     [PunRPC]
-    void SetMeshRendererVisibilityRPC(bool visible)
+    void SetVisibilityRPC(bool visible)
     {
-        rend.enabled = visible;
+        if (!photonView.IsMine)
+        {
+            rend.enabled = visible;
+            Debug.Log("not mine");
+        }
+        
     }
 
     /*

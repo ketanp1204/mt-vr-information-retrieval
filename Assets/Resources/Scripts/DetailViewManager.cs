@@ -81,7 +81,7 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
         userDisplayGO = userGO.GetComponent<NetworkUser>().CreateUserDisplay();
 
         // Show the transparent sphere near the representation
-        GetComponent<MenuArea>().SetMenuSphereVisibility(true);
+        // GetComponent<MenuArea>().SetMenuSphereVisibility(true);
 
         // Update parameters in displayGO
         userDisplayGO.GetComponent<UserDisplay>().SetDVAIndexWrapper(index);

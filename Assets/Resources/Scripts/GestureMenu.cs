@@ -1,21 +1,18 @@
-using Photon.Pun;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using Unity.Mathematics;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.Events;
+using static MenuArea;
+using Photon.Pun;
+using UnityEngine.Rendering;
 
-public class MenuArea : XRSimpleInteractable
+public class GestureMenu : XRSimpleInteractable
 {
-    /* Public Variables */
-
     [System.Serializable]
-    public struct MenuItems
+    public struct Menu
     {
         public GameObject parent;
         public List<GameObject> items;
@@ -26,20 +23,21 @@ public class MenuArea : XRSimpleInteractable
         public GameObject parentSelectedItem;
     }
 
+    // Public Variables
 
     [Space(20)]
     [Header("Interaction Properties")]
-    public MenuItems menus;
+    public Menu menuLayer;
     public InputActionReference controllerTrigger;
     public InputActionReference controllerPrimaryButton;
     public Tooltip gripHoldTooltip;
     public GameObject menuSpherePrefab;
-    public List<GameObject> menuActionPrefabs;
     public GameObject linePrefab;
     public float pullDistance = 0.3f;
     public float selectItemAnimDuration = 0.1f;
 
-    /* Private Variables */
+
+    // Private variables
     [SerializeField] private float circleRadius = 0.08f;
     private float currentPullDistance = 0f;
     private TooltipHandler tooltipHandler;
@@ -50,27 +48,21 @@ public class MenuArea : XRSimpleInteractable
     private LineRenderer lR;
     private List<Vector3> menuItemFinalPositions = new List<Vector3>();
     private float sphereMaxScale = 0.3f;
-    private float menuActionScaleValue = 0.03f;
-    private float menuActionHoverScaleValue = 0.05f;
     private GameObject currentlyHoveredMenuItem;
-    private bool menuItemSelected = false;
-    private MenuItems currentMenuItems = new MenuItems();
+    private Menu currentMenuLayer = new();
     private string menuSpherePrefabLoc = "UtilityPrefabs/MenuSphere";
     private float menuSphereInitialZ = 0f;
 
-    
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // Menu items animation
         if (isSelected)
         {
             if (currentPullDistance < 1f)
             {
-                if (currentMenuItems.items.Count > 0 && !currentMenuItems.isSelected)
+                if (currentMenuLayer.items.Count > 0 && !currentMenuLayer.isSelected)
                 {
-                    // Calculate the distance that the controller has moved 
+                    // Calculate the distance that the controller has moved
                     currentPullDistance = Vector3.Distance(controllerTransform.position, interactionInitialPos) / pullDistance;
 
                     // Calculate the direction where the player is moving the controller
@@ -84,50 +76,50 @@ public class MenuArea : XRSimpleInteractable
                         menuSphere.transform.localScale = new Vector3(currentSphereScale, currentSphereScale, currentSphereScale);
 
                         // Scaling the menu items based on the displacement
-                        float currentActionScale = math.remap(0f, 1f, 0f, currentMenuItems.maxScaleValue, currentPullDistance);
+                        float currentActionScale = math.remap(0f, 1f, 0f, currentMenuLayer.maxScaleValue, currentPullDistance);
 
                         // Move the menu sphere
                         float sphereZ = Mathf.Lerp(menuSphereInitialZ, menuSphereInitialZ + 0.15f, currentPullDistance);
                         menuSphere.transform.position = new Vector3(menuSphere.transform.position.x, menuSphere.transform.position.y, sphereZ);
 
                         // Move and scale the menu items
-                        for (int i = 0; i < currentMenuItems.items.Count; i++)
+                        for (int i = 0; i < currentMenuLayer.items.Count; i++)
                         {
-                            currentMenuItems.items[i].transform.localPosition = Vector3.Lerp(Vector3.zero, menuItemFinalPositions[i], currentPullDistance);
-                            currentMenuItems.items[i].transform.localScale = new Vector3(currentActionScale, currentActionScale, currentActionScale);
+                            currentMenuLayer.items[i].transform.localPosition = Vector3.Lerp(Vector3.zero, menuItemFinalPositions[i], currentPullDistance);
+                            currentMenuLayer.items[i].transform.localScale = new Vector3(currentActionScale, currentActionScale, currentActionScale);
                         }
                     }
                 }
             }
             else if (currentPullDistance > 1f)
             {
-                if (currentMenuItems.items.Count > 0)
+                if (currentMenuLayer.items.Count > 0)
                 {
                     // Enable item colliders
-                    foreach (GameObject item in currentMenuItems.items)
+                    foreach (GameObject item in currentMenuLayer.items)
                     {
                         item.GetComponent<MenuAction>().EnableCollider();
                     }
                 }
             }
-
+            
             // Select action on menu item
             if (currentlyHoveredMenuItem != null && controllerPrimaryButton.action.WasPressedThisFrame())
             {
-                currentMenuItems.isSelected = true;
-                
+                currentMenuLayer.isSelected = true;
+
                 // Check whether there is another layer of menus
                 var mA = currentlyHoveredMenuItem.GetComponent<MenuAction>();
-                if (mA.menuItems.items.Count > 0)
+                if (mA.menuLayer.items.Count > 0)
                 {
-                    mA.menuItems.parentSelectedItem = currentlyHoveredMenuItem;
+                    mA.menuLayer.parentSelectedItem = currentlyHoveredMenuItem;
 
                     StartCoroutine(LoadNextMenuLayer(mA));
 
                     // Animate all items to the zero position
-                    for (int i = 0; i < currentMenuItems.items.Count; i++)
+                    for (int i = 0; i < currentMenuLayer.items.Count; i++)
                     {
-                        if (currentlyHoveredMenuItem.Equals(currentMenuItems.items[i]))
+                        if (currentlyHoveredMenuItem.Equals(currentMenuLayer.items[i]))
                             StartCoroutine(AnimateMenuItemToZero(i, false));        // Not scaling the selected object to zero
                         else
                             StartCoroutine(AnimateMenuItemToZero(i, true));         // Scaling to zero
@@ -136,7 +128,7 @@ public class MenuArea : XRSimpleInteractable
                 else
                 {
                     // Animate all items to the zero position
-                    for (int i = 0; i < currentMenuItems.items.Count; i++)
+                    for (int i = 0; i < currentMenuLayer.items.Count; i++)
                     {
                         StartCoroutine(AnimateMenuItemToZero(i, true));         // Scaling to zero
                     }
@@ -149,9 +141,7 @@ public class MenuArea : XRSimpleInteractable
                     }
                 }
             }
-
-
-
+            
             // Set line end position to the controller's position
             if (controllerTransform != null && lR != null)
             {
@@ -163,14 +153,14 @@ public class MenuArea : XRSimpleInteractable
     private IEnumerator LoadNextMenuLayer(MenuAction mA)
     {
         yield return new WaitForSeconds(selectItemAnimDuration);
-        
+
         // Reset item final positions array
         menuItemFinalPositions.Clear();
 
         // Reset pull distance temporarily for animation
         currentPullDistance = 0f;
 
-        UpdateCurrentMenuItems(mA.menuItems);
+        UpdateCurrentMenuItems(mA.menuLayer);
     }
 
     public void SetHoveredMenuItem(GameObject gO)
@@ -222,14 +212,16 @@ public class MenuArea : XRSimpleInteractable
         interactionInitialPos = controllerTransform.position;
 
         // Make the sphere face the user
-        Vector3 directionToHead = interactionInitialPos - Vrsys.NetworkUser.localHead.transform.position;
+        Vector3 directionToHead = Vrsys.NetworkUser.localHead.transform.position - interactionInitialPos;
         Quaternion rotation = Quaternion.LookRotation(directionToHead, Vector3.up);
 
         // Create a sphere at center of interaction
         menuSphere = PhotonNetwork.Instantiate(menuSpherePrefabLoc, interactionInitialPos, rotation);
         menuSphere.transform.localScale = Vector3.zero;
         menuSphereInitialZ = menuSphere.transform.position.z;
-        menuSphere.AddComponent<FaceCamera>();
+
+        // Show the menu sphere
+        SetMenuSphereVisibility(true);
 
         // Create a line from the center of interaction to the controller's current position
         menuLine = GameObject.Instantiate(linePrefab, menuSphere.transform);
@@ -237,35 +229,41 @@ public class MenuArea : XRSimpleInteractable
         lR.positionCount = 2;
         lR.SetPosition(0, interactionInitialPos);
 
-        UpdateCurrentMenuItems(menus);
+        UpdateCurrentMenuItems(menuLayer);
+
+        // Menu facing in the direction of the user
+        menuLayer.parent.transform.localRotation = rotation;
 
         // Get the tooltip handler reference
         tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
     }
 
-    private void UpdateCurrentMenuItems(MenuItems menuItems)
+    private void UpdateCurrentMenuItems(Menu menuLayer)
     {
         // Set the position of the parent of menu items to the center of interaction
-        menuItems.parent.SetActive(true);
-        menuItems.parent.transform.position = interactionInitialPos;
+        menuLayer.parent.SetActive(true);
+        menuLayer.parent.transform.position = interactionInitialPos;
 
         // Face towards the user
-        menuItems.parent.AddComponent<FaceCamera>();
+        //if (menuLayer.parent.GetComponent<FaceCamera>() == null)
+            //menuLayer.parent.AddComponent<FaceCamera>().rotationOffset = new Vector3(0f, 180f, 0f);
 
         // Set user camera on the items
-        foreach (GameObject item in menuItems.items)
+        foreach (GameObject item in menuLayer.items)
         {
-            item.GetComponent<FaceCamera>().SetUserCamera();
+            if (item.GetComponent<FaceCamera>() == null)
+                item.AddComponent<FaceCamera>();
+            // item.GetComponent<FaceCamera>().SetUserCamera();
         }
 
         // Calculate the end positions of the menu items
-        for (int i = 0; i < menuItems.items.Count; i++)
+        for (int i = 0; i < menuLayer.items.Count; i++)
         {
-            Vector3 endPos = CalculateItemPosition(i, menuItems.items.Count, circleRadius, menuItems.parent.transform.localScale.x);
+            Vector3 endPos = CalculateItemPosition(i, menuLayer.items.Count, circleRadius, menuLayer.parent.transform.localScale.x);
             menuItemFinalPositions.Add(endPos);
         }
 
-        currentMenuItems = menuItems;
+        currentMenuLayer = menuLayer;
     }
 
     private Vector3 CalculateItemPosition(int childIndex, int totalChildren, float radius, float parentScaleValue)
@@ -279,67 +277,67 @@ public class MenuArea : XRSimpleInteractable
     private IEnumerator AnimateMenuItemToZero(int index, bool scaleToZero)
     {
         // Get start and end positions
-        Vector3 startPos = currentMenuItems.items[index].transform.localPosition;
+        Vector3 startPos = currentMenuLayer.items[index].transform.localPosition;
         Vector3 endPos = Vector3.zero;
 
         // Get start and end scale values
-        Vector3 startScale = currentMenuItems.items[index].transform.localScale;
+        Vector3 startScale = currentMenuLayer.items[index].transform.localScale;
         Vector3 endScale = Vector3.zero;
 
         // Disable menu item collider
-        currentMenuItems.items[index].GetComponent<MenuAction>().DisableCollider();
+        currentMenuLayer.items[index].GetComponent<MenuAction>().DisableCollider();
 
         float t = 0f;
         while (t < selectItemAnimDuration)
         {
             // Animate position
-            currentMenuItems.items[index].transform.localPosition = Vector3.Lerp(startPos, endPos, t / selectItemAnimDuration);
+            currentMenuLayer.items[index].transform.localPosition = Vector3.Lerp(startPos, endPos, t / selectItemAnimDuration);
 
             // Animate scale
             if (scaleToZero)
-                currentMenuItems.items[index].transform.localScale = Vector3.Lerp(startScale, endScale, t / selectItemAnimDuration);
+                currentMenuLayer.items[index].transform.localScale = Vector3.Lerp(startScale, endScale, t / selectItemAnimDuration);
 
             t += Time.deltaTime;
             yield return null;
         }
 
         // Set final position
-        currentMenuItems.items[index].transform.localPosition = endPos;
+        currentMenuLayer.items[index].transform.localPosition = endPos;
 
         // Set final scale
         if (scaleToZero)
-            currentMenuItems.items[index].transform.localScale = endScale;
+            currentMenuLayer.items[index].transform.localScale = endScale;
 
         // Disable collider
-        currentMenuItems.items[index].GetComponent<MenuAction>().DisableCollider();
+        currentMenuLayer.items[index].GetComponent<MenuAction>().DisableCollider();
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
         base.OnSelectExited(args);
-        
+
         Destroy(menuLine);
 
-        if (currentMenuItems.isSelected)
+        if (currentMenuLayer.isSelected)
         {
 
         }
         else
         {
-            for (int i = 0; i < currentMenuItems.items.Count; i++)
+            for (int i = 0; i < currentMenuLayer.items.Count; i++)
             {
                 StartCoroutine(AnimateMenuItemToZero(i, true));
             }
 
             // Reset parameters
             currentPullDistance = 0f;
-            if (currentMenuItems.parentSelectedItem != null)
+            if (currentMenuLayer.parentSelectedItem != null)
             {
-                currentMenuItems.parentSelectedItem.transform.localScale = Vector3.zero;
-                currentMenuItems.parentSelectedItem.GetComponent<MenuAction>().DisableCollider();
+                currentMenuLayer.parentSelectedItem.transform.localScale = Vector3.zero;
+                currentMenuLayer.parentSelectedItem.GetComponent<MenuAction>().DisableCollider();
             }
             Destroy(menuSphere);
-            Destroy(currentMenuItems.parent.GetComponent<FaceCamera>());
+            Destroy(currentMenuLayer.parent.GetComponent<FaceCamera>());
         }
     }
 }
