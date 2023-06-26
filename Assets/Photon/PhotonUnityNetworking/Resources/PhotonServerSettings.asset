@@ -40,7 +40,6 @@ MonoBehaviour:
   - ClickRpc
   - DestroyRpc
   - DestroySpaceship
-  - EnableMeshRendererRPC
   - Fire
   - HeresWhy
   - LateJoinDVAUpdate
@@ -52,10 +51,9 @@ MonoBehaviour:
   - SetName
   - SetPlatformId
   - SetUsername
+  - SetVisibilityRPC
   - UpdateDVASpawnLoc
   - UpdateInterestGroup
-  - SetMeshRendererVisibilityRPC
-  - SetVisibilityRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

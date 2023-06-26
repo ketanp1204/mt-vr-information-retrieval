@@ -1,104 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Mathematics;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class XROffsetGrabInteractable : XRGrabInteractable
 {
-    private Vector3 initialAttachLocalPos;
-    private Quaternion initialAttachLocalRot;
-
-    private MenuSphere menuSphere;
-
-    public bool isWithinSnapZone { get; set; }   
-
-    private Vector3 initialPosition;
-    private Vector3 userCameraForward;
-    private GameObject userCamera;
-
-
-
-    [SerializeField] private float maxDistance = 2.0f;          // Max distance the sphere can be moved in the user direction 
-    [SerializeField] private float snapThreshold = 0.2f;        // Threshold upto which the menu sphere snaps back into its original position
-    [SerializeField] private float menuActionRadius = 1f;       // Radius of the circle arrangement of the child spheres
-
-
-    private Vector3 initialGrabPosition;
-    private Vector3 startPos;
-    private Vector3 endPos;
-
-    private float grabDistance;
-
-    private bool isGrabbing;
-    private bool isAtMaxDistance;
-
-    private List<GameObject> childSpheres = new List<GameObject>();
-    private GameObject userController;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        initialPosition = transform.position;
-
-        foreach (Transform child in transform)
-        {
-            childSpheres.Add(child.gameObject);
-        }
-
-        
-        // Create attach point
         if (!attachTransform)
         {
-            GameObject grab = new GameObject("Grab Pivot");
-            grab.transform.SetParent(transform, false);
-            attachTransform = grab.transform;
+            GameObject attachPoint = new GameObject("Offset Grab Pivot");
+            attachPoint.transform.SetParent(transform, false);
+            attachTransform = attachPoint.transform;
         }
-
-        /*
-        initialAttachLocalPos = attachTransform.localPosition;
-        initialAttachLocalRot = attachTransform.localRotation;
-        
-        isWithinSnapZone = true;
-
-        menuSphere = GetComponent<MenuSphere>();
-        */
     }
-
-    private void Update()
-    {
-
-        /*
-        if (isSelected)
-        {
-            if (userCamera != null)
-            {
-                // Movement distance along the axis between the sphere and user camera
-                Vector3 camPos = userCamera.transform.position;
-                Vector3 sphereToCam = camPos - transform.position;
-                float movement = Vector3.Dot(sphereToCam, userCameraForward);
-
-                // Clamp movement distance within the maximum distance
-                movement = Mathf.Clamp(movement, -maxDistance, maxDistance);
-
-                // Move the sphere along the axis between it and the user camera
-                Vector3 newPos = transform.position + userCameraForward * movement;
-                transform.position = newPos;
-
-                // Update the position of the child spheres
-                // UpdateChildPositions();
-            }
-            
-        }
-        */
-
-        if (isGrabbing)
-        {
-            
-        }
-
-    }
-
-    
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
@@ -106,140 +23,127 @@ public class XROffsetGrabInteractable : XRGrabInteractable
         attachTransform.rotation = args.interactorObject.transform.rotation;
 
         base.OnSelectEntered(args);
-
-        if (args.interactorObject is XRDirectInteractor)
-        {
-            // initialPosition = transform.position;
-            // userCamera = Vrsys.Utility.FindRecursive(args.interactorObject.transform.parent.parent.gameObject, "Main Camera");
-            // userCameraForward = userCamera.transform.forward;
-
-            startPos = transform.position;
-            endPos = transform.position + transform.forward * maxDistance;
-
-            userController = args.interactorObject.transform.gameObject;
-            initialGrabPosition = transform.localPosition;
-            isGrabbing = true;
-            isAtMaxDistance = false;
-        }
     }
 
-    protected override void OnSelectExiting(SelectExitEventArgs args)
+    /*
+    // Public Variables
+
+    
+    public GameObject menuParent;
+    public List<GameObject> menuItems;
+    public float menuItemMaxScaleValue;
+    [HideInInspector]
+    public bool menuSelected;
+
+    [Space(20)]
+    [Header("Interaction Properties")]
+    public InputActionReference controllerTrigger;
+    public InputActionReference controllerPrimaryButton;
+    public Tooltip gripHoldTooltip;
+    public GameObject menuSpherePrefab;
+    public GameObject linePrefab;
+    public float pullDistance = 0.3f;
+    public float selectItemAnimDuration = 0.1f;
+
+
+
+    // Private Variables
+
+    [SerializeField] private float circleRadius = 0.08f;
+    private float currentPullDistance = 0f;
+    private TooltipHandler tooltipHandler;
+    private Vector3 interactionInitialPos;
+    private GameObject menuSphere;
+    private Transform controllerTransform;
+    private GameObject menuLine;
+    private LineRenderer lR;
+    private List<Vector3> menuItemFinalPositions = new List<Vector3>();
+    private float sphereMaxScale = 0.3f;
+    private GameObject currentlyHoveredMenuItem;
+    private string menuSpherePrefabLoc = "UtilityPrefabs/MenuSphere";
+    private float menuSphereInitialZ = 0f;
+
+
+    private void Update()
     {
-        if (args.interactorObject is XRDirectInteractor)
+        // Menu items animation
+        if (isSelected)
         {
-            // transform.position = initialPosition;
-            // UpdateChildPositions();
-
-            float displacement = Vector3.Distance(transform.position, startPos);
-            Debug.Log(displacement);
-            float normalizedDisplacement = displacement / Vector3.Distance(startPos, endPos);
-            Debug.Log(normalizedDisplacement);
-
-            grabDistance = Vector3.Distance(initialGrabPosition, transform.localPosition);
-            if (grabDistance > maxDistance * snapThreshold)
+            if (currentPullDistance < 1f)
             {
-                // Animate the parent sphere towards its maximum distance position
-                StartCoroutine(AnimateToMaxDistance());
-
-                // Animate the child spheres to their circle position
-                StartCoroutine(AnimateChildrenToCircle());
-            }
-            else
-            {
-                // Move the menu sphere and the child spheres back to their initial positions
-                transform.position = initialGrabPosition;
-                for (int i = 0; i < childSpheres.Count; i++)
+                if (menuItems.Count > 0 && !menuSelected)
                 {
-                    childSpheres[i].transform.localPosition = Vector3.zero;
+                    // Calculate the distance that the controller has moved 
+                    currentPullDistance = Vector3.Distance(controllerTransform.position, interactionInitialPos) / pullDistance;
+
+                    // Calculate the direction where the player is moving the controller
+                    float moveZ = controllerTransform.InverseTransformPoint(interactionInitialPos).z;
+
+                    // Move the menu items if pulling in
+                    if (moveZ > 0)
+                    {
+                        // Scaling the menu sphere based on the displacement
+                        float currentSphereScale = math.remap(0f, 1f, 0f, sphereMaxScale, currentPullDistance);
+                        menuSphere.transform.localScale = new Vector3(currentSphereScale, currentSphereScale, currentSphereScale);
+
+                        // Scaling the menu items based on the displacement
+                        float currentActionScale = math.remap(0f, 1f, 0f, menuItemMaxScaleValue, currentPullDistance);
+
+                        // Move the menu sphere
+                        float sphereZ = Mathf.Lerp(menuSphereInitialZ, menuSphereInitialZ + 0.15f, currentPullDistance);
+                        menuSphere.transform.position = new Vector3(menuSphere.transform.position.x, menuSphere.transform.position.y, sphereZ);
+
+                        // Move and scale the menu items
+                        for (int i = 0; i < menuItems.Count; i++)
+                        {
+                            menuItems[i].transform.localPosition = Vector3.Lerp(Vector3.zero, menuItemFinalPositions[i], currentPullDistance);
+                            menuItems[i].transform.localScale = new Vector3(currentActionScale, currentActionScale, currentActionScale);
+                        }
+                    }
                 }
-
-                isGrabbing = false;
             }
-
-        }
-
-        base.OnSelectExiting(args);
-    }
-
-    protected override void OnSelectExited(SelectExitEventArgs args)
-    {
-        base.OnSelectExited(args);
-
-        /*
-        if (args.interactorObject is XRDirectInteractor)
-        {
-            // transform.position = initialPosition;
-            // UpdateChildPositions();
-
-            Debug.Log(transform.localPosition);
-            grabDistance = Vector3.Distance(initialGrabPosition, transform.localPosition);
-            Debug.Log(grabDistance);
-            if (grabDistance > maxDistance * snapThreshold)
+            else if (currentPullDistance > 1f)
             {
-                // Animate the parent sphere towards its maximum distance position
-                StartCoroutine(AnimateToMaxDistance());
-
-                // Animate the child spheres to their circle position
-                StartCoroutine(AnimateChildrenToCircle());
-            }
-            else
-            {
-                // Move the menu sphere and the child spheres back to their initial positions
-                transform.position = initialGrabPosition;
-                for (int i = 0; i < childSpheres.Count; i++)
+                if (menuItems.Count > 0)
                 {
-                    childSpheres[i].transform.localPosition = Vector3.zero;
+                    // Enable item colliders
+                    foreach (GameObject item in menuItems)
+                    {
+                        item.GetComponent<MenuAction>().EnableCollider();
+                    }
                 }
-
-                isGrabbing = false;
             }
 
-        }
-        */
-    }
-
-    private IEnumerator AnimateToMaxDistance()
-    {
-        Vector3 currentPos = transform.localPosition;
-        Vector3 maxPos = initialGrabPosition + maxDistance * transform.forward;
-
-        float t = 0f;
-        while (t < 0.4f)        // 0.4f - Duration of remaining animation
-        {
-            transform.localPosition = Vector3.Lerp(currentPos, maxPos, t / 0.4f);
-            t += Time.deltaTime;
-            yield return null;
-        }
-
-        transform.localPosition = maxPos;
-        isGrabbing = false;
-    }
-
-    private IEnumerator AnimateChildrenToCircle()
-    {
-        for (int i = 0; i < childSpheres.Count; i++)
-        {
-            Vector3 startPos = childSpheres[i].transform.localPosition;
-            Vector3 endPos = CalculateChildPosition(i, childSpheres.Count, menuActionRadius);
-
-            float t = 0f;
-            while (t < 0.4f)     // 0.4 - Duration of remaining animation
+            // Select action on menu item
+            if (currentlyHoveredMenuItem != null && controllerPrimaryButton.action.WasPressedThisFrame())
             {
-                childSpheres[i].transform.localPosition = Vector3.Lerp(startPos, endPos, t / 0.4f);
-                t += Time.deltaTime;
-                yield return null;
+                menuSelected = true;
+
+                // Check whether there is a sub menu
+                var mE = currentlyHoveredMenuItem.GetComponent<MenuElement>();
+                if (mE.hasSubMenu)
+                {
+
+                }
             }
 
-            childSpheres[i].transform.localPosition = endPos;
-            isGrabbing = false;
+            // Set line end position to the controller's position
+            if (controllerTransform != null && lR != null)
+            {
+                lR.SetPosition(1, controllerTransform.position);
+            }
         }
     }
 
-    private Vector3 CalculateChildPosition(int childIndex, int totalChildren, float radius)
+    public void SetHoveredMenuItem(GameObject gO)
     {
-        float angle = (float)childIndex / (float)totalChildren * Mathf.PI * 2f;
-        float x = Mathf.Cos(angle) * radius;
-        float y = Mathf.Sin(angle) * radius;
-        return new Vector3(x, y, 0f);
+        currentlyHoveredMenuItem = gO;
     }
+
+    public void UnsetHoveredMenuItem()
+    {
+        currentlyHoveredMenuItem = null;
+    }
+
+    */
 }

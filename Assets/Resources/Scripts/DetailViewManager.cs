@@ -136,7 +136,7 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
         */
 
         // Hide the transparent sphere near the representation
-        GetComponent<MenuArea>().SetMenuSphereVisibility(false);
+        //GetComponent<MenuArea>().SetMenuSphereVisibility(false);
 
         // Unset focused objects
         var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();
