@@ -27,7 +27,6 @@ public class ImageGrab : MonoBehaviour
         var canvas = Instantiate(imageCanvasPrefab, transform.position, transform.rotation);
         clone = Instantiate(gameObject, canvas.transform, true);
         rect = clone.GetComponent<RectTransform>();
-
         StartGrabbing(controller);
 
         /*

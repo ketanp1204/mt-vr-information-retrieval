@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/VRSYS/Core/Scenes/SimpleNetworkScene.unity
     guid: d777019a65c9abd408fb38afcf76a360
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GropiusScene.unity
     guid: 6891967364efa5a4e96a5c34117821af
+  - enabled: 1
+    path: Assets/Scenes/GoetheModels.unity
+    guid: 9a3d05a008c84fe41bdbc8b150d3edeb
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 33f0ac34e15986d4397bc07bc7f591c8, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: b18b958e878cbf64aab95e53459dde69, type: 2}

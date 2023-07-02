@@ -9,6 +9,7 @@ using Photon.Pun;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEditor;
+using static GestureMenu;
 
 public class GestureMenu : XRSimpleInteractable
 {
@@ -18,6 +19,8 @@ public class GestureMenu : XRSimpleInteractable
         public GameObject parent;
         public List<GameObject> items;
         public float maxScaleValue;
+        [HideInInspector]
+        public bool isAtFinalPos;
         [HideInInspector]
         public bool isSelected;
         [HideInInspector]
@@ -42,7 +45,8 @@ public class GestureMenu : XRSimpleInteractable
 
 
     // Private variables
-    [SerializeField] private float circleRadius = 0.08f;
+    [SerializeField] private float menuItemCircleRadius = 0.08f;
+    [SerializeField] private float menuItemLinearSpacing = 0.1f;
     private float currentPullDistance = 0f;
     private TooltipHandler tooltipHandler;
     private Vector3 interactionInitialPos;
@@ -98,12 +102,17 @@ public class GestureMenu : XRSimpleInteractable
             }
             else if (currentPullDistance > 1f)
             {
-                if (currentMenuLayer.items.Count > 0 && !currentMenuLayer.isSelected)
+                if (!currentMenuLayer.isAtFinalPos)
                 {
+                    currentMenuLayer.isAtFinalPos = true;
+
                     // Enable item colliders
-                    foreach (GameObject item in currentMenuLayer.items)
+                    if (currentMenuLayer.items.Count > 0)
                     {
-                        item.GetComponent<MenuAction>().EnableCollider();
+                        foreach (GameObject item in currentMenuLayer.items)
+                        {
+                            item.GetComponent<MenuAction>().EnableCollider();
+                        }
                     }
                 }
             }
@@ -317,19 +326,33 @@ public class GestureMenu : XRSimpleInteractable
         // Calculate the end positions of the menu items
         for (int i = 0; i < menuLayer.items.Count; i++)
         {
-            Vector3 endPos = CalculateItemPosition(i, menuLayer.items.Count, circleRadius, menuLayer.parent.transform.localScale.x);
+            //Vector3 endPos = CalculateItemCircularPosition(i, menuLayer.items.Count, menuItemCircleRadius, menuLayer.parent.transform.localScale.x);
+            Vector3 endPos = CalculateItemLinearPosition(i, menuLayer, menuItemLinearSpacing);
             menuItemFinalPositions.Add(endPos);
         }
 
         currentMenuLayer = menuLayer;
     }
 
-    private Vector3 CalculateItemPosition(int childIndex, int totalChildren, float radius, float parentScaleValue)
+    private Vector3 CalculateItemCircularPosition(int childIndex, int totalChildren, float radius, float parentScaleValue)
     {
         float angle = (float)childIndex / (float)totalChildren * Mathf.PI * 2f;
         float x = Mathf.Cos(angle) * radius;
         float y = Mathf.Sin(angle) * radius;
         return new Vector3(x * (1f / parentScaleValue), y * (1f / parentScaleValue), pullDistance * (1f / parentScaleValue));
+    }
+
+    private Vector3 CalculateItemLinearPosition(int childIndex, Menu menuLayer, float spacing)
+    {
+        int totalChildren = menuLayer.items.Count;
+        Transform parent = menuLayer.parent.transform;
+        float parentScaleValue = menuLayer.parent.transform.localScale.x;
+
+        float totalLength = (totalChildren - 1) * spacing;
+        Vector3 startPosition = -0.5f * totalLength * parent.right;
+
+        Vector3 localPos = startPosition + (totalChildren - childIndex - 1) * spacing * parent.right;
+        return new Vector3(localPos.x * (1f / parentScaleValue), localPos.y * (1f / parentScaleValue), pullDistance * (1f / parentScaleValue));
     }
 
     private IEnumerator AnimateMenuItemToZero(int index, bool scaleToZero)
@@ -376,9 +399,11 @@ public class GestureMenu : XRSimpleInteractable
         if (currentMenuLayer.isSelected)
         {
 
+
         }
         else
         {
+            /*
             for (int i = 0; i < currentMenuLayer.items.Count; i++)
             {
                 StartCoroutine(AnimateMenuItemToZero(i, true));
@@ -393,6 +418,7 @@ public class GestureMenu : XRSimpleInteractable
             }
             Destroy(menuSphere);
             Destroy(currentMenuLayer.parent.GetComponent<FaceCamera>());
+            */
         }
     }
 }

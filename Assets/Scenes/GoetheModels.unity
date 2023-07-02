@@ -581,6 +581,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -1548,6 +1549,7 @@ MonoBehaviour:
     parent: {fileID: 1679495235}
     items: []
     maxScaleValue: 0.01
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -1756,6 +1758,11 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &146444774 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2650253393608863641, guid: 59893e4b859757243a98987ced9aaa2d, type: 3}
+  m_PrefabInstance: {fileID: 226650183}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &163264223
 GameObject:
   m_ObjectHideFlags: 0
@@ -2430,6 +2437,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -3416,6 +3424,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -4210,6 +4219,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -4452,6 +4462,7 @@ MonoBehaviour:
     - {fileID: 506485395}
     - {fileID: 457969560}
     maxScaleValue: 0.03
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   controllerTrigger: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f, type: 3}
@@ -4466,7 +4477,8 @@ MonoBehaviour:
   pullDistance: 0.2
   selectItemAnimDuration: 0.2
   imagePrefab: {fileID: 0}
-  circleRadius: 0.12
+  menuItemCircleRadius: 0.08
+  menuItemLinearSpacing: 0.1
   sphereMaxScale: 0.3
 --- !u!114 &467689919
 MonoBehaviour:
@@ -5091,6 +5103,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -5758,6 +5771,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -6307,6 +6321,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -6788,6 +6803,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -11217,6 +11233,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -11705,6 +11722,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -12437,6 +12455,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -14191,6 +14210,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -15617,6 +15637,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -16352,6 +16373,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -17778,6 +17800,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1846379016}
+  - {fileID: 0}
   sceneViewId: 4
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -17872,6 +17895,7 @@ MonoBehaviour:
     - {fileID: 585301689}
     - {fileID: 1059265875}
     maxScaleValue: 0.03
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   controllerTrigger: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f, type: 3}
@@ -17886,7 +17910,8 @@ MonoBehaviour:
   pullDistance: 0.15
   selectItemAnimDuration: 0.2
   imagePrefab: {fileID: 1171185016549018156, guid: 6a6f6a08eaaef7d4982e94e71e132bf4, type: 3}
-  circleRadius: 0.12
+  menuItemCircleRadius: 0.08
+  menuItemLinearSpacing: 0.1
   sphereMaxScale: 0.3
 --- !u!1 &1645720064
 GameObject:
@@ -19349,11 +19374,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1749200310}
   m_CullTransparentMesh: 1
---- !u!1 &1749412570 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2650253393608863641, guid: 59893e4b859757243a98987ced9aaa2d, type: 3}
-  m_PrefabInstance: {fileID: 226650183}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1749509745
 GameObject:
   m_ObjectHideFlags: 0
@@ -20272,7 +20292,7 @@ PrefabInstance:
     - target: {fileID: 5293336282590017743, guid: ac1c8682b170fa643a2d4342e4947bd3, type: 3}
       propertyPath: networkManager
       value: 
-      objectReference: {fileID: 1749412570}
+      objectReference: {fileID: 146444774}
     - target: {fileID: 5293336282590017743, guid: ac1c8682b170fa643a2d4342e4947bd3, type: 3}
       propertyPath: networkLobbyMenu
       value: 
@@ -20838,6 +20858,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -21110,6 +21131,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -21768,6 +21790,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -22050,6 +22073,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -22242,6 +22266,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -22630,6 +22655,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -24000,6 +24026,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -24326,6 +24353,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -26573,6 +26601,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -27625,6 +27654,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -27738,6 +27768,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -28355,6 +28386,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -28769,6 +28801,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
@@ -43294,6 +43327,7 @@ MonoBehaviour:
     parent: {fileID: 0}
     items: []
     maxScaleValue: 0
+    isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
   actionSelectTooltip:
