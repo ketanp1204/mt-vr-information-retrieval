@@ -19,6 +19,7 @@ public class MenuAction : MonoBehaviour
     // public UnityEvent actionHoverExitedEvents;
     [Space(20)]
     public Tooltip actionSelectTooltip;
+    public bool resizeOnHover = true;
     [Space(20)]
     [Range(0f, 0.3f)]
     public float scaleAnimDuration = 0.1f;
@@ -62,7 +63,7 @@ public class MenuAction : MonoBehaviour
             tooltipHandler.ShowTooltip(actionSelectTooltip);
 
             // Scale the sphere up
-            if (!isAnimating)
+            if (!isAnimating && resizeOnHover)
                 StartCoroutine(ScaleObject(true));
 
             // Set currently hovered item in GestureMenu
@@ -79,7 +80,7 @@ public class MenuAction : MonoBehaviour
             tooltipHandler.HideTooltip(actionSelectTooltip);
 
             // Scale the sphere down
-            if (!isAnimating)
+            if (!isAnimating && resizeOnHover)
                 StartCoroutine(ScaleObject(false));
 
             // Unset currently hovered item in GestureMenu

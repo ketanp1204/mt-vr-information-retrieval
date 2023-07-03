@@ -15,5 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/GoetheModels.unity
     guid: 9a3d05a008c84fe41bdbc8b150d3edeb
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: db0edbecec035a44f863827a5da1fd42, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 33f0ac34e15986d4397bc07bc7f591c8, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: b18b958e878cbf64aab95e53459dde69, type: 2}
