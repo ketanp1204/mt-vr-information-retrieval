@@ -18,6 +18,7 @@ public class MenuElement : MonoBehaviour
     public MenuArea.Menu menuLayer;
 
     [Space(20)]
+    public bool showSelectTooltip = true;
     public Tooltip actionSelectTooltip;
     
     [Space(20)]
@@ -59,8 +60,12 @@ public class MenuElement : MonoBehaviour
         if (other.GetComponent<XRDirectInteractor>() != null)
         {
             // Show select action tooltip
-            tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
-            tooltipHandler.ShowTooltip(actionSelectTooltip);
+            if (showSelectTooltip)
+            {
+                tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
+                tooltipHandler.ShowTooltip(actionSelectTooltip);
+            }
+            
 
             // Scale the sphere up
             if (!isAnimating && resizeOnHover)
@@ -76,8 +81,11 @@ public class MenuElement : MonoBehaviour
         if (other.GetComponent<XRDirectInteractor>() != null)
         {
             // Hide select action tooltip
-            tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
-            tooltipHandler.HideTooltip(actionSelectTooltip);
+            if (showSelectTooltip)
+            {
+                tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
+                tooltipHandler.HideTooltip(actionSelectTooltip);
+            }            
 
             // Scale the sphere down
             if (!isAnimating && resizeOnHover)

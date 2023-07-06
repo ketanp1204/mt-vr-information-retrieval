@@ -834,7 +834,7 @@ GameObject:
   - component: {fileID: 48686651}
   - component: {fileID: 48686652}
   m_Layer: 0
-  m_Name: MenuItems
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13903,6 +13903,7 @@ MonoBehaviour:
     isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
+  showSelectTooltip: 1
   actionSelectTooltip:
     tooltipName: Primary Select Right
     actionButtonReference: 0
@@ -14781,6 +14782,7 @@ MonoBehaviour:
     isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
+  showSelectTooltip: 1
   actionSelectTooltip:
     tooltipName: Primary Select Right
     actionButtonReference: 0
@@ -17052,7 +17054,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301467031}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.07, y: -0.20026541, z: -6.565}
+  m_LocalPosition: {x: -0.07, y: -0.20026541, z: -6.519}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17088,7 +17090,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.48, y: 0.67, z: 0.2}
+  m_Size: {x: 0.48, y: 0.67, z: 0.3}
   m_Center: {x: 0, y: 0.19, z: 0}
 --- !u!114 &1301467036
 MonoBehaviour:
@@ -17202,6 +17204,7 @@ MonoBehaviour:
   menuSpherePrefab: {fileID: 2023325194}
   linePrefab: {fileID: 6033866870466899385, guid: 4268efaa43e38a446bd6c65580b316ff, type: 3}
   imagePrefab: {fileID: 8646505489470382258, guid: 6a6f6a08eaaef7d4982e94e71e132bf4, type: 3}
+  imageContainer: {fileID: 1048000516}
   exitSphere: {fileID: 1364700702}
   pullDistance: 0.15
   selectItemAnimDuration: 0.2
@@ -17243,7 +17246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f10b83fb2363cb459854e007d4dc7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guideCanvasGroup: {fileID: 1562778147}
+  guideCanvas: {fileID: 1562778145}
   animDuration: 0.1
   isMenuOpen: 0
 --- !u!1 &1326234344
@@ -20203,7 +20206,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1562778146
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22570,6 +22573,7 @@ MonoBehaviour:
     isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
+  showSelectTooltip: 1
   actionSelectTooltip:
     tooltipName: Primary Select Right
     actionButtonReference: 0
@@ -25779,7 +25783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f10b83fb2363cb459854e007d4dc7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guideCanvasGroup: {fileID: 0}
+  guideCanvas: {fileID: 0}
   animDuration: 0.1
   isMenuOpen: 0
 --- !u!65 &1823131615
@@ -27104,6 +27108,7 @@ MonoBehaviour:
     isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
+  showSelectTooltip: 1
   actionSelectTooltip:
     tooltipName: Primary Select Right
     actionButtonReference: 0
@@ -29153,7 +29158,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2026103708
 RectTransform:
   m_ObjectHideFlags: 0

@@ -531,6 +531,7 @@ MonoBehaviour:
     isAtFinalPos: 0
     isSelected: 0
     parentSelectedItem: {fileID: 0}
+  showSelectTooltip: 0
   actionSelectTooltip:
     tooltipName: Primary Select Right
     actionButtonReference: 0
@@ -543,3 +544,5 @@ MonoBehaviour:
   scaleAnimDuration: 0.1
   itemScale: 0.03
   itemHoverScale: 0.05
+  isSelected: 0
+  isDisabled: 0
