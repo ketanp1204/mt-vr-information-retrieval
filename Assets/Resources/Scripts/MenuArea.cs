@@ -81,7 +81,7 @@ public class MenuArea : XRSimpleInteractable
         {
             if (currentPullDistance < 1f)
             {
-                if (currentMenuLayer.items.Count > 0 && !currentMenuLayer.isSelected)
+                if (currentMenuLayer.items.Count > 0)
                 {
                     // Calculate the distance that the controller has moved
                     currentPullDistance = Vector3.Distance(controllerTransform.position, interactionInitialPos) / pullDistance;
@@ -231,6 +231,11 @@ public class MenuArea : XRSimpleInteractable
         {
             menuOpen = true;
 
+            // Hide Interaction Guide
+            var iG = GetComponent<InteractionGuide>();
+            iG.HideGuide();
+            iG.isMenuOpen = true;
+
             // Disable Menu Area Collider
             DisableCollider();
 
@@ -270,78 +275,83 @@ public class MenuArea : XRSimpleInteractable
         }
     }
 
-    public void OnMenuItemSelect(MenuElement mA)
+    public void OnMenuItemSelect(MenuElement mE)
     {
-        Debug.Log(currentlyHoveredMenuItem.name);
-        currentMenuLayer.isSelected = true;
-
-        switch (currentlyHoveredMenuItem.name)
+        if (!mE.isSelected)
         {
-            case "Description":
+            mE.isSelected = true;
+            currentMenuLayer.isSelected = true;
 
-                SelectMenuAction(mA);
+            switch (currentlyHoveredMenuItem.name)
+            {
+                case "Description":
 
-                break;
+                    SelectMenuAction(mE);
 
-            case "Images":
+                    break;
 
-                mA.menuLayer.parentSelectedItem = currentlyHoveredMenuItem;
+                case "Images":
 
-                // Animate all items to the zero position
-                for (int i = 0; i < currentMenuLayer.items.Count; i++)
-                {
-                    if (currentlyHoveredMenuItem.Equals(currentMenuLayer.items[i]))
-                        StartCoroutine(AnimateMenuItemToZero(i, false));        // Not scaling the selected object to zero
-                    else
-                        StartCoroutine(AnimateMenuItemToZero(i, true));         // Scaling to zero
-                }
+                    mE.menuLayer.parentSelectedItem = currentlyHoveredMenuItem;
 
-                // Populate images
-                mA.menuLayer.items.Clear();
-                for (int i = 0; i < exhibitInfo.images.Length; i++)
-                {
-                    // Instantiate and rename image
-                    GameObject imageGO = Instantiate(imagePrefab, mA.menuLayer.parent.transform);
-                    imageGO.name = "Image" + (i + 1);
-                    GameObject child = imageGO.transform.Find("Image").gameObject;
+                    // Animate all items to the zero position
+                    for (int i = 0; i < currentMenuLayer.items.Count; i++)
+                    {
+                        if (currentlyHoveredMenuItem.Equals(currentMenuLayer.items[i]))
+                            StartCoroutine(AnimateMenuItemToZero(i, false));        // Not scaling the selected object to zero
+                        else
+                            StartCoroutine(AnimateMenuItemToZero(i, true));         // Scaling to zero
+                    }
 
-                    // Set and resize image
-                    RawImage rI = child.GetComponent<RawImage>();
-                    rI.texture = exhibitInfo.images[i].texture;
-                    rI.SetNativeSize();
+                    // Populate images
+                    mE.menuLayer.items.Clear();
+                    for (int i = 0; i < exhibitInfo.images.Length; i++)
+                    {
+                        // Instantiate and rename image
+                        GameObject imageGO = Instantiate(imagePrefab, mE.menuLayer.parent.transform);
+                        imageGO.name = "Image" + (i + 1);
+                        GameObject child = imageGO.transform.Find("Image").gameObject;
 
-                    // Resize box collider
-                    BoxCollider c = child.GetComponent<BoxCollider>();
-                    RectTransform rt = child.GetComponent<RectTransform>();
-                    c.size = new Vector3(rt.rect.width, rt.rect.height, c.size.z);
+                        // Set and resize image
+                        RawImage rI = child.GetComponent<RawImage>();
+                        rI.texture = exhibitInfo.images[i].texture;
+                        rI.SetNativeSize();
 
-                    MenuElement imageMA = imageGO.GetComponent<MenuElement>();
-                    imageMA.menuArea = this;
-                    imageMA.selectActions.AddListener(mA.DisableMenuItem);
-                    mA.menuLayer.items.Add(imageGO);
-                }
+                        // Resize box collider
+                        BoxCollider c = child.GetComponent<BoxCollider>();
+                        RectTransform rt = child.GetComponent<RectTransform>();
+                        c.size = new Vector3(rt.rect.width, rt.rect.height, c.size.z);
 
-                StartCoroutine(LoadNextMenuLayer(mA));
+                        MenuElement imageMA = imageGO.GetComponent<MenuElement>();
+                        imageMA.menuArea = this;
+                        var interactable = imageGO.GetComponent<XRGrabInteractable>();
+                        interactable.selectEntered.AddListener((SelectEnterEventArgs) => { OnMenuItemSelect(imageMA); });
+                        interactable.selectEntered.AddListener((SelectEnterEventArgs) => { mE.DisableMenuItem(); });
+                        mE.menuLayer.items.Add(imageGO);
+                    }
 
-                break;
+                    StartCoroutine(LoadNextMenuLayer(mE));
 
-            case "Audio":
+                    break;
 
-                SelectMenuAction(mA);
+                case "Audio":
 
-                break;
+                    SelectMenuAction(mE);
 
-            case "DetailView":
+                    break;
 
-                SelectMenuAction(mA);
+                case "DetailView":
 
-                break;
+                    SelectMenuAction(mE);
 
-            default:
+                    break;
 
-                SelectMenuAction(mA);
+                default:
+                    Debug.Log("image select");
+                    SelectMenuAction(mE);
 
-                break;
+                    break;
+            }
         }
     }
 
@@ -454,6 +464,7 @@ public class MenuArea : XRSimpleInteractable
         }
         Destroy(menuSphere);
         Destroy(currentMenuLayer.parent.GetComponent<FaceCamera>());
+        GetComponent<InteractionGuide>().isMenuOpen = false;
     }
 
     private IEnumerator AnimateExitSphereToZero()
@@ -501,7 +512,7 @@ public class MenuArea : XRSimpleInteractable
             if (currentMenuLayer.parentSelectedItem != null)
             {
                 currentMenuLayer.parentSelectedItem.transform.localScale = Vector3.zero;
-                currentMenuLayer.parentSelectedItem.GetComponent<MenuAction>().DisableCollider();
+                currentMenuLayer.parentSelectedItem.GetComponent<MenuElement>().DisableCollider();
             }
             Destroy(menuSphere);
             Destroy(currentMenuLayer.parent.GetComponent<FaceCamera>());

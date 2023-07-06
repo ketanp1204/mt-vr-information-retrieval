@@ -215,7 +215,6 @@ GameObject:
   - component: {fileID: 8646505489470382250}
   - component: {fileID: 8646505489470382252}
   - component: {fileID: 8646505489470382248}
-  - component: {fileID: 4758608662934986059}
   - component: {fileID: 6737744056833046133}
   m_Layer: 5
   m_Name: ImagePrefab
@@ -512,40 +511,6 @@ MonoBehaviour:
   m_MinimumScaleRatio: 0.25
   m_MaximumScaleRatio: 2
   m_ScaleMultiplier: 0.25
---- !u!114 &4758608662934986059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8646505489470382258}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffb8437eb73365f42a387d95a610a2d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gestureMenu: {fileID: 0}
-  menuLayer:
-    parent: {fileID: 0}
-    items: []
-    maxScaleValue: 0
-    isAtFinalPos: 0
-    isSelected: 0
-    parentSelectedItem: {fileID: 0}
-  actionSelectTooltip:
-    tooltipName: Primary Select Right
-    actionButtonReference: 0
-    tooltipText: Select Action
-    hand: 1
-  resizeOnHover: 0
-  scaleAnimDuration: 0.1
-  selectActions:
-    m_PersistentCalls:
-      m_Calls: []
-  menuActionScale: {x: 0, y: 0, z: 0}
-  menuActionHoverScale: {x: 0, y: 0, z: 0}
-  animDuration: 0.1
-  circleRadius: 2
 --- !u!114 &6737744056833046133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,13 +535,11 @@ MonoBehaviour:
     tooltipName: Primary Select Right
     actionButtonReference: 0
     tooltipText: Select Action
-    hand: 1
-  resizeOnHover: 0
-  scaleAnimDuration: 0.1
+    hand: 2
   selectActions:
     m_PersistentCalls:
       m_Calls: []
-  menuActionScale: {x: 0, y: 0, z: 0}
-  menuActionHoverScale: {x: 0, y: 0, z: 0}
-  animDuration: 0.1
-  circleRadius: 2
+  resizeOnHover: 0
+  scaleAnimDuration: 0.1
+  itemScale: 0.03
+  itemHoverScale: 0.05

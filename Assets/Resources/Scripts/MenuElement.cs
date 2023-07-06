@@ -33,6 +33,10 @@ public class MenuElement : MonoBehaviour
     [Range(0.01f, 0.05f)]
     public float itemHoverScale = 0.05f;
 
+    [HideInInspector]
+    public bool isSelected = false;
+    [HideInInspector]
+    public bool isDisabled = false;
 
 
     // Private Variables  
@@ -131,9 +135,14 @@ public class MenuElement : MonoBehaviour
 
     public void DisableMenuItem()
     {
-        StartCoroutine(ScaleMenuItemToZero());
+        if (!isDisabled)
+        {
+            isDisabled = true;
 
-        DisableCollider();
+            StartCoroutine(ScaleMenuItemToZero());
+
+            DisableCollider();
+        }
     }
 
     private IEnumerator ScaleMenuItemToZero()
