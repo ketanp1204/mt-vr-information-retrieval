@@ -3,7 +3,17 @@ guid: a14c968550cbdb142a8b932d8d22d2e7
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - m_InteractionManager: {instanceID: 0}
+  - m_CustomReticle: {instanceID: 0}
+  - exhibitInfo: {instanceID: 0}
+  - controllerTrigger: {instanceID: 0}
+  - controllerPrimaryButton: {instanceID: 0}
+  - menuSpherePrefab: {fileID: 1131916696738040467, guid: c7dd9624d4b1ae14ebf4752927b0bc78, type: 3}
+  - linePrefab: {fileID: 6033866870466899385, guid: 4268efaa43e38a446bd6c65580b316ff, type: 3}
+  - imagePrefab: {fileID: 8646505489470382258, guid: 6a6f6a08eaaef7d4982e94e71e132bf4, type: 3}
+  - imageContainer: {instanceID: 0}
+  - exitSphere: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -118,11 +118,6 @@ public class MenuElement : MonoBehaviour
         isAnimating = false;
     }
 
-    public void SelectMenuAction()
-    {
-        menuArea.OnMenuItemSelect(this);
-    }
-
     public void EnableCollider()
     {
         if (col == null)
@@ -151,6 +146,14 @@ public class MenuElement : MonoBehaviour
 
             DisableCollider();
         }
+    }
+
+    public void ResetParameters()
+    {
+        isSelected = false;
+        isDisabled = false;
+        menuLayer.isAtFinalPos = false;
+        menuLayer.parentSelectedItem = null;       
     }
 
     private IEnumerator ScaleMenuItemToZero()

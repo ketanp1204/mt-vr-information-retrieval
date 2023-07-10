@@ -24,7 +24,6 @@ public class SVDragHandler : MonoBehaviour //, IPointerExitHandler
     {
         while (isScrolling)
         {
-            Debug.Log("scroll");
             StartCoroutine(ScrollDown());
 
             yield return new WaitForSeconds(scrollTime);
