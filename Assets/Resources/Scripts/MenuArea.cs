@@ -39,6 +39,7 @@ public class MenuArea : XRSimpleInteractable
     public GameObject linePrefab;
     public GameObject imagePrefab;
     public GameObject imageContainer;
+    public GameObject descBoxPrefab;
     public GameObject exitSphere;
     public float pullDistance = 0.3f;
     public float menuItemAnimDuration = 0.1f;
@@ -269,7 +270,21 @@ public class MenuArea : XRSimpleInteractable
             {
                 case "Description":
 
-                    SelectMenuAction(menuElement);
+                    // SelectMenuAction(menuElement);
+
+                    // Animate all items to the zero position
+                    for (int i = 0; i < currentMenuLayer.items.Count; i++)
+                    {
+                       StartCoroutine(AnimateMenuItemToZero(i, true));         // Scaling to zero
+                    }
+
+                    // Create description box
+                    menuElement.menuLayer.items.Clear();
+                    GameObject descGO = Instantiate(descBoxPrefab, menuElement.transform.position, menuElement.transform.rotation);
+                    descGO.name = gameObject.name.Replace("MA_", "DB_");
+
+                    ExitMenu();
+
 
                     break;
 

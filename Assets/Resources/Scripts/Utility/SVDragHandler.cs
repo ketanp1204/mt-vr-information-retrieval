@@ -5,6 +5,53 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+public class SVDragHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+{
+    public InputActionProperty ScrollActionProperty;
+    private int pointerID = int.MinValue;
+
+    [SerializeField]
+    private Scrollbar VerticalScrollbar;
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (pointerID != int.MinValue) return;
+
+        // Store the pointer ID as reference
+        pointerID = eventData.pointerId;
+        ScrollActionProperty.action?.Enable();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        // Only if the stored pointer ID is the same as this one
+        if (eventData.pointerId != pointerID) return;
+
+        // Reset pointer ID reference
+        pointerID = int.MinValue;
+        ScrollActionProperty.action?.Disable();
+    }
+
+    public void Update()
+    {
+        if (pointerID == int.MinValue)
+            return;
+
+        if (ScrollActionProperty.action is null or { enabled: false })
+            return;
+
+        var scrollDelta = ScrollActionProperty.action.ReadValue<Vector2>();
+        AddScrollDelta(VerticalScrollbar, scrollDelta.y);
+    }
+
+    private void AddScrollDelta(Scrollbar bar, float value)
+    {
+        if (bar == null) return;
+        bar.value = Mathf.Clamp(bar.value + value, 0f, 1f);
+    }
+}
+
+/*
 public class SVDragHandler : MonoBehaviour //, IPointerExitHandler
 {
     public float scrollTime = 3f;
@@ -49,152 +96,5 @@ public class SVDragHandler : MonoBehaviour //, IPointerExitHandler
             yield return null;
         }
     }
-
-    /*
-    public InputActionReference uiClickAction;
-
-    public static GameObject itemBeingDragged;
-
-    public static bool isCustomerDragged;
-
-    public Transform customerScrollRect;
-    public Transform dragParent;
-
-    public float holdTime;
-    public float maxScrollVelocityInDrag;
-
-    private Transform startParent;
-
-    private ScrollRect scrollRect;
-
-    private float timer;
-
-    private bool isHolding;
-    private bool canDrag;
-    private bool isPointerOverGameObject;
-
-    private CanvasGroup canvasGroup;
-
-    private Vector3 startPos;
-
-    public Transform StartParent
-    {
-        get { return startParent; }
-    }
-
-    public Vector3 StartPos
-    {
-        get { return startPos; }
-    }
-
-    void Awake()
-    {
-        canvasGroup = GetComponent<CanvasGroup>();
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-        timer = holdTime;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (uiClickAction.action.WasPressedThisFrame())
-        {
-            if (EventSystem.current.currentSelectedGameObject == gameObject)
-            {
-                //Debug.Log("Mouse Button Down");
-                scrollRect = customerScrollRect.GetComponent<ScrollRect>();
-                isPointerOverGameObject = true;
-                isHolding = true;
-                StartCoroutine(Holding());
-            }
-        }
-
-        if (uiClickAction.action.WasReleasedThisFrame())
-        {
-            if (EventSystem.current.currentSelectedGameObject == gameObject)
-            {
-                //Debug.Log("Mouse Button Up");
-                isHolding = false;
-
-                if (canDrag)
-                {
-                    itemBeingDragged = null;
-                    isCustomerDragged = false;
-                    if (transform.parent == dragParent)
-                    {
-                        canvasGroup.blocksRaycasts = true;
-                        transform.SetParent(startParent);
-                        transform.localPosition = startPos;
-                    }
-                    canDrag = false;
-                    timer = holdTime;
-                }
-            }
-        }
-
-        if (uiClickAction.action.WasPerformedThisFrame())
-        {
-            if (EventSystem.current.currentSelectedGameObject == gameObject)
-            {
-                if (canDrag)
-                {
-                    //Debug.Log("Mouse Button");
-                    transform.position = Input.mousePosition;
-                }
-                else
-                {
-                    if (!isPointerOverGameObject)
-                    {
-                        isHolding = false;
-                    }
-                }
-            }
-        }
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        isPointerOverGameObject = false;
-    }
-
-    IEnumerator Holding()
-    {
-        while (timer > 0)
-        {
-            if (scrollRect.velocity.x >= maxScrollVelocityInDrag)
-            {
-                isHolding = false;
-            }
-
-            if (!isHolding)
-            {
-                timer = holdTime;
-                yield break;
-            }
-
-            timer -= Time.deltaTime;
-            //Debug.Log("Time : " + timer);
-            yield return null;
-        }
-
-        isCustomerDragged = true;
-        itemBeingDragged = gameObject;
-        startPos = transform.localPosition;
-        startParent = transform.parent;
-        canDrag = true;
-        canvasGroup.blocksRaycasts = false;
-        transform.SetParent(dragParent);
-    }
-
-    public void Reset()
-    {
-        isHolding = false;
-        canDrag = false;
-        isPointerOverGameObject = false;
-    }
-    */
 }
+*/
