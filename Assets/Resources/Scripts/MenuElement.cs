@@ -57,6 +57,7 @@ public class MenuElement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Check for controller
         if (other.GetComponent<XRDirectInteractor>() != null)
         {
             // Show select action tooltip
@@ -70,14 +71,12 @@ public class MenuElement : MonoBehaviour
             // Scale the sphere up
             if (!isAnimating && resizeOnHover)
                 StartCoroutine(ScaleObject(true));
-
-            // Set currently hovered item in GestureMenu
-            menuArea.SetHoveredMenuItem(gameObject);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        // Check for controller
         if (other.GetComponent<XRDirectInteractor>() != null)
         {
             // Hide select action tooltip
@@ -90,9 +89,6 @@ public class MenuElement : MonoBehaviour
             // Scale the sphere down
             if (!isAnimating && resizeOnHover)
                 StartCoroutine(ScaleObject(false));
-
-            // Unset currently hovered item in GestureMenu
-            menuArea.UnsetHoveredMenuItem();
         }
     }
 

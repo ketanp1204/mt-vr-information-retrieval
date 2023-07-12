@@ -247,6 +247,45 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "XR Interaction",
+            "id": "59b69192-4bc3-4069-a13a-27c24e2ac5ed",
+            "actions": [
+                {
+                    "name": "Remove",
+                    "type": "Button",
+                    "id": "649046b4-8e7c-476b-9bbb-8c84d930b9c2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8a1dbc8e-0313-495c-94c5-d7a4dfb4d9ce",
+                    "path": "<XRController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XR",
+                    "action": "Remove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9bdb2301-e35b-4669-87ba-4f6abe7b5dd9",
+                    "path": "<XRController>{LeftHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XR",
+                    "action": "Remove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

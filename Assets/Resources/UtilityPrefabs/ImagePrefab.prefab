@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 8646505489470382250}
   - component: {fileID: 8646505489470382252}
   - component: {fileID: 8646505489470382248}
-  - component: {fileID: 6737744056833046133}
+  - component: {fileID: 4928397060798961218}
   m_Layer: 5
   m_Name: ImagePrefab
   m_TagString: Untagged
@@ -241,7 +241,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.2756958, y: -0.41830444}
+  m_AnchoredPosition: {x: -0.2756958, y: -0.41833496}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8646505489470382254
@@ -511,7 +511,7 @@ MonoBehaviour:
   m_MinimumScaleRatio: 0.25
   m_MaximumScaleRatio: 2
   m_ScaleMultiplier: 0.25
---- !u!114 &6737744056833046133
+--- !u!114 &4928397060798961218
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -520,29 +520,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8646505489470382258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85da4b206753cf7468c791d9652db80d, type: 3}
+  m_Script: {fileID: 11500000, guid: ceeada33e76f9e843a42f21945c4b26d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuArea: {fileID: 0}
-  menuLayer:
-    parent: {fileID: 0}
-    items: []
-    maxScaleValue: 0
-    isAtFinalPos: 0
-    isSelected: 0
-    parentSelectedItem: {fileID: 0}
-  showSelectTooltip: 0
-  actionSelectTooltip:
-    tooltipName: Primary Select Right
-    actionButtonReference: 0
-    tooltipText: Select Action
+  removable: 0
+  showRemoveTooltip: 1
+  removeObjectTooltip:
+    tooltipName: Secondary Action
+    actionButtonReference: 1
+    tooltipText: Remove
     hand: 2
-  selectActions:
-    m_PersistentCalls:
-      m_Calls: []
-  resizeOnHover: 0
-  scaleAnimDuration: 0.1
-  itemScale: 0.03
-  itemHoverScale: 0.05
-  isSelected: 0
-  isDisabled: 0
+  secondaryButton: {fileID: -3668144855904488849, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}

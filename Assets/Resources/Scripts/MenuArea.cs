@@ -11,6 +11,7 @@ using UnityEngine.UI;
 using UnityEditor;
 using System;
 using Unity.XR.CoreUtils;
+using TMPro;
 
 public class MenuArea : XRSimpleInteractable
 {
@@ -63,7 +64,6 @@ public class MenuArea : XRSimpleInteractable
     private List<Vector3> menuItemFinalPositions = new List<Vector3>();
     [SerializeField] private float sphereMaxScale = 0.3f;
     [SerializeField] private float exitSphereScale = 0.03f;
-    private GameObject menuElement;
     private Menu currentMenuLayer = new();
     private string menuSpherePrefabLoc = "UtilityPrefabs/MenuSphere";
     private bool firstLayerOpen = false;
@@ -142,7 +142,7 @@ public class MenuArea : XRSimpleInteractable
                     {
                         foreach (GameObject item in currentMenuLayer.items)
                         {
-                            item.GetComponent<MenuElement>().EnableCollider();
+                            item.GetComponent<Collider>().enabled = true;
                         }
                     }
                 }
@@ -154,16 +154,6 @@ public class MenuArea : XRSimpleInteractable
                 lR.SetPosition(1, controllerTransform.position);
             }
         }
-    }
-
-    public void SetHoveredMenuItem(GameObject gO)
-    {
-        menuElement = gO;
-    }
-
-    public void UnsetHoveredMenuItem()
-    {
-        menuElement = null;
     }
 
     public void SetMenuSphereVisibility(bool visible)
@@ -283,8 +273,14 @@ public class MenuArea : XRSimpleInteractable
                     GameObject descGO = Instantiate(descBoxPrefab, menuElement.transform.position, menuElement.transform.rotation);
                     descGO.name = gameObject.name.Replace("MA_", "DB_");
 
-                    ExitMenu();
+                    // Set display text
+                    TextMeshProUGUI displayText = descGO.transform.Find("Panel/Scroll View/Viewport/Text").GetComponent<TextMeshProUGUI>();
+                    displayText.text = exhibitInfo.description.text;
 
+                    // Set removable via button
+                    descGO.GetComponent<RemoveObject>().SetRemovableStatus(true);
+
+                    ExitMenu();
 
                     break;
 
@@ -320,12 +316,15 @@ public class MenuArea : XRSimpleInteractable
                         RectTransform rt = child.GetComponent<RectTransform>();
                         c.size = new Vector3(rt.rect.width, rt.rect.height, c.size.z);
 
-                        MenuElement imageMA = imageGO.GetComponent<MenuElement>();
-                        imageMA.menuArea = this;
+                        // MenuElement imageMA = imageGO.GetComponent<MenuElement>();
+                        // imageMA.menuArea = this;
                         var interactable = imageGO.GetComponent<XRGrabInteractable>();
+
+                        // Remove from menu list after dragging
                         interactable.selectEntered.AddListener((SelectEnterEventArgs) => { menuElement.menuLayer.items.Remove(imageGO); });
-                        //interactable.selectEntered.AddListener((SelectEnterEventArgs) => { OnMenuItemSelect(imageMA); });
-                        // interactable.selectEntered.AddListener((SelectEnterEventArgs) => { mE.DisableMenuItem(); });
+
+                        // Set removable via button
+                        interactable.selectEntered.AddListener((SelectEnterEventArgs) => { imageGO.GetComponent<RemoveObject>().SetRemovableStatus(true); });
                         menuElement.menuLayer.items.Add(imageGO);
                     }
 
@@ -466,14 +465,17 @@ public class MenuArea : XRSimpleInteractable
             currentMenuLayer.items[index].transform.localScale = endScale;
 
         // Disable collider
-        currentMenuLayer.items[index].GetComponent<MenuElement>().DisableCollider();
+        currentMenuLayer.items[index].GetComponent<Collider>().enabled = false;
     }
 
     public void ExitMenu()
     {
         for (int i = 0; i < currentMenuLayer.items.Count; i++)
         {
-            currentMenuLayer.items[i].GetComponent<MenuElement>().ResetParameters();
+            if (currentMenuLayer.items[i].GetComponent<MenuElement>() != null)
+            {
+                currentMenuLayer.items[i].GetComponent<MenuElement>().ResetParameters();
+            }
             StartCoroutine(AnimateMenuItemToZero(i, true));
         }
 

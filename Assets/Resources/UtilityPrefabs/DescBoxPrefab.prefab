@@ -361,12 +361,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The mask of Medusa, also called Gorgo, is made of white plaster. The artist
-    is unknown. The first evidence of this work was around 460 BC in Athens. Goethe
-    admired the original in the Palazzo Rondanini in Rome. Later this came to the
-    Glyptothek in Munich. J. W. von Goethe asked the crown prince Ludwig I. for a
-    cast. As a result, a plaster mask from Rome was sent to him. You can see the
-    mask of Medusa in the Yellow Room of Goethe's residence.
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -699,8 +694,7 @@ GameObject:
   - component: {fileID: 5374260822921144408}
   - component: {fileID: 5374260822921144409}
   - component: {fileID: 5374260822921144415}
-  - component: {fileID: 5374260822921144411}
-  - component: {fileID: 6983673265337400966}
+  - component: {fileID: 3887403290466466195}
   m_Layer: 5
   m_Name: DescBoxPrefab
   m_TagString: Untagged
@@ -726,8 +720,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.2756958, y: -0.41830444}
-  m_SizeDelta: {x: 15, y: 10}
+  m_AnchoredPosition: {x: -0.2756958, y: -0.41833496}
+  m_SizeDelta: {x: 24, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5374260822921144413
 Canvas:
@@ -772,7 +766,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &5374260822921144387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -959,8 +953,7 @@ MonoBehaviour:
   m_RetainTransformParent: 0
   m_AttachPointCompatibilityMode: 0
   m_StartingSingleGrabTransformers: []
-  m_StartingMultipleGrabTransformers:
-  - {fileID: 5374260822921144411}
+  m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
 --- !u!65 &5374260822921144415
 BoxCollider:
@@ -971,11 +964,11 @@ BoxCollider:
   m_GameObject: {fileID: 5374260822921144385}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8, y: 8, z: 1}
+  m_Size: {x: 24, y: 15, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5374260822921144411
+--- !u!114 &3887403290466466195
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -984,49 +977,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5374260822921144385}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0a1302d0d134fa8a2a5b3bf4aec3c20, type: 3}
+  m_Script: {fileID: 11500000, guid: ceeada33e76f9e843a42f21945c4b26d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PermittedDisplacementAxes: 7
-  m_ConstrainedAxisDisplacementMode: 1
-  m_TwoHandedRotationMode: 1
-  m_AllowTwoHandedScaling: 1
-  m_ThresholdMoveRatioForScale: 0.1
-  m_ClampScaling: 1
-  m_MinimumScaleRatio: 0.25
-  m_MaximumScaleRatio: 2
-  m_ScaleMultiplier: 0.25
---- !u!114 &6983673265337400966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5374260822921144385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85da4b206753cf7468c791d9652db80d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  menuArea: {fileID: 0}
-  menuLayer:
-    parent: {fileID: 0}
-    items: []
-    maxScaleValue: 0
-    isAtFinalPos: 0
-    parentSelectedItem: {fileID: 0}
-  showSelectTooltip: 0
-  actionSelectTooltip:
-    tooltipName: Primary Select Right
-    actionButtonReference: 0
-    tooltipText: Select Action
+  showRemoveTooltip: 1
+  removeObjectTooltip:
+    tooltipName: Secondary Action
+    actionButtonReference: 1
+    tooltipText: Remove
     hand: 2
-  selectActions:
-    m_PersistentCalls:
-      m_Calls: []
-  resizeOnHover: 0
-  scaleAnimDuration: 0.1
-  itemScale: 0.03
-  itemHoverScale: 0.05
-  isSelected: 0
-  isDisabled: 0
+  secondaryButton: {fileID: -3668144855904488849, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}
