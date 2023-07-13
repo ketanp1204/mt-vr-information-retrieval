@@ -324,6 +324,9 @@ public class MenuArea : XRSimpleInteractable
                         // Remove from menu list after dragging
                         interactable.selectEntered.AddListener((SelectEnterEventArgs) => { menuElement.menuLayer.items.Remove(imageGO); });
 
+                        // Remove face camera after dragging
+                        interactable.selectEntered.AddListener((SelectEnterEventArgs) => { Destroy(imageGO.GetComponent<FaceCamera>()); });
+
                         // Set removable via button
                         interactable.selectEntered.AddListener((SelectEnterEventArgs) => { imageGO.GetComponent<RemoveObject>().SetRemovableStatus(true); });
 
