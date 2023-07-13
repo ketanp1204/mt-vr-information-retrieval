@@ -11,10 +11,6 @@ public class ContentSphere : MonoBehaviourPunCallbacks, IPunInstantiateMagicCall
     // Public Variables
     public MeshRenderer rend;
 
-    public void SetVisibility(bool visible)
-    {
-        photonView.RPC(nameof(SetVisibilityRPC), RpcTarget.All, visible);
-    }
 
     public void DestroySphere()
     {
@@ -27,21 +23,14 @@ public class ContentSphere : MonoBehaviourPunCallbacks, IPunInstantiateMagicCall
         Destroy(gameObject);
     }
 
-    [PunRPC]
-    void SetVisibilityRPC(bool visible)
-    {
-        if (!photonView.IsMine)
-        {
-            rend.enabled = visible;
-        }
-    }
-
     public void OnPhotonInstantiate(PhotonMessageInfo info)
     {
+        /*
         // Hide the sphere for others
-        if (!photonView.IsMine)
+         if (!photonView.IsMine)
         {
             rend.enabled = false;
         }
+        */
     }
 }

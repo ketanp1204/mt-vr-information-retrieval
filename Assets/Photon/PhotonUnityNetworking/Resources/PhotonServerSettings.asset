@@ -40,6 +40,7 @@ MonoBehaviour:
   - ClickRpc
   - DestroyRpc
   - DestroySpaceship
+  - DestroySphereRPC
   - Fire
   - HeresWhy
   - LateJoinDVAUpdate
@@ -54,6 +55,7 @@ MonoBehaviour:
   - SetVisibilityRPC
   - UpdateDVASpawnLoc
   - UpdateInterestGroup
+  - SetSharableRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

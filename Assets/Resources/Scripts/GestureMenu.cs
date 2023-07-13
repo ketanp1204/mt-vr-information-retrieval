@@ -238,12 +238,6 @@ public class GestureMenu : XRSimpleInteractable
         currentlyHoveredMenuItem = null;
     }
 
-    public void SetMenuSphereVisibility(bool visible)
-    {
-        if (menuSphere != null)
-            menuSphere.GetComponentInParent<ContentSphere>().SetVisibility(visible);
-    }
-
     protected override void OnHoverEntered(HoverEnterEventArgs args)
     {
         base.OnHoverEntered(args);
@@ -286,9 +280,6 @@ public class GestureMenu : XRSimpleInteractable
         menuSphere.transform.localScale = Vector3.zero;
         menuSphereInitialZ = menuSphere.transform.localPosition.z;
         menuSphere.AddComponent<FaceCamera>();
-
-        // Show the menu sphere
-        SetMenuSphereVisibility(true);
 
         // Create a line from the center of interaction to the controller's current position
         menuLine = GameObject.Instantiate(linePrefab, menuSphere.transform);

@@ -59,7 +59,7 @@ public class MenuArea : XRSimpleInteractable
     private float currentPullDistance = 0f;
     private TooltipHandler tooltipHandler;
     private Vector3 interactionInitialPos;
-    private GameObject menuSphere;
+    private GameObject contentSphere;
     private Transform controllerTransform;
     private GameObject menuLine;
     private LineRenderer lR;
@@ -98,13 +98,13 @@ public class MenuArea : XRSimpleInteractable
                         // Animation for the first menu layer
                         if (!firstLayerOpen)
                         {
-                            // Scaling the menu sphere
+                            // Scaling the content sphere
                             float currentSphereScale = math.remap(0f, 1f, 0f, sphereMaxScale, currentPullDistance);
-                            menuSphere.transform.localScale = Vector3.one * currentSphereScale;
+                            contentSphere.transform.localScale = Vector3.one * currentSphereScale;
 
-                            // Moving the menu sphere
+                            // Moving the content sphere
                             float sphereZ = Mathf.Lerp(menuSphereInitialZ, menuSphereInitialZ + pullDistance, currentPullDistance);
-                            menuSphere.transform.localPosition = new Vector3(menuSphere.transform.localPosition.x, menuSphere.transform.localPosition.y, sphereZ);
+                            contentSphere.transform.localPosition = new Vector3(contentSphere.transform.localPosition.x, contentSphere.transform.localPosition.y, sphereZ);
 
                             // Scaling the exit sphere
                             exitSphere.transform.localScale = Vector3.one * exitSphereScale;
@@ -219,14 +219,14 @@ public class MenuArea : XRSimpleInteractable
             Quaternion rotation = Quaternion.LookRotation(directionToHead, Vector3.up);
 
             // Create a sphere at center of interaction
-            menuSphere = PhotonNetwork.Instantiate(menuSpherePrefabLoc, interactionInitialPos, rotation);
-            menuSphere = menuSphere.transform.Find("Sphere").gameObject;
-            menuSphere.transform.localScale = Vector3.zero;
-            menuSphereInitialZ = menuSphere.transform.localPosition.z;
+            contentSphere = PhotonNetwork.Instantiate(menuSpherePrefabLoc, interactionInitialPos, rotation);
+            contentSphere = contentSphere.transform.Find("Sphere").gameObject;
+            contentSphere.transform.localScale = Vector3.zero;
+            menuSphereInitialZ = contentSphere.transform.localPosition.z;
             // menuSphere.AddComponent<FaceCamera>();
 
             // Create a line from the center of interaction to the controller's current position
-            menuLine = GameObject.Instantiate(linePrefab, menuSphere.transform);
+            menuLine = GameObject.Instantiate(linePrefab, contentSphere.transform);
             lR = menuLine.GetComponent<LineRenderer>();
             lR.positionCount = 2;
             lR.SetPosition(0, interactionInitialPos);
@@ -234,7 +234,7 @@ public class MenuArea : XRSimpleInteractable
             UpdateCurrentMenuItems(menuLayer);
 
             // Menu facing in the direction of the user
-            menuSphere.transform.parent.localRotation = rotation;
+            contentSphere.transform.parent.localRotation = rotation;
             menuLayer.parent.transform.localRotation = rotation;
             exitSphere.AddComponent<FaceCamera>();
 
@@ -253,17 +253,18 @@ public class MenuArea : XRSimpleInteractable
             {
                 case "Description":
 
-                    // SelectMenuAction(menuElement);
-
                     // Animate all items to the zero position
                     for (int i = 0; i < currentMenuLayer.items.Count; i++)
                     {
                        StartCoroutine(AnimateMenuItemToZero(i, true));         // Scaling to zero
                     }
 
+                    // Share content sphere as object info
+                    object[] info = new object[] { contentSphere.transform.parent.GetComponent<PhotonView>().ViewID };
+
                     // Create description box
                     menuElement.menuLayer.items.Clear();
-                    GameObject descGO = PhotonNetwork.Instantiate(descBoxPrefabLoc, menuElement.transform.position, menuElement.transform.rotation);
+                    GameObject descGO = PhotonNetwork.Instantiate(descBoxPrefabLoc, menuElement.transform.position, menuElement.transform.rotation, data: info);
                     descGO.name = gameObject.name.Replace("MA_", "DB_");
 
                     // Set display text
@@ -272,6 +273,9 @@ public class MenuArea : XRSimpleInteractable
 
                     // Set removable via button
                     descGO.GetComponent<RemoveObject>().SetRemovableStatus(true);
+
+                    // Set as sharable
+                    descGO.GetComponent<ContentSharing>().SetSharable(true);
 
                     ExitMenu();
 
@@ -294,8 +298,11 @@ public class MenuArea : XRSimpleInteractable
                     menuElement.menuLayer.items.Clear();
                     for (int i = 0; i < exhibitInfo.images.Length; i++)
                     {
+                        // Share content sphere as object info
+                        object[] sphereInfo = new object[] { contentSphere.transform.parent.GetComponent<PhotonView>().ViewID };
+
                         // Instantiate and rename image
-                        GameObject imageGO = PhotonNetwork.Instantiate(imagePrefabLoc, menuElement.menuLayer.parent.transform.position, menuElement.menuLayer.parent.transform.rotation);
+                        GameObject imageGO = PhotonNetwork.Instantiate(imagePrefabLoc, menuElement.menuLayer.parent.transform.position, menuElement.menuLayer.parent.transform.rotation, data: sphereInfo);
                         imageGO.transform.SetParent(menuElement.menuLayer.parent.transform);
                         imageGO.name = "Image" + (i + 1);
                         GameObject child = imageGO.transform.Find("Image").gameObject;
@@ -319,6 +326,10 @@ public class MenuArea : XRSimpleInteractable
 
                         // Set removable via button
                         interactable.selectEntered.AddListener((SelectEnterEventArgs) => { imageGO.GetComponent<RemoveObject>().SetRemovableStatus(true); });
+
+                        // Set as sharable
+                        interactable.selectEntered.AddListener((SelectEnterEventArgs) => { imageGO.GetComponent<ContentSharing>().SetSharable(true); });
+
                         menuElement.menuLayer.items.Add(imageGO);
                     }
 
@@ -513,9 +524,9 @@ public class MenuArea : XRSimpleInteractable
             Destroy(child.gameObject);
         }
 
-        // Destroy menu sphere
-        menuSphere = menuSphere.transform.parent.gameObject;
-        menuSphere.GetComponent<ContentSphere>().DestroySphere();
+        // Destroy content sphere
+        contentSphere = contentSphere.transform.parent.gameObject;
+        contentSphere.GetComponent<ContentSphere>().DestroySphere();
 
         // Re-enable collider for new menu interaction
         EnableCollider();

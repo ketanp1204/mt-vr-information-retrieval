@@ -14436,8 +14436,10 @@ MonoBehaviour:
   menuSpherePrefab: {fileID: 2023325194}
   linePrefab: {fileID: 6033866870466899385, guid: 4268efaa43e38a446bd6c65580b316ff, type: 3}
   imagePrefab: {fileID: 8646505489470382258, guid: 6a6f6a08eaaef7d4982e94e71e132bf4, type: 3}
-  imageContainer: {fileID: 1048000516}
   descBoxPrefab: {fileID: 5374260822921144385, guid: eee4c0ac545a4c642aa9fc3df0c9f59e, type: 3}
+  imagePrefabLoc: UtilityPrefabs/ImagePrefab
+  descBoxPrefabLoc: UtilityPrefabs/DescBoxPrefab
+  imageContainer: {fileID: 1048000516}
   exitSphere: {fileID: 1364700702}
   pullDistance: 0.15
   menuItemAnimDuration: 0.2
@@ -22454,8 +22456,10 @@ MonoBehaviour:
   menuSpherePrefab: {fileID: 2023325194}
   linePrefab: {fileID: 6033866870466899385, guid: 4268efaa43e38a446bd6c65580b316ff, type: 3}
   imagePrefab: {fileID: 8646505489470382258, guid: 6a6f6a08eaaef7d4982e94e71e132bf4, type: 3}
-  imageContainer: {fileID: 1410889086}
   descBoxPrefab: {fileID: 0}
+  imagePrefabLoc: UtilityPrefabs/ImagePrefab
+  descBoxPrefabLoc: UtilityPrefabs/DescBoxPrefab
+  imageContainer: {fileID: 1410889086}
   exitSphere: {fileID: 1996867216}
   pullDistance: 0.15
   menuItemAnimDuration: 0.2

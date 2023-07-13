@@ -697,6 +697,7 @@ GameObject:
   - component: {fileID: 3887403290466466195}
   - component: {fileID: 3086628531197291806}
   - component: {fileID: 7847600341979234577}
+  - component: {fileID: 8752135120430475314}
   m_Layer: 8
   m_Name: DescBoxPrefab
   m_TagString: Untagged
@@ -1029,3 +1030,16 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 1
   m_UseLocal: 0
+--- !u!114 &8752135120430475314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374260822921144385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12d8fb07de2b1df4fb8072d8b7a989ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visibilityObject: {fileID: 4835067324000975531}
