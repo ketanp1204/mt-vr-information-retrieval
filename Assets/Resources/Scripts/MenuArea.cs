@@ -39,8 +39,10 @@ public class MenuArea : XRSimpleInteractable
     public GameObject menuSpherePrefab;
     public GameObject linePrefab;
     public GameObject imagePrefab;
-    public GameObject imageContainer;
     public GameObject descBoxPrefab;
+    public string imagePrefabLoc = "UtilityPrefabs/ImagePrefab";
+    public string descBoxPrefabLoc = "UtilityPrefabs/DescBoxPrefab";
+    public GameObject imageContainer;    
     public GameObject exitSphere;
     public float pullDistance = 0.3f;
     public float menuItemAnimDuration = 0.1f;
@@ -270,7 +272,7 @@ public class MenuArea : XRSimpleInteractable
 
                     // Create description box
                     menuElement.menuLayer.items.Clear();
-                    GameObject descGO = Instantiate(descBoxPrefab, menuElement.transform.position, menuElement.transform.rotation);
+                    GameObject descGO = PhotonNetwork.Instantiate(descBoxPrefabLoc, menuElement.transform.position, menuElement.transform.rotation);
                     descGO.name = gameObject.name.Replace("MA_", "DB_");
 
                     // Set display text
@@ -302,7 +304,8 @@ public class MenuArea : XRSimpleInteractable
                     for (int i = 0; i < exhibitInfo.images.Length; i++)
                     {
                         // Instantiate and rename image
-                        GameObject imageGO = Instantiate(imagePrefab, menuElement.menuLayer.parent.transform);
+                        GameObject imageGO = PhotonNetwork.Instantiate(imagePrefabLoc, menuElement.menuLayer.parent.transform.position, menuElement.menuLayer.parent.transform.rotation);
+                        imageGO.transform.SetParent(menuElement.menuLayer.parent.transform);
                         imageGO.name = "Image" + (i + 1);
                         GameObject child = imageGO.transform.Find("Image").gameObject;
 
@@ -520,6 +523,7 @@ public class MenuArea : XRSimpleInteractable
         }
 
         // Destroy menu sphere
+        menuSphere = menuSphere.transform.parent.gameObject;
         Destroy(menuSphere);
 
         // Re-enable collider for new menu interaction

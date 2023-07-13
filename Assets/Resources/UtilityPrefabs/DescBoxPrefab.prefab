@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4835067323541280752}
   - component: {fileID: 4835067323541280753}
   - component: {fileID: 4835067323541280766}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Scrollbar Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4835067325070820195}
   m_HandleRect: {fileID: 4835067325070820192}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 4835067323788409604}
   - component: {fileID: 4835067323788409605}
   - component: {fileID: 4835067323788409602}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 4835067324000975530}
   - component: {fileID: 4835067324000975532}
   - component: {fileID: 4835067324000975533}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 4835067324285413253}
   - component: {fileID: 4835067324285413255}
   - component: {fileID: 4835067324285413252}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -443,7 +443,7 @@ GameObject:
   - component: {fileID: 4835067324825179481}
   - component: {fileID: 4835067324825179462}
   - component: {fileID: 4835067324825179463}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Scroll View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -574,7 +574,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4835067324919378315}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -613,7 +613,7 @@ GameObject:
   - component: {fileID: 4835067325070820192}
   - component: {fileID: 4835067325070820194}
   - component: {fileID: 4835067325070820195}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -695,7 +695,9 @@ GameObject:
   - component: {fileID: 5374260822921144409}
   - component: {fileID: 5374260822921144415}
   - component: {fileID: 3887403290466466195}
-  m_Layer: 5
+  - component: {fileID: 3086628531197291806}
+  - component: {fileID: 7847600341979234577}
+  m_Layer: 8
   m_Name: DescBoxPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -838,7 +840,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 4294967295
+    m_Bits: 2
   m_DistanceCalculationMode: 1
   m_SelectMode: 1
   m_CustomReticle: {fileID: 0}
@@ -980,6 +982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceeada33e76f9e843a42f21945c4b26d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  removable: 0
   showRemoveTooltip: 1
   removeObjectTooltip:
     tooltipName: Secondary Action
@@ -987,3 +990,42 @@ MonoBehaviour:
     tooltipText: Remove
     hand: 2
   secondaryButton: {fileID: -3668144855904488849, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}
+--- !u!114 &3086628531197291806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374260822921144385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 7847600341979234577}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &7847600341979234577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374260822921144385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 1
+  m_UseLocal: 0

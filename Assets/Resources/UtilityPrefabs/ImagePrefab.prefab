@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1718955100301445863}
   - component: {fileID: 1718955100301445862}
   - component: {fileID: 6941176009834108014}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 1718955100608484917}
   - component: {fileID: 1718955100608484916}
   - component: {fileID: 1718955100608484907}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,10 @@ GameObject:
   - component: {fileID: 8646505489470382252}
   - component: {fileID: 8646505489470382248}
   - component: {fileID: 4928397060798961218}
-  m_Layer: 5
+  - component: {fileID: 2835696459901656012}
+  - component: {fileID: 5095173648004338951}
+  - component: {fileID: 4701613136979134146}
+  m_Layer: 8
   m_Name: ImagePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +362,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 4294967295
+    m_Bits: 2
   m_DistanceCalculationMode: 1
   m_SelectMode: 1
   m_CustomReticle: {fileID: 0}
@@ -508,8 +511,8 @@ MonoBehaviour:
   m_AllowTwoHandedScaling: 1
   m_ThresholdMoveRatioForScale: 0.1
   m_ClampScaling: 1
-  m_MinimumScaleRatio: 0.25
-  m_MaximumScaleRatio: 2
+  m_MinimumScaleRatio: 0.5
+  m_MaximumScaleRatio: 5.5
   m_ScaleMultiplier: 0.25
 --- !u!114 &4928397060798961218
 MonoBehaviour:
@@ -531,3 +534,54 @@ MonoBehaviour:
     tooltipText: Remove
     hand: 2
   secondaryButton: {fileID: -3668144855904488849, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}
+--- !u!114 &2835696459901656012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8646505489470382258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 5095173648004338951}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &5095173648004338951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8646505489470382258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 1
+  m_UseLocal: 0
+--- !u!114 &4701613136979134146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8646505489470382258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12d8fb07de2b1df4fb8072d8b7a989ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
