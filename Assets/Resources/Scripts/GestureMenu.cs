@@ -241,7 +241,7 @@ public class GestureMenu : XRSimpleInteractable
     public void SetMenuSphereVisibility(bool visible)
     {
         if (menuSphere != null)
-            menuSphere.GetComponentInParent<GrabSphere>().SetVisibility(visible);
+            menuSphere.GetComponentInParent<ContentSphere>().SetVisibility(visible);
     }
 
     protected override void OnHoverEntered(HoverEnterEventArgs args)

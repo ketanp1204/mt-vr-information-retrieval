@@ -7,27 +7,13 @@ public class ContentSharing : MonoBehaviourPunCallbacks, IPunInstantiateMagicCal
 {
     public GameObject visibilityObject;
 
+    
     public void OnPhotonInstantiate(PhotonMessageInfo info)
     {
-        if (photonView.IsMine)
+        // Hide the content for others
+        if (!photonView.IsMine)
         {
-            Debug.Log("mine");
+            visibilityObject.SetActive(false);
         }
-        else
-        {
-            Debug.Log("not mine");
-        }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

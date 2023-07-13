@@ -158,12 +158,6 @@ public class MenuArea : XRSimpleInteractable
         }
     }
 
-    public void SetMenuSphereVisibility(bool visible)
-    {
-        if (menuSphere != null)
-            menuSphere.GetComponentInParent<GrabSphere>().SetVisibility(visible);
-    }
-
     protected override void OnHoverEntered(HoverEnterEventArgs args)
     {
         base.OnHoverEntered(args);
@@ -230,9 +224,6 @@ public class MenuArea : XRSimpleInteractable
             menuSphere.transform.localScale = Vector3.zero;
             menuSphereInitialZ = menuSphere.transform.localPosition.z;
             // menuSphere.AddComponent<FaceCamera>();
-
-            // Show the menu sphere over the network
-            SetMenuSphereVisibility(true);
 
             // Create a line from the center of interaction to the controller's current position
             menuLine = GameObject.Instantiate(linePrefab, menuSphere.transform);
@@ -524,7 +515,7 @@ public class MenuArea : XRSimpleInteractable
 
         // Destroy menu sphere
         menuSphere = menuSphere.transform.parent.gameObject;
-        Destroy(menuSphere);
+        menuSphere.GetComponent<ContentSphere>().DestroySphere();
 
         // Re-enable collider for new menu interaction
         EnableCollider();
