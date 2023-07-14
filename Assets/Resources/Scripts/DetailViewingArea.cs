@@ -19,7 +19,7 @@ public class DetailViewingArea : MonoBehaviourPunCallbacks, IPunInstantiateMagic
         int viewID = (int)data[2];
 
         objName = "DV_" + objName;
-        foreach (Transform child in GetComponentsInChildren<Transform>())
+        foreach (Transform child in GetComponentsInChildren<Transform>(true))
         {
             if (child.gameObject.name == objName)
             {

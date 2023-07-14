@@ -106,7 +106,12 @@ namespace Vrsys
         {
             GameObject userInstance = PhotonNetwork.Instantiate(userPrefabPath, Vector3.zero, Quaternion.identity, 0);
             if(applyPositionToAddedUserPrefabs)
+            {
                 userInstance.transform.position = gameObject.transform.position;
+                userInstance.transform.rotation = gameObject.transform.rotation;
+            }
+                
+
 
             userGameobjects.Add(userInstance);
         }

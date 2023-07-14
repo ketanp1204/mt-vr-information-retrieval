@@ -80,9 +80,6 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
         // Show the representation of the player in the original location and pass the viewID of this photonView
         userDisplayGO = userGO.GetComponent<NetworkUser>().CreateUserDisplay();
 
-        // Show the transparent sphere near the representation
-        // GetComponent<MenuArea>().SetMenuSphereVisibility(true);
-
         // Update parameters in displayGO
         userDisplayGO.GetComponent<UserDisplay>().SetDVAIndexWrapper(index);
         userDisplayGO.GetComponent<UserDisplay>().SetDVManagerWrapper(photonView.ViewID);
@@ -94,10 +91,11 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
                                       player.localPosition.z + detailViewingAreaSpawnLoc.z);
 
         // Get focus objects
-        foreach (Transform child in dVAObject.GetComponentsInChildren<Transform>())
+        foreach (Transform child in dVAObject.GetComponentsInChildren<Transform>(true))
         {
             if (child.gameObject.name.Contains(itemName))
             {
+                child.gameObject.SetActive(true);
                 focusObjects.Add(child.gameObject);
             }
         }

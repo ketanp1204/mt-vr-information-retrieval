@@ -38,16 +38,14 @@ public class MenuArea : XRSimpleInteractable
     public Tooltip gripHoldTooltip;
     public GameObject menuSpherePrefab;
     public GameObject linePrefab;
-    public GameObject imagePrefab;
-    public GameObject descBoxPrefab;
     public string imagePrefabLoc = "UtilityPrefabs/ImagePrefab";
     public string descBoxPrefabLoc = "UtilityPrefabs/DescBoxPrefab";
+    public string audioPrefabLoc = "UtilityPrefabs/AudioPrefab";
     public GameObject imageContainer;    
     public GameObject exitSphere;
     public float pullDistance = 0.3f;
     public float menuItemAnimDuration = 0.1f;
     public float nextLayerLoadDelay = 0.05f;
-
 
 
     // Private variables
@@ -70,7 +68,7 @@ public class MenuArea : XRSimpleInteractable
     private string menuSpherePrefabLoc = "UtilityPrefabs/MenuSphere";
     private bool firstLayerOpen = false;
     private float menuSphereInitialZ = 0f;
-
+    private object[] contentSphereInfo;
 
     private void Start()
     {
@@ -249,6 +247,9 @@ public class MenuArea : XRSimpleInteractable
         {
             menuElement.isSelected = true;
 
+            // Share content sphere as object info
+            contentSphereInfo = new object[] { contentSphere.transform.parent.GetComponent<PhotonView>().ViewID };
+            
             switch (menuElement.name)
             {
                 case "Description":
@@ -259,12 +260,9 @@ public class MenuArea : XRSimpleInteractable
                        StartCoroutine(AnimateMenuItemToZero(i, true));         // Scaling to zero
                     }
 
-                    // Share content sphere as object info
-                    object[] info = new object[] { contentSphere.transform.parent.GetComponent<PhotonView>().ViewID };
-
                     // Create description box
                     menuElement.menuLayer.items.Clear();
-                    GameObject descGO = PhotonNetwork.Instantiate(descBoxPrefabLoc, menuElement.transform.position, menuElement.transform.rotation, data: info);
+                    GameObject descGO = PhotonNetwork.Instantiate(descBoxPrefabLoc, menuElement.transform.position, menuElement.transform.rotation, data: contentSphereInfo);
                     descGO.name = gameObject.name.Replace("MA_", "DB_");
 
                     // Set display text
@@ -298,11 +296,9 @@ public class MenuArea : XRSimpleInteractable
                     menuElement.menuLayer.items.Clear();
                     for (int i = 0; i < exhibitInfo.images.Length; i++)
                     {
-                        // Share content sphere as object info
-                        object[] sphereInfo = new object[] { contentSphere.transform.parent.GetComponent<PhotonView>().ViewID };
-
                         // Instantiate and rename image
-                        GameObject imageGO = PhotonNetwork.Instantiate(imagePrefabLoc, menuElement.menuLayer.parent.transform.position, menuElement.menuLayer.parent.transform.rotation, data: sphereInfo);
+                        GameObject imageGO = PhotonNetwork.Instantiate(imagePrefabLoc, menuElement.menuLayer.parent.transform.position,
+                            menuElement.menuLayer.parent.transform.rotation, data: contentSphereInfo);
                         imageGO.transform.SetParent(menuElement.menuLayer.parent.transform);
                         imageGO.name = "Image" + (i + 1);
                         GameObject child = imageGO.transform.Find("Image").gameObject;
@@ -342,7 +338,29 @@ public class MenuArea : XRSimpleInteractable
 
                 case "Audio":
 
-                    SelectMenuAction(menuElement);
+                    // Animate all items to the zero position
+                    for (int i = 0; i < currentMenuLayer.items.Count; i++)
+                    {
+                        StartCoroutine(AnimateMenuItemToZero(i, true));         // Scaling to zero
+                    }
+
+                    // Create audio box
+                    menuElement.menuLayer.items.Clear();
+                    GameObject audioGO = PhotonNetwork.Instantiate(audioPrefabLoc, menuElement.transform.position, menuElement.transform.rotation, data: contentSphereInfo);
+                    audioGO.name = gameObject.name.Replace("MA_", "AB_");
+
+                    // Set audio clip
+                    AudioSource audioSource = audioGO.transform.Find("Panel/Audio Source").GetComponent<AudioSource>();
+                    audioSource.clip = exhibitInfo.audioGuide;
+                    audioSource.Play();
+
+                    // Set removable via button
+                    audioGO.GetComponent<RemoveObject>().SetRemovableStatus(true);
+
+                    // Set as sharable
+                    audioGO.GetComponent<ContentSharing>().SetSharable(true);
+
+                    ExitMenu();
 
                     break;
 
@@ -435,9 +453,10 @@ public class MenuArea : XRSimpleInteractable
         float parentScaleValue = menuLayer.parent.transform.localScale.x;
 
         float totalLength = (totalChildren - 1) * spacing;
-        Vector3 startPosition = -0.5f * totalLength * parent.right;
+        Vector3 startPosition = -0.5f * totalLength * parent.InverseTransformDirection(parent.right);
 
-        Vector3 localPos = startPosition + (totalChildren - childIndex - 1) * spacing * parent.right;
+
+        Vector3 localPos = startPosition + (totalChildren - childIndex - 1) * spacing * parent.InverseTransformDirection(parent.right);
         return new Vector3(localPos.x * (1f / parentScaleValue), localPos.y * (1f / parentScaleValue), pullDistance * (1f / parentScaleValue));
     }
 
