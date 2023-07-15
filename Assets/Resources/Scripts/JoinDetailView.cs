@@ -48,5 +48,18 @@ public class JoinDetailView : XRBaseInteractable
         otherPlayerTransform.position = new Vector3(otherPlayerTransform.localPosition.x + detailViewAreaTransform.localPosition.x,
                                                     otherPlayerTransform.localPosition.y + detailViewAreaTransform.localPosition.y,
                                                     otherPlayerTransform.localPosition.z + detailViewAreaTransform.localPosition.z);
+
+        // Get focus objects
+        List<GameObject> focusObjects = new List<GameObject>();
+
+        foreach (Transform child in uD.dVManager.detailViewingAreaGOs[0].GetComponentsInChildren<Transform>(true))
+        {
+            child.gameObject.SetActive(true);
+            focusObjects.Add(child.gameObject);
+        }
+
+        // Set focus objects
+        var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();
+        focus.SetFocused(focusObjects);
     }
 }

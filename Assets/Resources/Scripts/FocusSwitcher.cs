@@ -77,7 +77,7 @@ public class FocusSwitcher : MonoBehaviour
         if (obj == null)
             return;
 
-        foreach (Transform child in obj.GetComponentsInChildren<Transform>())
+        foreach (Transform child in obj.GetComponentsInChildren<Transform>(true))
         {
             child.gameObject.layer = layer;
         }
