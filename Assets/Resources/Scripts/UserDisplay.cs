@@ -13,6 +13,8 @@ public class UserDisplay : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallba
     public int interestGroup;
     public int dVAIndex;
     public DetailViewManager dVManager;
+    public string dVAObject;
+    public string focusObject;
 
     /* Private Variables */
     private TMP_Text nameTag;
@@ -50,6 +52,16 @@ public class UserDisplay : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallba
         photonView.RPC(nameof(SetDVManager), RpcTarget.AllBuffered, id);
     }
 
+    public void SetDVAObject(string name)
+    {
+        photonView.RPC(nameof(SetDVAObjectRPC), RpcTarget.All, name);
+    }
+
+    public void SetFocusObject(string name)
+    {
+        photonView.RPC(nameof(SetFocusObjectRPC), RpcTarget.All, name);
+    }
+
     [PunRPC]
     void SetUsername(string name)
     {
@@ -79,5 +91,17 @@ public class UserDisplay : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallba
     {
         viewID = id;
         dVManager = PhotonView.Find(viewID).GetComponent<DetailViewManager>();
+    }
+
+    [PunRPC]
+    void SetDVAObjectRPC(string name)
+    {
+        dVAObject = name;
+    }
+
+    [PunRPC]
+    void SetFocusObjectRPC(string name)
+    {
+        focusObject = name;
     }
 }

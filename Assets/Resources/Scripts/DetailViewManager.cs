@@ -81,8 +81,11 @@ public class DetailViewManager : MonoBehaviourPunCallbacks
         userDisplayGO = userGO.GetComponent<NetworkUser>().CreateUserDisplay();
 
         // Update parameters in displayGO
-        userDisplayGO.GetComponent<UserDisplay>().SetDVAIndexWrapper(index);
-        userDisplayGO.GetComponent<UserDisplay>().SetDVManagerWrapper(photonView.ViewID);
+        var uD = userDisplayGO.GetComponent<UserDisplay>();
+        uD.SetDVAIndexWrapper(index);
+        uD.SetDVManagerWrapper(photonView.ViewID);
+        uD.SetDVAObject(dVAObject.name);
+        uD.SetFocusObject(itemName);
 
         // Teleport the player to the detail viewing area
         var player = Vrsys.NetworkUser.localNetworkUser.gameObject.transform;
