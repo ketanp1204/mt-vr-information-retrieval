@@ -817,6 +817,8 @@ MonoBehaviour:
   interestGroup: 0
   dVAIndex: 0
   dVManager: {fileID: 0}
+  dVAObject: 
+  focusObject: 
 --- !u!1 &5280540736945934436
 GameObject:
   m_ObjectHideFlags: 0
