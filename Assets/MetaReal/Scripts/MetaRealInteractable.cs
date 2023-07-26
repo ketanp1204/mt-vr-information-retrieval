@@ -8,7 +8,6 @@ public class MetaRealInteractable : XRBaseInteractable
     public MetaRealObject mro;
     public bool hideCollider = true;
 
-    private DetailView detailView;
 
     protected override void Awake()
     {
@@ -37,21 +36,13 @@ public class MetaRealInteractable : XRBaseInteractable
 
     protected override void OnHoverEntered(HoverEnterEventArgs args)
     {
-        if (!mro.isInDetailView)
-        {
-            mro.ShowLabel();
-        }
-        
         //XRBaseInteractor interactor = (XRBaseInteractor)args.interactorObject;
         //MetaRealController controller = GetCreativeControllerFromInteractor(interactor);
     }
 
     protected override void OnHoverExited(HoverExitEventArgs args)
     {
-        if(!mro.isInDetailView)
-        {
-            mro.HideLabel();
-        }
+
     }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -66,12 +57,6 @@ public class MetaRealInteractable : XRBaseInteractable
             mro.ShowDetailViewOption();
             mro.ShowBasicInfo();
 
-            detailView = mro.detailViewOptionGO.GetComponent<DetailView>();
-
-            if (detailView != null)
-            {
-                // detailView.StartHoldAction();
-            }
         }
         
     }

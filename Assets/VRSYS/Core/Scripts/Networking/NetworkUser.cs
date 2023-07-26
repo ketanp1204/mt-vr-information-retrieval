@@ -278,7 +278,7 @@ namespace Vrsys
                                                             transform.rotation); 
             }
 
-            userDisplayGO.GetComponent<UserDisplay>().SetUsernameWrapper(photonView.Owner.NickName);
+            userDisplayGO.GetComponent<UserDisplay>().SetUsername(photonView.Owner.NickName);
 
             return userDisplayGO;
         }

@@ -12,7 +12,6 @@ public class UserDisplay : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallba
     public Vector3 detailViewingAreaPosition;
     public int interestGroup;
     public int dVAIndex;
-    public DetailViewManager dVManager;
     public string dVAObject;
     public string focusObject;
 
@@ -27,29 +26,14 @@ public class UserDisplay : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallba
         nameTag = GetComponentInChildren<TMP_Text>();
     }
 
-    public void SetUsernameWrapper(string name)
+    public void SetUsername(string name)
     {
-        photonView.RPC(nameof(SetUsername), RpcTarget.AllBuffered, name);
+        photonView.RPC(nameof(SetUsernameRPC), RpcTarget.All, name);
     }
 
-    public void SetDVAPositionWrapper(Vector3 t)
+    public void SetDVAIndex(int index)
     {
-        photonView.RPC(nameof(SetDVAPosition), RpcTarget.AllBuffered, t);
-    }
-
-    public void SetInterestGroup(int iG)
-    {
-        photonView.RPC(nameof(UpdateInterestGroup), RpcTarget.AllBuffered, iG);
-    }
-
-    public void SetDVAIndexWrapper(int index)
-    {
-        photonView.RPC(nameof(SetDVAIndex), RpcTarget.AllBuffered, index);
-    }
-
-    public void SetDVManagerWrapper(int id)
-    {
-        photonView.RPC(nameof(SetDVManager), RpcTarget.AllBuffered, id);
+        photonView.RPC(nameof(SetDVAIndexRPC), RpcTarget.All, index);
     }
 
     public void SetDVAObject(string name)
@@ -63,34 +47,15 @@ public class UserDisplay : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallba
     }
 
     [PunRPC]
-    void SetUsername(string name)
+    void SetUsernameRPC(string name)
     {
         nameTag.text = name;
     }
 
     [PunRPC]
-    void SetDVAPosition(Vector3 t)
-    {
-        detailViewingAreaPosition = t;
-    }
-
-    [PunRPC]
-    void UpdateInterestGroup(int iG)
-    {
-        interestGroup = iG;
-    }
-
-    [PunRPC]
-    void SetDVAIndex(int index)
+    void SetDVAIndexRPC(int index)
     {
         dVAIndex = index;
-    }
-
-    [PunRPC]
-    void SetDVManager(int id)
-    {
-        viewID = id;
-        dVManager = PhotonView.Find(viewID).GetComponent<DetailViewManager>();
     }
 
     [PunRPC]

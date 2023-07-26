@@ -32,16 +32,8 @@ public class JoinDetailView : XRBaseInteractable
         otherPlayer.GetComponent<NetworkUser>().CreateUserDisplay();
 
         // Get the transform for the detail viewing area
-        DetailViewManager dVManager = uD.dVManager;
+        DVManager dVManager = FindObjectOfType<DVManager>();
         detailViewAreaTransform = dVManager.GetDVATransform(uD.dVAIndex);
-        // detailViewAreaTransform.localPosition = transform.root.GetComponent<UserDisplay>().detailViewingAreaPosition;
-
-        /*
-        // Update the interest group that the other player subscribes to
-        int iG = transform.root.GetComponent<UserDisplay>().interestGroup;
-        otherPlayer.GetComponent<NetworkUser>().UpdateInterestGroup(iG);
-        otherPlayer.GetComponent<NetworkUser>().DebugInterestGroup();
-        */
 
         // Teleport the other player to the detail view area
         Transform otherPlayerTransform = otherPlayer.transform;

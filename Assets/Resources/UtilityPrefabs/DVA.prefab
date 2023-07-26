@@ -26040,7 +26040,7 @@ GameObject:
   - component: {fileID: 5190011401528596021}
   - component: {fileID: 5050414822428729473}
   - component: {fileID: 787310814121996301}
-  - component: {fileID: 1144227361776723097}
+  - component: {fileID: 8135590972378363387}
   m_Layer: 0
   m_Name: DVA
   m_TagString: Untagged
@@ -26087,6 +26087,18 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 787310814121996301}
+  - {fileID: 189454704117689348}
+  - {fileID: 3025761504038516558}
+  - {fileID: 6556162434255358019}
+  - {fileID: 3739238273923325523}
+  - {fileID: 3219763163201154895}
+  - {fileID: 2335441932119455983}
+  - {fileID: 3883630878355506319}
+  - {fileID: 8529473360035694512}
+  - {fileID: 7819239074095730593}
+  - {fileID: 8026889337496398777}
+  - {fileID: 3121694360213799878}
+  - {fileID: 7758405308294287466}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -26106,7 +26118,7 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 0
---- !u!114 &1144227361776723097
+--- !u!114 &8135590972378363387
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -26115,7 +26127,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5190011401528596022}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e17cc9627358c2f418aab4a3a398f992, type: 3}
+  m_Script: {fileID: 11500000, guid: 3defaaa0b21e39a41974831fdabb0d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5190011401772447606

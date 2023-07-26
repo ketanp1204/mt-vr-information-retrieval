@@ -1,12 +1,12 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.Events;
 
-public class DetailViewingArea : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
+public class DVAObject : MonoBehaviour, IPunInstantiateMagicCallback
 {
+    private string dVName;
 
     public void OnPhotonInstantiate(PhotonMessageInfo info)
     {
@@ -15,16 +15,15 @@ public class DetailViewingArea : MonoBehaviourPunCallbacks, IPunInstantiateMagic
         int index = (int)data[0];
         gameObject.name = "DVA" + index.ToString();
 
-        string objName = (string)data[1];
-        int viewID = (int)data[2];
+        string itemName = (string)data[1];
 
-        objName = "DV_" + objName;
+        dVName = "DV_" + itemName;
         foreach (Transform child in GetComponentsInChildren<Transform>(true))
         {
-            if (child.gameObject.name == objName)
+            if (child.gameObject.name == dVName)
             {
                 child.transform.Find("ExitSphere").GetComponent<XRSimpleInteractable>().selectEntered.AddListener(
-                                    (SelectEnterEventArgs args) => { PhotonView.Find(viewID).GetComponent<DetailViewManager>().HandleSelect(); });
+                                    (SelectEnterEventArgs args) => { FindObjectOfType<DVManager>().ExitDVA(index); });
             }
         }
     }

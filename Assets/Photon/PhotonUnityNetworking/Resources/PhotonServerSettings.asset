@@ -58,6 +58,15 @@ MonoBehaviour:
   - SetSharableRPC
   - SetDVAObjectRPC
   - SetFocusObjectRPC
+  - UpdateDVASpawnLocRPC
+  - SetDVAIndexRPC
+  - SetDVManagerRPC
+  - SetUsernameRPC
+  - UpdateDVALocRPC
+  - AddDVAObjectRPC
+  - AddDVALocRPC
+  - RemoveDVALocRPC
+  - RemoveDVAObjectRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
