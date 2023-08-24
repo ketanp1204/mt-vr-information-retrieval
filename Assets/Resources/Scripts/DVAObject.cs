@@ -24,10 +24,7 @@ public class DVAObject : MonoBehaviour, IPunInstantiateMagicCallback
         {
             if (child.gameObject.name == dVName)
             {
-                GameObject exitSphere = GameObject.Instantiate(exitSpherePrefab, child.transform);
-
-                exitSphere.GetComponent<XRSimpleInteractable>().selectEntered.AddListener(
-                                    (SelectEnterEventArgs args) => { FindObjectOfType<DVManager>().ExitDVA(index); });
+                
 
                 // child.transform.Find("ExitSphere").GetComponent<XRSimpleInteractable>().selectEntered.AddListener(
                                     //(SelectEnterEventArgs args) => { FindObjectOfType<DVManager>().ExitDVA(index); });

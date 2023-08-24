@@ -34,7 +34,8 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
-  - AddDVAObject
+  - AddDVALocRPC
+  - AddDVAObjectRPC
   - CantHearYou
   - ChangeColour
   - ClickRpc
@@ -44,30 +45,19 @@ MonoBehaviour:
   - Fire
   - HeresWhy
   - LateJoinDVAUpdate
-  - RespawnSpaceship
-  - SetColor
-  - SetDVAIndex
-  - SetDVAPosition
-  - SetDVManager
-  - SetName
-  - SetPlatformId
-  - SetUsername
-  - SetVisibilityRPC
-  - UpdateDVASpawnLoc
-  - UpdateInterestGroup
-  - SetSharableRPC
-  - SetDVAObjectRPC
-  - SetFocusObjectRPC
-  - UpdateDVASpawnLocRPC
-  - SetDVAIndexRPC
-  - SetDVManagerRPC
-  - SetUsernameRPC
-  - UpdateDVALocRPC
-  - AddDVAObjectRPC
-  - AddDVALocRPC
   - RemoveDVALocRPC
   - RemoveDVAObjectRPC
+  - RespawnSpaceship
+  - SetColor
+  - SetDVAIndexRPC
+  - SetDVAObjectRPC
   - SetItemNameRPC
+  - SetName
+  - SetPlatformId
+  - SetSharableRPC
+  - SetUsernameRPC
+  - SetVisibilityRPC
+  - UpdateDVASpawnLocRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

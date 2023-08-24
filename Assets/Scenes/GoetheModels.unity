@@ -3540,6 +3540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909fbd030663bd349b186d68334851d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  exitSpherePrefab: {fileID: 3904194131359040373, guid: 06e6dc24d8b319042a9893b7ce3e53c1, type: 3}
   dVAObjects: []
   dVALocs: []
 --- !u!4 &216356830

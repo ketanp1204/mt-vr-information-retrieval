@@ -45,14 +45,14 @@ public class JoinDetailView : XRBaseInteractable
         // Get focus objects
         List<GameObject> focusObjects = new List<GameObject>();
 
+        string dVName = "DV_" + uD.itemName;
+
         foreach (Transform child in GameObject.Find(uD.dVAObject).GetComponentsInChildren<Transform>(true))
         {
             if (child.gameObject.name.Contains(uD.itemName))
             {
                 child.gameObject.SetActive(true);
                 focusObjects.Add(child.gameObject);
-
-                string dVName = "DV_" + uD.itemName;
 
                 if (child.gameObject.name == dVName)
                 {

@@ -3,14 +3,19 @@ using Photon.Realtime;
 using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 using Vrsys;
 
 public class DVManager : MonoBehaviourPunCallbacks
-{    
+{
+    // Public Variables
+    public GameObject exitSpherePrefab;
 
-    /* Private Variables */
+
+    // Private Variables //
     [SerializeField] private List<GameObject> dVAObjects;
     [SerializeField] private List<Vector3> dVALocs;
     private List<GameObject> focusObjects;
@@ -47,6 +52,7 @@ public class DVManager : MonoBehaviourPunCallbacks
 
     public void JoiningUserExitDVA(int index)
     {
+        Debug.Log("JUserExit");
         StartCoroutine(JUserExitDVA(index));
     }
 
@@ -93,6 +99,8 @@ public class DVManager : MonoBehaviourPunCallbacks
                                       player.localPosition.y + dVASpawnLoc.y,
                                       player.localPosition.z + dVASpawnLoc.z);
 
+        string dVName = "DV_" + itemName;
+
         // Get focus objects
         foreach (Transform child in dVAObject.GetComponentsInChildren<Transform>(true))
         {
@@ -100,6 +108,14 @@ public class DVManager : MonoBehaviourPunCallbacks
             {
                 child.gameObject.SetActive(true);
                 focusObjects.Add(child.gameObject);
+
+                if (child.gameObject.name == dVName)
+                {
+                    GameObject exitSphere = GameObject.Instantiate(exitSpherePrefab, child.transform);
+
+                    exitSphere.GetComponent<XRSimpleInteractable>().selectEntered.AddListener(
+                                        (SelectEnterEventArgs args) => { FindObjectOfType<DVManager>().ExitDVA(index); });
+                }
             }
         }
 
