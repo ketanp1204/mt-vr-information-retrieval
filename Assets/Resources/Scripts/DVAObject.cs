@@ -6,6 +6,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class DVAObject : MonoBehaviour, IPunInstantiateMagicCallback
 {
+    public GameObject exitSpherePrefab;
+
     private string dVName;
 
     public void OnPhotonInstantiate(PhotonMessageInfo info)
@@ -22,8 +24,13 @@ public class DVAObject : MonoBehaviour, IPunInstantiateMagicCallback
         {
             if (child.gameObject.name == dVName)
             {
-                child.transform.Find("ExitSphere").GetComponent<XRSimpleInteractable>().selectEntered.AddListener(
+                GameObject exitSphere = GameObject.Instantiate(exitSpherePrefab, child.transform);
+
+                exitSphere.GetComponent<XRSimpleInteractable>().selectEntered.AddListener(
                                     (SelectEnterEventArgs args) => { FindObjectOfType<DVManager>().ExitDVA(index); });
+
+                // child.transform.Find("ExitSphere").GetComponent<XRSimpleInteractable>().selectEntered.AddListener(
+                                    //(SelectEnterEventArgs args) => { FindObjectOfType<DVManager>().ExitDVA(index); });
             }
         }
     }

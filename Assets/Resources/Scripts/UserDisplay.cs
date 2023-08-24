@@ -13,7 +13,7 @@ public class UserDisplay : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallba
     public int interestGroup;
     public int dVAIndex;
     public string dVAObject;
-    public string focusObject;
+    public string itemName;
 
     /* Private Variables */
     private TMP_Text nameTag;
@@ -41,9 +41,9 @@ public class UserDisplay : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallba
         photonView.RPC(nameof(SetDVAObjectRPC), RpcTarget.All, name);
     }
 
-    public void SetFocusObject(string name)
+    public void SetItemName(string name)
     {
-        photonView.RPC(nameof(SetFocusObjectRPC), RpcTarget.All, name);
+        photonView.RPC(nameof(SetItemNameRPC), RpcTarget.All, name);
     }
 
     [PunRPC]
@@ -65,8 +65,8 @@ public class UserDisplay : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallba
     }
 
     [PunRPC]
-    void SetFocusObjectRPC(string name)
+    void SetItemNameRPC(string name)
     {
-        focusObject = name;
+        itemName = name;
     }
 }

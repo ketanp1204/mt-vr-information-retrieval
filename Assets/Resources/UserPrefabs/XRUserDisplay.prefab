@@ -816,9 +816,8 @@ MonoBehaviour:
   detailViewingAreaPosition: {x: 0, y: 0, z: 0}
   interestGroup: 0
   dVAIndex: 0
-  dVManager: {fileID: 0}
   dVAObject: 
-  focusObject: 
+  itemName: 
 --- !u!1 &5280540736945934436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,6 +1308,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   photonView: {fileID: 6870339060845994214}
+  exitSpherePrefab: {fileID: 3904194131359040373, guid: 06e6dc24d8b319042a9893b7ce3e53c1, type: 3}
   userGO: {fileID: 0}
   uD: {fileID: 0}
 --- !u!1 &6999513693069207750

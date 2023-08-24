@@ -45,6 +45,11 @@ public class DVManager : MonoBehaviourPunCallbacks
         StartCoroutine(ExitDetailViewingArea(index));
     }
 
+    public void JoiningUserExitDVA(int index)
+    {
+        StartCoroutine(JUserExitDVA(index));
+    }
+
     private IEnumerator EnterDetailViewingArea(string itemName)
     {
         // Fade the screen out 
@@ -80,7 +85,7 @@ public class DVManager : MonoBehaviourPunCallbacks
         var uD = userDisplayGO.GetComponent<UserDisplay>();
         uD.SetDVAIndex(index);
         uD.SetDVAObject(dVAObject.name);
-        uD.SetFocusObject(itemName);
+        uD.SetItemName(itemName);
 
         // Teleport the player to the detail viewing area
         var player = Vrsys.NetworkUser.localNetworkUser.gameObject.transform;
@@ -142,7 +147,40 @@ public class DVManager : MonoBehaviourPunCallbacks
         Vrsys.NetworkUser.localNetworkUser.FadeInScreen();
     }
 
+    private IEnumerator JUserExitDVA(int index)
+    {
+        // Fade the screen out
+        Vrsys.NetworkUser.localNetworkUser.FadeOutScreen();
 
+        // Wait for screen fade
+        yield return new WaitForSeconds(Vrsys.NetworkUser.localNetworkUser.GetScreenFadeDuration());
+
+        // Teleport the player back to the original location
+        var player = Vrsys.NetworkUser.localNetworkUser.gameObject.transform;
+        player.position = new Vector3(player.localPosition.x - dVALocs[index].x,
+                                      player.localPosition.y - dVALocs[index].y,
+                                      player.localPosition.z - dVALocs[index].z);
+
+        // Remove the representation of the user from the original location
+        Vrsys.NetworkUser.localNetworkUser.DestroyUserDisplay();
+
+        // Remove DVA Object at index
+        RemoveDVAObject(index);
+
+        // Remove DVA location vector at index
+        RemoveDVALoc(index);
+
+        // Update DVA Spawn Loc
+        UpdateDVASpawnLoc(dVASpawnLoc + (Vector3.one * 20f));
+
+        // Unset focused objects
+        var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();
+        List<GameObject> n = null;
+        focus.SetFocused(n);
+
+        // Fade the screen in
+        Vrsys.NetworkUser.localNetworkUser.FadeInScreen();
+    }
 
     private int GetCurrentCount()
     {

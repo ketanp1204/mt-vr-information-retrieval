@@ -6947,7 +6947,7 @@ MonoBehaviour:
   rotVel: 70
   scaleInputFactor: 1
   pitchEnabled: 0
-  verticalTransEnabled: 0
+  verticalTransEnabled: 1
   validateAgainstNavMesh: 0
   navMeshTolerance: 0.1
   scaleEnabled: 0
