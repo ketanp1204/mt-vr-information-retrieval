@@ -52,6 +52,8 @@ public class TooltipHandler : MonoBehaviour
     public bool hasTooltips = false;
     public Tooltip toggleTooltip;
 
+    public Tooltip triggerTooltip;
+
     public bool showTooltips { get; private set; } = true;
 
     public Dictionary<string, Tooltip> tooltips = new Dictionary<string, Tooltip>();
@@ -86,8 +88,32 @@ public class TooltipHandler : MonoBehaviour
     {
         if (hasTooltips && showTooltips)
         {
-            this.ShowTooltip(toggleTooltip);
+            // this.ShowTooltip(toggleTooltip);
+            StartCoroutine(ControlsTutorial());
         }
+    }
+
+    private IEnumerator ControlsTutorial()
+    {
+        yield return new WaitForSeconds(3f);
+
+        this.ShowTooltip(triggerTooltip, add: true);
+
+        yield return new WaitForSeconds(3f);
+
+        this.HideTooltip(triggerTooltip);
+
+        yield return new WaitForSeconds(1.5f);
+
+        GetComponent<HandRayController>().InitializeTooltips();
+
+        yield return new WaitForSeconds(3f);
+
+        GetComponent<HandRayController>().HideShowRayTooltip();
+
+        yield return new WaitForSeconds(1.5f);
+
+        this.ShowTooltip(toggleTooltip);
     }
 
     public void ShowAllTooltips()

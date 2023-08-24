@@ -172,11 +172,11 @@ public class HandRayController : MonoBehaviourPunCallbacks, IPunObservable
                 isLocal = false;
             }
 
-            InitializeTooltips();
+            // InitializeTooltips();
         }
     }
 
-    void InitializeTooltips()
+    public void InitializeTooltips()
     {
         if (hasTooltips)
         {
@@ -185,6 +185,10 @@ public class HandRayController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    public void HideShowRayTooltip()
+    {
+        tooltipHandler.HideTooltip(showRayTooltip);
+    }
 
     private void OnDestroy()
     {

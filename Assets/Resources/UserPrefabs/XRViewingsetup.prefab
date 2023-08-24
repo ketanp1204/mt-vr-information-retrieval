@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 930325096893210767}
   - component: {fileID: 930325096893210764}
   - component: {fileID: 930325096893210765}
+  - component: {fileID: 4754966526444269520}
   m_Layer: 0
   m_Name: LeftHand Controller
   m_TagString: Untagged
@@ -677,6 +678,19 @@ SortingGroup:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
+--- !u!114 &4754966526444269520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930325096893210771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b0d7116b41127148a3743cabc965236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linePrefab: {fileID: 6033866870466899385, guid: 4268efaa43e38a446bd6c65580b316ff, type: 3}
 --- !u!1 &930325097486056935
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,6 +705,7 @@ GameObject:
   - component: {fileID: 930325097486056931}
   - component: {fileID: 930325097486056928}
   - component: {fileID: 930325097486056929}
+  - component: {fileID: 731238618149840700}
   m_Layer: 0
   m_Name: RightHand Controller
   m_TagString: Untagged
@@ -1264,6 +1279,19 @@ SortingGroup:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
+--- !u!114 &731238618149840700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930325097486056935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b0d7116b41127148a3743cabc965236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linePrefab: {fileID: 6033866870466899385, guid: 4268efaa43e38a446bd6c65580b316ff, type: 3}
 --- !u!1 &930325097513462469
 GameObject:
   m_ObjectHideFlags: 0
@@ -1503,7 +1531,7 @@ MonoBehaviour:
   volumeTrigger: {fileID: 930325097589495184}
   volumeLayer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 5120
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
   antialiasingMode: 0
