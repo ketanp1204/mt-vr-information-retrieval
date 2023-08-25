@@ -8,13 +8,17 @@ public class ContentSharing : MonoBehaviourPunCallbacks, IPunInstantiateMagicCal
     // Public Variables
 
     public GameObject visibilityObject;
-
+    public GameObject shareTextPrefab;
 
 
     // Private Variables
 
     private GameObject contentSphere;
     private bool isSharable = false;
+    private bool shareTextDisplayed = false;
+    private float distanceFromSphere = 0f;
+    private float animDuration = 0.1f;
+    private ParticleSystem particles;
 
     
     public void OnPhotonInstantiate(PhotonMessageInfo info)
@@ -24,12 +28,59 @@ public class ContentSharing : MonoBehaviourPunCallbacks, IPunInstantiateMagicCal
         int sphereViewID = (int)data[0];
 
         contentSphere = PhotonView.Find(sphereViewID).transform.Find("Sphere").gameObject;
+        particles = contentSphere.GetComponent<ParticleSystem>();
 
         // Hide the content for others
         if (!photonView.IsMine)
         {
             visibilityObject.SetActive(false);
         }
+    }
+
+    void Update()
+    {
+        if(isSharable && !shareTextDisplayed)
+        {   
+            distanceFromSphere = Vector3.Distance(transform.position, contentSphere.transform.position);
+
+            if (distanceFromSphere > (0.7f * (contentSphere.transform.localScale.x / 2)) && !shareTextDisplayed)
+            {
+                shareTextDisplayed = true;
+
+                StartCoroutine(DisplayShareText());
+
+                particles.Play();
+            }
+        }        
+    }
+
+    private IEnumerator DisplayShareText()
+    {
+        GameObject shareTextCanvas = GameObject.Instantiate(shareTextPrefab, transform.position + new Vector3(0f, 0.15f, 0f), Quaternion.identity);
+
+        CanvasGroup cG = shareTextCanvas.GetComponent<CanvasGroup>();
+
+        float t = 0f;
+        while (t < animDuration)
+        {
+            cG.alpha = Mathf.Lerp(0f, 1f, t / animDuration);
+
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(3f);
+
+        t = 0f;
+        while (t < animDuration)
+        {
+            cG.alpha = Mathf.Lerp(1f, 0f, t / animDuration);
+
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        Destroy(shareTextCanvas);
     }
 
     public void SetSharable(bool sharable)
@@ -50,20 +101,15 @@ public class ContentSharing : MonoBehaviourPunCallbacks, IPunInstantiateMagicCal
         isSharable = sharable;
     }
 
-    private bool IsPointWithinCollider(Collider collider, Vector3 point) 
-    { 
-        return (collider.ClosestPoint(point) - point).sqrMagnitude < Mathf.Epsilon * Mathf.Epsilon; 
-    }
-
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject == contentSphere && isSharable)
         {
-            Debug.Log(Vector3.Distance(contentSphere.transform.position, transform.position));
             isSharable = false;
             photonView.RPC(nameof(SetVisibilityRPC), RpcTarget.All, true);
             Debug.Log("visible to all");
+            particles.Stop();
         }
     }
 

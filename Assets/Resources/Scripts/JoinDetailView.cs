@@ -16,7 +16,8 @@ public class JoinDetailView : XRBaseInteractable
     /* Private Variables */
     private SphereCollider sphCol;
     private Transform detailViewAreaTransform;
-    public UserDisplay uD;
+    private UserDisplay uD;
+    private GameObject other;
 
     void Start()
     {
@@ -27,10 +28,23 @@ public class JoinDetailView : XRBaseInteractable
     {
         base.OnSelectEntered(args);
 
-        GameObject otherPlayer = args.interactorObject.transform.root.gameObject;
+        other = args.interactorObject.transform.root.gameObject;
+
+        StartCoroutine(JoinDV());
+    }
+
+    private IEnumerator JoinDV()
+    {
+        NetworkUser otherPlayer = other.GetComponent<NetworkUser>();
+
+        // Fade the screen out 
+        otherPlayer.FadeOutScreen();
+
+        // Wait for screen fade
+        yield return new WaitForSeconds(otherPlayer.GetScreenFadeDuration());
 
         // Show the representation of the other player in the original location
-        otherPlayer.GetComponent<NetworkUser>().CreateUserDisplay();
+        otherPlayer.CreateUserDisplay();
 
         // Get the transform for the detail viewing area
         DVManager dVManager = FindObjectOfType<DVManager>();
@@ -70,5 +84,8 @@ public class JoinDetailView : XRBaseInteractable
 
         // Add DVA User Count at index
         dVManager.AddDVAUserCount(uD.dVAIndex);
+
+        // Fade the screen in
+        otherPlayer.FadeInScreen();
     }
 }

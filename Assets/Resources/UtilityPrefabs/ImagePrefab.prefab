@@ -586,3 +586,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visibilityObject: {fileID: 1718955100301445860}
+  shareTextPrefab: {fileID: 4079739721105941912, guid: 801e28129b5653d4595c074b958159e8, type: 3}
