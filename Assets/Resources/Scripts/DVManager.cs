@@ -18,12 +18,13 @@ public class DVManager : MonoBehaviourPunCallbacks
     // Private Variables //
     [SerializeField] private List<GameObject> dVAObjects;
     [SerializeField] private List<Vector3> dVALocs;
+    [SerializeField] private List<int> dVAUserCounts;
     private List<GameObject> focusObjects;
     private bool isInDetailView = false;
     private GameObject userGO;
     private Transform detailViewAreaTransform;
     private GameObject userDisplayGO;
-    private Vector3 dVASpawnLoc;
+    [SerializeField]private Vector3 dVASpawnLoc;
 
 
 
@@ -33,6 +34,7 @@ public class DVManager : MonoBehaviourPunCallbacks
         dVASpawnLoc = Vector3.zero;
         dVAObjects = new List<GameObject>();
         dVALocs = new List<Vector3>();
+        dVAUserCounts = new List<int>();
         focusObjects = new List<GameObject>();
     }
 
@@ -52,7 +54,6 @@ public class DVManager : MonoBehaviourPunCallbacks
 
     public void JoiningUserExitDVA(int index)
     {
-        Debug.Log("JUserExit");
         StartCoroutine(JUserExitDVA(index));
     }
 
@@ -83,6 +84,9 @@ public class DVManager : MonoBehaviourPunCallbacks
 
         // Add DVA to DV Manager
         AddDVAObject(dVAObject.name);
+
+        // Add User Count at new index
+        AddNewDVAUserCount();
 
         // Show the user representation in the original location
         userDisplayGO = userGO.GetComponent<NetworkUser>().CreateUserDisplay();
@@ -145,14 +149,20 @@ public class DVManager : MonoBehaviourPunCallbacks
         // Remove the representation of the user from the original location
         userGO.GetComponent<NetworkUser>().DestroyUserDisplay();
 
-        // Remove DVA Object at index
-        RemoveDVAObject(index);
+        if (dVAUserCounts[index] == 1)
+        {
+            // Remove DVA Object at index
+            RemoveDVAObject(index);
 
-        // Remove DVA location vector at index
-        RemoveDVALoc(index);
+            // Remove DVA location vector at index
+            RemoveDVALoc(index);
 
-        // Update DVA Spawn Loc
-        UpdateDVASpawnLoc(dVASpawnLoc + (Vector3.one * 20f));
+            // Update DVA Spawn Loc
+            UpdateDVASpawnLoc(dVASpawnLoc + (Vector3.one * 20f));
+        }        
+
+        // Subtract User Count at index
+        SubtractDVAUserCount(index);
 
         // Unset focused objects
         var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();
@@ -180,15 +190,21 @@ public class DVManager : MonoBehaviourPunCallbacks
         // Remove the representation of the user from the original location
         Vrsys.NetworkUser.localNetworkUser.DestroyUserDisplay();
 
-        // Remove DVA Object at index
-        RemoveDVAObject(index);
+        if (dVAUserCounts[index] == 1)
+        {
+            // Remove DVA Object at index
+            RemoveDVAObject(index);
 
-        // Remove DVA location vector at index
-        RemoveDVALoc(index);
+            // Remove DVA location vector at index
+            RemoveDVALoc(index);
 
-        // Update DVA Spawn Loc
-        UpdateDVASpawnLoc(dVASpawnLoc + (Vector3.one * 20f));
+            // Update DVA Spawn Loc
+            UpdateDVASpawnLoc(dVASpawnLoc + (Vector3.one * 20f));
+        }
 
+        // Subtract User Count at index
+        SubtractDVAUserCount(index);        
+       
         // Unset focused objects
         var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();
         List<GameObject> n = null;
@@ -210,6 +226,8 @@ public class DVManager : MonoBehaviourPunCallbacks
         return dVAObjects[index].transform;
     }
 
+
+    // Update DVA Object names
 
     public void AddDVAObject(string name)
     {
@@ -234,6 +252,7 @@ public class DVManager : MonoBehaviourPunCallbacks
     }
 
 
+    // Update DVA Spawn Location
 
     public void UpdateDVASpawnLoc(Vector3 updatedLoc)
     {
@@ -247,6 +266,7 @@ public class DVManager : MonoBehaviourPunCallbacks
     }
 
 
+    // Update DVA Locations
 
     public void AddDVALoc(Vector3 loc)
     {
@@ -271,6 +291,72 @@ public class DVManager : MonoBehaviourPunCallbacks
     }
 
 
+    // Update DVA User Counts
+    
+    public void AddNewDVAUserCount()
+    {
+        photonView.RPC(nameof(AddNewDVAUserCountRPC), RpcTarget.All);
+    }
+
+    [PunRPC]
+    void AddNewDVAUserCountRPC()
+    {
+        dVAUserCounts.Add(1);
+    }
+    
+    public void AddDVAUserCount(int index)
+    {
+        photonView.RPC(nameof(AddDVAUserCountRPC), RpcTarget.All, index);
+    }
+
+    [PunRPC]
+    void AddDVAUserCountRPC(int index)
+    {
+        dVAUserCounts[index] += 1;
+    }
+
+    public void SubtractDVAUserCount(int index)
+    {
+        if (dVAUserCounts[index] > 1)
+        {
+            Debug.Log("subtract User Count");
+            photonView.RPC(nameof(SubtractDVAUserCountRPC), RpcTarget.All, index);
+        }
+        else
+        {
+            photonView.RPC(nameof(RemoveDVAUserCountRPC), RpcTarget.All, index);
+        }
+    }
+
+    [PunRPC]
+    void SubtractDVAUserCountRPC(int index)
+    {
+        dVAUserCounts[index] -= 1;
+    }
+
+    [PunRPC]
+    void RemoveDVAUserCountRPC(int index)
+    {
+        dVAUserCounts.RemoveAt(index);
+    }
+
+    [PunRPC]
+    void UpdateDVAUserCountRPC(int index, int count)
+    {
+        dVAUserCounts[index] = count;
+    }
+
+    [PunRPC]
+    void InitDVAUserCountRPC(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            dVAUserCounts.Add(0);
+        }
+    }
+
+
+
 
     // Late join stuff
 
@@ -292,11 +378,18 @@ public class DVManager : MonoBehaviourPunCallbacks
                 photonView.RPC(nameof(AddDVAObjectRPC), newPlayer, obj.name);                
             }
 
-            photonView.RPC(nameof(UpdateDVASpawnLoc), newPlayer, dVASpawnLoc);
+            photonView.RPC(nameof(UpdateDVASpawnLocRPC), newPlayer, dVASpawnLoc);
 
             for (int i = 0; i < dVALocs.Count; i++)
             {
-                photonView.RPC(nameof(AddDVALoc), newPlayer, i, dVALocs[i]);
+                photonView.RPC(nameof(AddDVALocRPC), newPlayer, dVALocs[i]);
+            }
+
+            photonView.RPC(nameof(InitDVAUserCountRPC), newPlayer, dVAUserCounts.Count);
+
+            for (int i = 0; i < dVAUserCounts.Count; i++)
+            {
+                photonView.RPC(nameof(UpdateDVAUserCountRPC), newPlayer, i, dVAUserCounts[i]);
             }
         }
     }

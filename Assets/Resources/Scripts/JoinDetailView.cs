@@ -67,5 +67,8 @@ public class JoinDetailView : XRBaseInteractable
         // Set focus objects
         var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();
         focus.SetFocused(focusObjects);
+
+        // Add DVA User Count at index
+        dVManager.AddDVAUserCount(uD.dVAIndex);
     }
 }

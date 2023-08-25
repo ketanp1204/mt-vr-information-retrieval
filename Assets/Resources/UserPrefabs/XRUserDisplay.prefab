@@ -813,8 +813,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6378188e6d8c5084da927d6771d728b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detailViewingAreaPosition: {x: 0, y: 0, z: 0}
-  interestGroup: 0
   dVAIndex: 0
   dVAObject: 
   itemName: 

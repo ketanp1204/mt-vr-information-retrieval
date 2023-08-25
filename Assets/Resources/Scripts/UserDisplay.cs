@@ -5,12 +5,11 @@ using Photon.Pun;
 using TMPro;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
+using Photon.Realtime;
 
 public class UserDisplay : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 {
     /* Public Variables */
-    public Vector3 detailViewingAreaPosition;
-    public int interestGroup;
     public int dVAIndex;
     public string dVAObject;
     public string itemName;
@@ -68,5 +67,21 @@ public class UserDisplay : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallba
     void SetItemNameRPC(string name)
     {
         itemName = name;
+    }
+
+    // Late join stuff
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC(nameof(SetUsernameRPC), newPlayer, nameTag.text);
+
+            photonView.RPC(nameof(SetDVAIndexRPC), newPlayer, dVAIndex);
+
+            photonView.RPC(nameof(SetDVAObjectRPC), newPlayer, dVAObject);
+
+            photonView.RPC(nameof(SetItemNameRPC), newPlayer, itemName);
+        }
     }
 }
