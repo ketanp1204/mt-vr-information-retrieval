@@ -41,6 +41,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
+using Vrsys;
 
 public class TooltipHandler : MonoBehaviour
 {
@@ -57,6 +59,9 @@ public class TooltipHandler : MonoBehaviour
     public bool showTooltips { get; private set; } = true;
 
     public Dictionary<string, Tooltip> tooltips = new Dictionary<string, Tooltip>();
+
+    private XRBaseController leftHandController;
+    private XRBaseController rightHandController;
 
     // Start is called before the first frame update
     void Start()
@@ -97,15 +102,22 @@ public class TooltipHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
 
-        this.ShowTooltip(triggerTooltip, add: true);
+        leftHandController = Vrsys.NetworkUser.localNetworkUser.GetXRController(0);
+        rightHandController = Vrsys.NetworkUser.localNetworkUser.GetXRController(1);
 
-        yield return new WaitForSeconds(3f);
+        this.ShowTooltip(triggerTooltip, add: true);
+        leftHandController.SendHapticImpulse(0.7f, 0.5f);
+        rightHandController.SendHapticImpulse(0.7f, 0.5f);
+
+        yield return new WaitForSeconds(3f);        
 
         this.HideTooltip(triggerTooltip);
 
         yield return new WaitForSeconds(1.5f);
 
         GetComponent<HandRayController>().InitializeTooltips();
+        leftHandController.SendHapticImpulse(0.7f, 0.5f);
+        rightHandController.SendHapticImpulse(0.7f, 0.5f);
 
         yield return new WaitForSeconds(3f);
 
@@ -114,6 +126,8 @@ public class TooltipHandler : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         this.ShowTooltip(toggleTooltip);
+        leftHandController.SendHapticImpulse(0.7f, 0.5f);
+        rightHandController.SendHapticImpulse(0.7f, 0.5f);
     }
 
     public void ShowAllTooltips()

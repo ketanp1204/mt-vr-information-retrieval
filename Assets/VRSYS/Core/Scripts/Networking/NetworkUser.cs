@@ -42,6 +42,7 @@ using Photon.Realtime;
 using TMPro;
 using System.Collections.Generic;
 using Photon.Voice;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace Vrsys
 {
@@ -304,6 +305,29 @@ namespace Vrsys
         {
             screenFade = Vrsys.Utility.FindRecursive(this.gameObject, "Main Camera").GetComponentInChildren<ScreenFade>();
             return screenFade.fadeDuration;
+        }
+
+        public XRBaseController GetXRController(int hand)
+        {
+            if (viewingSetup.GetComponent<ViewingSetupHMDAnatomy>() != null)
+            {
+                if (hand == 0)
+                {
+                    return viewingSetup.GetComponent<ViewingSetupHMDAnatomy>().leftController.GetComponent<XRBaseController>();
+                }
+                else if (hand == 1)
+                {
+                    return viewingSetup.GetComponent<ViewingSetupHMDAnatomy>().rightController.GetComponent<XRBaseController>();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

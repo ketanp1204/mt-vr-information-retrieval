@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class DVAObject : MonoBehaviour, IPunInstantiateMagicCallback
+public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback, IPunObservable
 {
-    public GameObject exitSpherePrefab;
+    // Public Variables //
 
-    private string dVName;
+    public GameObject exitSpherePrefab;
+    public List<Transform> syncObjects;
+
+
+
 
     public void OnPhotonInstantiate(PhotonMessageInfo info)
     {
@@ -16,18 +20,40 @@ public class DVAObject : MonoBehaviour, IPunInstantiateMagicCallback
 
         int index = (int)data[0];
         gameObject.name = "DVA" + index.ToString();
+    }
 
-        string itemName = (string)data[1];
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        Vector3[] positions = new Vector3[syncObjects.Count];
+        Quaternion[] rotations = new Quaternion[syncObjects.Count];
+        Vector3[] scales = new Vector3[syncObjects.Count];
 
-        dVName = "DV_" + itemName;
-        foreach (Transform child in GetComponentsInChildren<Transform>(true))
+        for (int i = 0; i < syncObjects.Count; i++)
         {
-            if (child.gameObject.name == dVName)
-            {
-                
+            positions[i] = syncObjects[i].transform.position;
+            rotations[i] = syncObjects[i].transform.rotation;
+            scales[i] = syncObjects[i].transform.localScale;
+        }
 
-                // child.transform.Find("ExitSphere").GetComponent<XRSimpleInteractable>().selectEntered.AddListener(
-                                    //(SelectEnterEventArgs args) => { FindObjectOfType<DVManager>().ExitDVA(index); });
+        // Write
+        if (stream.IsWriting && photonView.IsMine)
+        {
+            stream.SendNext(positions);
+            stream.SendNext(rotations);
+            stream.SendNext(scales);
+        }
+        // Read
+        else if (stream.IsReading)
+        {
+            positions = (Vector3[])stream.ReceiveNext();
+            rotations = (Quaternion[])stream.ReceiveNext();
+            scales = (Vector3[])stream.ReceiveNext();
+
+            for (int i = 0; i < syncObjects.Count; i++)
+            {
+                syncObjects[i].transform.position = positions[i];
+                syncObjects[i].transform.rotation = rotations[i];
+                syncObjects[i].transform.localScale = scales[i];
             }
         }
     }

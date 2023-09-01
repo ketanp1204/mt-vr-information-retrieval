@@ -10886,7 +10886,6 @@ GameObject:
   - component: {fileID: 6314146381598571818}
   - component: {fileID: 7620802274114289123}
   - component: {fileID: 3561247204052940182}
-  - component: {fileID: 3025761504038516558}
   m_Layer: 0
   m_Name: Video1
   m_TagString: Untagged
@@ -11147,22 +11146,6 @@ MonoBehaviour:
   m_MinimumScaleRatio: 0.8
   m_MaximumScaleRatio: 4
   m_ScaleMultiplier: 0.25
---- !u!114 &3025761504038516558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1731674808083677677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 1
-  m_UseLocal: 0
 --- !u!1 &1745483142103893503
 GameObject:
   m_ObjectHideFlags: 0
@@ -26087,11 +26070,8 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 787310814121996301}
+  - {fileID: 8135590972378363387}
   - {fileID: 189454704117689348}
-  - {fileID: 3025761504038516558}
-  - {fileID: 6556162434255358019}
-  - {fileID: 3739238273923325523}
-  - {fileID: 3219763163201154895}
   - {fileID: 2335441932119455983}
   - {fileID: 3883630878355506319}
   - {fileID: 8529473360035694512}
@@ -26131,6 +26111,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   exitSpherePrefab: {fileID: 3904194131359040373, guid: 06e6dc24d8b319042a9893b7ce3e53c1, type: 3}
+  syncObjects:
+  - {fileID: 1731674808083677677}
+  - {fileID: 7943529023361718976}
+  - {fileID: 7970009873939279891}
+  - {fileID: 7014731352304590080}
 --- !u!1 &5190011401772447606
 GameObject:
   m_ObjectHideFlags: 0
@@ -33532,7 +33517,6 @@ GameObject:
   - component: {fileID: 168929609858602278}
   - component: {fileID: 262928056405985535}
   - component: {fileID: 6399482683584510530}
-  - component: {fileID: 3219763163201154895}
   m_Layer: 0
   m_Name: Video4
   m_TagString: Untagged
@@ -33793,22 +33777,6 @@ MonoBehaviour:
   m_MinimumScaleRatio: 0.8
   m_MaximumScaleRatio: 4
   m_ScaleMultiplier: 0.25
---- !u!114 &3219763163201154895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7014731352304590080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 1
-  m_UseLocal: 0
 --- !u!1 &7048632825457773646
 GameObject:
   m_ObjectHideFlags: 0
@@ -38440,7 +38408,6 @@ GameObject:
   - component: {fileID: 3551551025262864012}
   - component: {fileID: 604498930701224860}
   - component: {fileID: 7142633857564484239}
-  - component: {fileID: 6556162434255358019}
   m_Layer: 0
   m_Name: Video2
   m_TagString: Untagged
@@ -38701,22 +38668,6 @@ MonoBehaviour:
   m_MinimumScaleRatio: 0.8
   m_MaximumScaleRatio: 4
   m_ScaleMultiplier: 0.25
---- !u!114 &6556162434255358019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7943529023361718976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 1
-  m_UseLocal: 0
 --- !u!1 &7953438341921332594
 GameObject:
   m_ObjectHideFlags: 0
@@ -38845,7 +38796,6 @@ GameObject:
   - component: {fileID: 7752932139947430162}
   - component: {fileID: 5434259777741917517}
   - component: {fileID: 132371424310827058}
-  - component: {fileID: 3739238273923325523}
   m_Layer: 0
   m_Name: Video3
   m_TagString: Untagged
@@ -39106,22 +39056,6 @@ MonoBehaviour:
   m_MinimumScaleRatio: 0.8
   m_MaximumScaleRatio: 4
   m_ScaleMultiplier: 0.25
---- !u!114 &3739238273923325523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7970009873939279891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 1
-  m_UseLocal: 0
 --- !u!1 &8001065902267207778
 GameObject:
   m_ObjectHideFlags: 0

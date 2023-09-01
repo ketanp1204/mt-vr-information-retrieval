@@ -6820,7 +6820,6 @@ GameObject:
   - component: {fileID: 2474190517903617712}
   - component: {fileID: 2474190517903617715}
   - component: {fileID: 1934363783325032026}
-  - component: {fileID: -4678499684815372937}
   m_Layer: 9
   m_Name: XRUser
   m_TagString: Untagged
@@ -7201,19 +7200,6 @@ MonoBehaviour:
   leftControllerGO: {fileID: 6935004369515684458}
   rightControllerGO: {fileID: 1940646633508614728}
   handsActive: 0
---- !u!114 &-4678499684815372937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2559079644042738967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b0d7116b41127148a3743cabc965236, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  linePrefab: {fileID: 0}
 --- !u!1 &2669154914175126606
 GameObject:
   m_ObjectHideFlags: 0
