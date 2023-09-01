@@ -72,6 +72,25 @@ public class FocusSwitcher : MonoBehaviour
         }
     }
 
+    public void AddFocused(List<GameObject> objs)
+    {
+        // Get focused layer index
+        int fLayer = currentlyFocusedList[0].layer;
+
+        // Add new items
+        currentlyFocusedList.AddRange(objs);
+
+        foreach(GameObject obj in currentlyFocusedList)
+        {
+            if (obj.layer != fLayer)
+            {
+                int layer = LayerMask.NameToLayer(FocusedLayer);
+                obj.layer = layer;
+                SetLayerRecursively(obj, layer);
+            }
+        }
+    }
+
     private void SetLayerRecursively(GameObject obj, int layer)
     {
         if (obj == null)

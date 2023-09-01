@@ -17,7 +17,7 @@ public class JoinDetailView : XRBaseInteractable
     private SphereCollider sphCol;
     private Transform detailViewAreaTransform;
     private UserDisplay uD;
-    private GameObject other;
+    public GameObject other;
 
     void Start()
     {

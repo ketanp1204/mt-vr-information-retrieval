@@ -1,21 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class testDV : MonoBehaviour
 {
     public DVManager DVManager;
+    public JoinDetailView joinDetailView;
+    public XRBaseInteractor interactorObject;
 
-    // Start is called before the first frame update
-    void Start()
+    public bool createSession = false;
+    public bool joinSession = false;
+
+
+    private void Update()
     {
-        StartCoroutine(StartDV());
-    }
+        if (createSession)
+        {
+            createSession = false;
 
-    private IEnumerator StartDV()
-    {
-        yield return new WaitForSeconds(7f);
+            DVManager.CreateDVA("GS_B02");
+        }
 
-        DVManager.CreateDVA("GS_B02");
+        if (joinSession)
+        {
+            joinSession = false;
+
+            SelectEnterEventArgs args = new SelectEnterEventArgs();
+            args.interactorObject = interactorObject;
+
+            joinDetailView.GetComponent<XRBaseInteractable>().selectEntered.Invoke(args);
+        }
     }
 }

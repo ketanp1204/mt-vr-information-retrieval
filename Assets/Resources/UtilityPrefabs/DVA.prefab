@@ -6437,7 +6437,6 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 787310814121996301}
-  - {fileID: 8135590972378363387}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -6472,9 +6471,9 @@ MonoBehaviour:
   exitSpherePrefab: {fileID: 3904194131359040373, guid: 06e6dc24d8b319042a9893b7ce3e53c1, type: 3}
   dVContainer: {fileID: 5190011400904016262}
   dVObjectPrefabs:
-  - {fileID: 5023212374652913064, guid: c674b9b6a813f304c84e68e2d179fc78, type: 3}
-  - {fileID: 2084753160711791638, guid: 05e6529a7a7e4ca4dbb173bcc462c6ff, type: 3}
-  - {fileID: 4815454281103873170, guid: d6bab192c5b0f6148839fa24bd8eab76, type: 3}
+  - {fileID: 3474141106263107751, guid: c674b9b6a813f304c84e68e2d179fc78, type: 3}
+  - {fileID: 7842546206380945839, guid: 05e6529a7a7e4ca4dbb173bcc462c6ff, type: 3}
+  - {fileID: 3849603190175917430, guid: d6bab192c5b0f6148839fa24bd8eab76, type: 3}
   syncObjects:
   - {fileID: 0}
   - {fileID: 0}

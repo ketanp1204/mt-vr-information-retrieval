@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback, IPunObservable
+public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 {
     // Public Variables //
 
@@ -30,10 +30,26 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
         foreach (GameObject gO in dVObjectPrefabs)
         {
             if (gO.name == dVName)
-                GameObject.Instantiate(gO, dVContainer.transform);
+            {
+                StartCoroutine(InstantiateDVAfterDelay(gO));
+            }
         }
     }
 
+    private IEnumerator InstantiateDVAfterDelay(GameObject gO)
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        // GameObject dV = PhotonNetwork.Instantiate("UtilityPrefabs/DetailViewObjects/" + gO.name, transform.position, gO.transform.rotation);
+        GameObject dV = GameObject.Instantiate(gO, dVContainer.transform);
+
+        var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();
+        List<GameObject> objs = new List<GameObject>();
+        objs.Add(dV);
+        focus.AddFocused(objs);
+    }
+
+    /*
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         Vector3[] positions = new Vector3[syncObjects.Count];
@@ -69,4 +85,5 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
             }
         }
     }
+    */
 }
