@@ -9,6 +9,8 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
     // Public Variables //
 
     public GameObject exitSpherePrefab;
+    public GameObject dVContainer;
+    public List<GameObject> dVObjectPrefabs;
     public List<Transform> syncObjects;
 
 
@@ -20,6 +22,16 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 
         int index = (int)data[0];
         gameObject.name = "DVA" + index.ToString();
+
+        string itemName = (string)data[1];
+        string dVName = "DV_" + itemName;
+
+        // Spawn detail view items
+        foreach (GameObject gO in dVObjectPrefabs)
+        {
+            if (gO.name == dVName)
+                GameObject.Instantiate(gO, dVContainer.transform);
+        }
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
