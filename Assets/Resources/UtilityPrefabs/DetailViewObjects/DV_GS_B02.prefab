@@ -4876,6 +4876,7 @@ GameObject:
   - component: {fileID: 6161235138826165778}
   - component: {fileID: 621024979344672304}
   - component: {fileID: 3702950091462386388}
+  - component: {fileID: 6655304639617443973}
   m_Layer: 0
   m_Name: Image3
   m_TagString: Untagged
@@ -4979,7 +4980,19 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6655304639617443973}
+        m_TargetAssemblyTypeName: OwnershipTransfer, Assembly-CSharp
+        m_MethodName: TakeOwnership
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls: []
@@ -5126,6 +5139,18 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 1
   m_UseLocal: 0
+--- !u!114 &6655304639617443973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6161235138826165804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd2763c5ebe1d042b3fd8b36582e913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6161235138834496336
 GameObject:
   m_ObjectHideFlags: 0
@@ -5737,7 +5762,7 @@ GameObject:
   - component: {fileID: 6161235138951505097}
   - component: {fileID: 7801355144738065016}
   - component: {fileID: 7301579338204339595}
-  - component: {fileID: 6584792228650505004}
+  - component: {fileID: 5704102858589475595}
   m_Layer: 0
   m_Name: Image1
   m_TagString: Untagged
@@ -5841,7 +5866,19 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5704102858589475595}
+        m_TargetAssemblyTypeName: OwnershipTransfer, Assembly-CSharp
+        m_MethodName: TakeOwnership
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls: []
@@ -5988,7 +6025,7 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 1
   m_UseLocal: 0
---- !u!114 &6584792228650505004
+--- !u!114 &5704102858589475595
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5997,20 +6034,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6161235138951505099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Script: {fileID: 11500000, guid: 8dd2763c5ebe1d042b3fd8b36582e913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 1
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 7301579338204339595}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &6161235139253927434
 GameObject:
   m_ObjectHideFlags: 0
@@ -6897,6 +6923,7 @@ GameObject:
   - component: {fileID: 6161235139624173409}
   - component: {fileID: 2986678087185969783}
   - component: {fileID: 3008060591947180741}
+  - component: {fileID: 4075984315284478050}
   m_Layer: 0
   m_Name: Image4
   m_TagString: Untagged
@@ -7000,7 +7027,19 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4075984315284478050}
+        m_TargetAssemblyTypeName: OwnershipTransfer, Assembly-CSharp
+        m_MethodName: TakeOwnership
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls: []
@@ -7147,6 +7186,18 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 1
   m_UseLocal: 0
+--- !u!114 &4075984315284478050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6161235139624173411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd2763c5ebe1d042b3fd8b36582e913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6161235139747854011
 GameObject:
   m_ObjectHideFlags: 0
@@ -7581,6 +7632,7 @@ GameObject:
   - component: {fileID: 6161235140432729084}
   - component: {fileID: 2612686057871166627}
   - component: {fileID: 8131299826547958251}
+  - component: {fileID: 8581455602246006724}
   m_Layer: 0
   m_Name: Image2
   m_TagString: Untagged
@@ -7684,7 +7736,19 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8581455602246006724}
+        m_TargetAssemblyTypeName: OwnershipTransfer, Assembly-CSharp
+        m_MethodName: TakeOwnership
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls: []
@@ -7831,6 +7895,18 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 1
   m_UseLocal: 0
+--- !u!114 &8581455602246006724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6161235140432729086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dd2763c5ebe1d042b3fd8b36582e913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6161235140485628341
 GameObject:
   m_ObjectHideFlags: 0
