@@ -12,6 +12,7 @@ using UnityEditor;
 using System;
 using Unity.XR.CoreUtils;
 using TMPro;
+using Unity.VisualScripting;
 
 public class MenuArea : XRSimpleInteractable
 {
@@ -36,6 +37,8 @@ public class MenuArea : XRSimpleInteractable
     [Header("Interaction Properties")]
     public Menu menuLayer;
     public Tooltip gripHoldTooltip;
+    public GameObject guidePrefab;
+    public string infoVisibilityText;
     public GameObject menuSpherePrefab;
     public GameObject linePrefab;
     public string imagePrefabLoc = "UtilityPrefabs/ImagePrefab";
@@ -145,6 +148,9 @@ public class MenuArea : XRSimpleInteractable
                             item.GetComponent<Collider>().enabled = true;
                         }
                     }
+
+                    // Show information visibility guide
+                    LoadGuide(infoVisibilityText, exitSphere.transform.position, -0.05f, 3f);
                 }
             }
 
@@ -153,6 +159,36 @@ public class MenuArea : XRSimpleInteractable
             {
                 lR.SetPosition(1, controllerTransform.position);
             }
+        }
+    }
+    
+    private void LoadGuide(string guideText, Vector3 position, float verticalOffset, float destroyAfterDelay)
+    {
+        GameObject guide = Instantiate(Resources.Load("UtilityPrefabs/GuideCanvas") as GameObject,
+                                                    position + new Vector3(0f, verticalOffset, 0f),
+                                                    Quaternion.identity);
+
+        guide.transform.Find("Panel/GuideText").GetComponent<TextMeshProUGUI>().text = guideText;
+        StartCoroutine(FadeCanvasGroup(guide.GetComponent<CanvasGroup>(), 0f, 1f, menuItemAnimDuration, destroyAfterDelay));
+    }
+
+    private IEnumerator FadeCanvasGroup(CanvasGroup cG, float startAlpha, float endAlpha, float duration, float destroyAfterDelay)
+    {
+        float t = 0f;
+        while (t < duration)
+        {
+            cG.alpha = Mathf.Lerp(startAlpha, endAlpha, t / duration);
+
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        cG.alpha = endAlpha;
+
+        if (destroyAfterDelay > 0f)
+        {
+            yield return new WaitForSeconds(destroyAfterDelay);
+            Destroy(cG.gameObject);
         }
     }
 
@@ -201,9 +237,9 @@ public class MenuArea : XRSimpleInteractable
             menuOpen = true;
 
             // Hide Interaction Guide
-            var iG = GetComponent<InteractionGuide>();
-            iG.HideGuide();
-            iG.isMenuOpen = true;
+            // var iG = GetComponent<InteractionGuide>();
+            // iG.HideGuide();
+            // iG.isMenuOpen = true;
 
             // Disable Menu Area Collider
             DisableCollider();

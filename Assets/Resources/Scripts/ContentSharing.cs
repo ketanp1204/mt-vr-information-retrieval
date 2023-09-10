@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 
 public class ContentSharing : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 {
     // Public Variables
 
     public GameObject visibilityObject;
-    public GameObject shareTextPrefab;
+    public Vector3 guideSpawnOffset;
+    public string guideText;
+    // public GameObject shareTextPrefab;
 
 
     // Private Variables
@@ -56,9 +59,13 @@ public class ContentSharing : MonoBehaviourPunCallbacks, IPunInstantiateMagicCal
 
     private IEnumerator DisplayShareText()
     {
-        GameObject shareTextCanvas = GameObject.Instantiate(shareTextPrefab, transform.position + new Vector3(0f, 0.15f, 0f), Quaternion.identity);
+        GameObject shareGuide = Instantiate(Resources.Load("UtilityPrefabs/GuideCanvas") as GameObject,
+                                            transform.position + guideSpawnOffset,
+                                            Quaternion.identity);
 
-        CanvasGroup cG = shareTextCanvas.GetComponent<CanvasGroup>();
+        shareGuide.transform.Find("Panel/GuideText").GetComponent<TextMeshProUGUI>().text = guideText;
+
+        CanvasGroup cG = shareGuide.GetComponent<CanvasGroup>();
 
         float t = 0f;
         while (t < animDuration)
@@ -80,7 +87,7 @@ public class ContentSharing : MonoBehaviourPunCallbacks, IPunInstantiateMagicCal
             yield return null;
         }
 
-        Destroy(shareTextCanvas);
+        Destroy(shareGuide);
     }
 
     public void SetSharable(bool sharable)

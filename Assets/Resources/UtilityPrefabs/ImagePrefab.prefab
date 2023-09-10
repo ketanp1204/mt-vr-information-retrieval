@@ -290,7 +290,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &8646505489470382256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,4 +586,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visibilityObject: {fileID: 1718955100301445860}
-  shareTextPrefab: {fileID: 4079739721105941912, guid: 801e28129b5653d4595c074b958159e8, type: 3}
+  guideSpawnOffset: {x: 0, y: 0.15, z: 0}
+  guideText: Drag out to Share
