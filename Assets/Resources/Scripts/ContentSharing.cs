@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using TMPro;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class ContentSharing : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 {
@@ -124,5 +125,12 @@ public class ContentSharing : MonoBehaviourPunCallbacks, IPunInstantiateMagicCal
     void SetVisibilityRPC(bool visible)
     {
         visibilityObject.SetActive(visible);
+    }
+
+    public void HandleSelect(SelectEnterEventArgs args)
+    {
+        PhotonView player = args.interactorObject.transform.root.GetComponent<PhotonView>();
+
+        photonView.TransferOwnership(player.ViewID);
     }
 }
