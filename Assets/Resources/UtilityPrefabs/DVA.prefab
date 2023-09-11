@@ -6472,7 +6472,7 @@ MonoBehaviour:
   dVContainer: {fileID: 5190011400904016262}
   dVObjectPrefabs:
   - {fileID: 3474141106263107751, guid: c674b9b6a813f304c84e68e2d179fc78, type: 3}
-  - {fileID: 7842546206380945839, guid: 05e6529a7a7e4ca4dbb173bcc462c6ff, type: 3}
+  - {fileID: 5713188075177289288, guid: 05e6529a7a7e4ca4dbb173bcc462c6ff, type: 3}
   - {fileID: 3849603190175917430, guid: d6bab192c5b0f6148839fa24bd8eab76, type: 3}
   syncObjects:
   - {fileID: 0}
