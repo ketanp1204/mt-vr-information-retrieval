@@ -133,6 +133,9 @@ public class MenuArea : XRSimpleInteractable
 
                     // Enable exit sphere collider
                     exitSphere.GetComponent<SphereCollider>().enabled = true;
+
+                    // Show information visibility guide
+                    LoadGuide(infoVisibilityText, exitSphere.transform.position, -0.05f, 3f);
                 }
                     
 
@@ -148,9 +151,6 @@ public class MenuArea : XRSimpleInteractable
                             item.GetComponent<Collider>().enabled = true;
                         }
                     }
-
-                    // Show information visibility guide
-                    LoadGuide(infoVisibilityText, exitSphere.transform.position, -0.05f, 3f);
                 }
             }
 
@@ -550,7 +550,7 @@ public class MenuArea : XRSimpleInteractable
         // Reset Variables
         menuOpen = false;
         firstLayerOpen = false;
-        GetComponent<InteractionGuide>().isMenuOpen = false;
+        // GetComponent<InteractionGuide>().isMenuOpen = false;
         currentPullDistance = 0f;
 
         // Reset top layer menu options

@@ -56,7 +56,7 @@ public class TooltipHandler : MonoBehaviour
 
     public Tooltip triggerTooltip;
 
-    public bool showTooltips { get; private set; } = true;
+    public bool showTooltips { get; private set; } = false;
 
     public Dictionary<string, Tooltip> tooltips = new Dictionary<string, Tooltip>();
 
@@ -89,12 +89,12 @@ public class TooltipHandler : MonoBehaviour
         }
     }
 
-    void InitializeTooltips()
+    public void InitializeTooltips()
     {
         if (hasTooltips && showTooltips)
         {
-            // this.ShowTooltip(toggleTooltip);
-            StartCoroutine(ControlsTutorial());
+            this.ShowTooltip(toggleTooltip);
+            // StartCoroutine(ControlsTutorial());
         }
     }
 
@@ -128,6 +128,11 @@ public class TooltipHandler : MonoBehaviour
         this.ShowTooltip(toggleTooltip);
         leftHandController.SendHapticImpulse(0.7f, 0.5f);
         rightHandController.SendHapticImpulse(0.7f, 0.5f);
+    }
+
+    public void SetShowTooltipsBool(bool value)
+    {
+        showTooltips = value;
     }
 
     public void ShowAllTooltips()
