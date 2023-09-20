@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Resources;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -25,6 +26,11 @@ public class StudyMenu : MonoBehaviour
     [Header("Tutorial Content")]
     public Sprite[] controllerTutorialSprites;
     public string[] controllerTutorialTexts;
+
+    [Space(20)]
+    [Header("Study Selection")]
+    public GameObject study1GameObject;
+    public GameObject study2GameObject;
 
 
     // Private Variables //
@@ -74,7 +80,23 @@ public class StudyMenu : MonoBehaviour
     public void SkipControls()
     {
         skipControls = true;
+
+        // Disable skip controls button
+        skipButtonCG.gameObject.SetActive(false);
         
+        // Disable next button
+        nextButtonCG.gameObject.SetActive(false);
+
+        // Hide Controls Tutorial
+        controllerInstructionsCG.alpha = 0f;
+        controllerInstructionsCG.gameObject.SetActive(false);
+
+        // Show study selector 
+        studySelectorCG.gameObject.SetActive(true);
+        StartCoroutine(FadeCanvasGroup(studySelectorCG, 0f, 1f, fadeInDuration, enableInteraction: true));
+
+        // Show start button
+        StartCoroutine(FadeCanvasGroup(startButtonCG, 0f, 1f, fadeInDuration, 0.6f, true));
     }
 
     public void HandleNext(Button nextButton)
@@ -111,9 +133,11 @@ public class StudyMenu : MonoBehaviour
         }
         if (tutorialLayer == 4) 
         {
-            // Show study selector 
+            // Hide Controls Tutorial
             controllerInstructionsCG.alpha = 0f;
             controllerInstructionsCG.gameObject.SetActive(false);
+
+            // Show study selector 
             studySelectorCG.gameObject.SetActive(true);
             StartCoroutine(FadeCanvasGroup(studySelectorCG, 0f, 1f, fadeInDuration, enableInteraction: true));
 
@@ -142,6 +166,25 @@ public class StudyMenu : MonoBehaviour
             StartCoroutine(FadeCanvasGroup(noSelectionWarningCG, 0f, 1f, 0.1f));
             StartCoroutine(FadeCanvasGroup(noSelectionWarningCG, 1f, 0f, 0.1f, 2f));
         }
+        else if (selectedStudy == 1)
+        {
+            study1GameObject.SetActive(true);
+
+            // Hide study menu
+            HideStudyMenu();
+        }
+        else if (selectedStudy == 2)
+        {
+            study2GameObject.SetActive(true);
+
+            // Hide study menu
+            HideStudyMenu();
+        }
+    }
+
+    private void HideStudyMenu()
+    {
+        gameObject.SetActive(false);
     }
 
     private IEnumerator SetButtonInteractableAfterDelay(Button button, float delay)
