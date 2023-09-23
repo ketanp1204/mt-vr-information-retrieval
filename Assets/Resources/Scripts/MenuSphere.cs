@@ -10,7 +10,7 @@ using Photon.Pun;
 using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
 
-public class MenuSphere : XRSimpleInteractable
+public class MenuSphere : MonoBehaviourPunCallbacks
 {
     // Public Variables //
 
@@ -22,25 +22,37 @@ public class MenuSphere : XRSimpleInteractable
     // Private Variables //
 
     private bool menuOpen = false;
-
+    private TextMeshProUGUI msPanelText;
 
 
     private void Start()
     {
-        
+        msPanelText = msPanel.GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    protected override void OnHoverEntered(HoverEnterEventArgs args)
+    public void OnHoverEntered()
     {
-        base.OnHoverEntered(args);
-
         if (!menuOpen)
         {
-            StartCoroutine(FadeCanvasGroup(msPanel, 0f, 1f, 3f));
+            msPanelText.text = "Show Information";
+            StartCoroutine(FadeCanvasGroup(msPanel, 0f, 1f));
+            photonView.RPC(nameof(UpdateMSPanel), RpcTarget.Others, true, 1);
+        }
+        else if (menuOpen) 
+        {
+            msPanelText.text = "Exit";
+            StartCoroutine(FadeCanvasGroup(msPanel, 0f, 1f));
+            photonView.RPC(nameof(UpdateMSPanel), RpcTarget.Others, true, 2);
         }
     }
 
-    private IEnumerator FadeCanvasGroup(CanvasGroup cG, float startAlpha, float endAlpha, float restoreAfterDelay)
+    public void OnHoverExited()
+    {
+        StartCoroutine(FadeCanvasGroup(msPanel, 1f, 0f));
+        photonView.RPC(nameof(UpdateMSPanel), RpcTarget.Others, false, 0);
+    }
+
+    private IEnumerator FadeCanvasGroup(CanvasGroup cG, float startAlpha, float endAlpha, float restoreAfterDelay = 0f)
     {
         float t = 0f;
         while (t < animDuration)
@@ -57,7 +69,7 @@ public class MenuSphere : XRSimpleInteractable
         {
             yield return new WaitForSeconds(restoreAfterDelay);
 
-            if(cG.alpha == 1f)
+            if (cG.alpha == 1f)
             {
                 t = 0f;
                 while (t < animDuration)
@@ -73,20 +85,20 @@ public class MenuSphere : XRSimpleInteractable
         }
     }
 
-    protected override void OnSelectEntered(SelectEnterEventArgs args)
+    public void OnSelectEntered()
     {
-        base.OnSelectEntered(args);
-
         if (!menuOpen)
         {
             menuOpen = true;
 
+            // Hide information panels
             StartCoroutine(FadeInformationPanels(0f, 1f));
         }
         else
         {
             menuOpen = false;
 
+            // Show information panels
             StartCoroutine(FadeInformationPanels(1f, 0f));
         }
     }
@@ -98,6 +110,20 @@ public class MenuSphere : XRSimpleInteractable
             StartCoroutine(FadeCanvasGroup(infoPanels[i], startAlpha, endAlpha, 0f));
 
             yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    [PunRPC]
+    void UpdateMSPanel(bool visibility, int state)
+    {
+        if (visibility)
+        {
+            msPanel.alpha = 1f;
+            msPanelText.text = state == 1 ? "Show Information" : "Exit";
+        }
+        else
+        {
+            msPanel.alpha = 0f;
         }
     }
 }
