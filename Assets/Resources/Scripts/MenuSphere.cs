@@ -52,7 +52,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
         photonView.RPC(nameof(UpdateMSPanel), RpcTarget.Others, false, 0);
     }
 
-    private IEnumerator FadeCanvasGroup(CanvasGroup cG, float startAlpha, float endAlpha, float restoreAfterDelay = 0f)
+    private IEnumerator FadeCanvasGroup(CanvasGroup cG, float startAlpha, float endAlpha)
     {
         float t = 0f;
         while (t < animDuration)
@@ -64,25 +64,6 @@ public class MenuSphere : MonoBehaviourPunCallbacks
         }
 
         cG.alpha = endAlpha;
-
-        if (restoreAfterDelay > 0f)
-        {
-            yield return new WaitForSeconds(restoreAfterDelay);
-
-            if (cG.alpha == 1f)
-            {
-                t = 0f;
-                while (t < animDuration)
-                {
-                    cG.alpha = Mathf.Lerp(endAlpha, startAlpha, t / animDuration);
-
-                    t += Time.deltaTime;
-                    yield return null;
-                }
-
-                cG.alpha = startAlpha;
-            }
-        }
     }
 
     public void OnSelectEntered()
@@ -91,15 +72,17 @@ public class MenuSphere : MonoBehaviourPunCallbacks
         {
             menuOpen = true;
 
-            // Hide information panels
+            // Show information panels
             StartCoroutine(FadeInformationPanels(0f, 1f));
+            photonView.RPC(nameof(UpdateInfoPanels), RpcTarget.Others, true);
         }
         else
         {
             menuOpen = false;
 
-            // Show information panels
+            // Hide information panels
             StartCoroutine(FadeInformationPanels(1f, 0f));
+            photonView.RPC(nameof(UpdateInfoPanels), RpcTarget.Others, false);
         }
     }
 
@@ -107,7 +90,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
     {
         for (int i = 0; i < infoPanels.Count; i++)
         {
-            StartCoroutine(FadeCanvasGroup(infoPanels[i], startAlpha, endAlpha, 0f));
+            StartCoroutine(FadeCanvasGroup(infoPanels[i], startAlpha, endAlpha));
 
             yield return new WaitForSeconds(0.05f);
         }
@@ -124,6 +107,25 @@ public class MenuSphere : MonoBehaviourPunCallbacks
         else
         {
             msPanel.alpha = 0f;
+        }
+    }
+
+    [PunRPC]
+    void UpdateInfoPanels(bool visibility)
+    {
+        if (visibility)
+        {
+            for (int i = 0; i < infoPanels.Count; i++)
+            {
+                infoPanels[i].alpha = 1f;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < infoPanels.Count; i++)
+            {
+                infoPanels[i].alpha = 0f;
+            }
         }
     }
 }
