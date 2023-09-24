@@ -31,18 +31,20 @@ public class TextBox : MonoBehaviour
         {
             displayText.text = text;
             cG.alpha = 1f;
-            photonView.RPC(nameof(SyncTextBox), RpcTarget.Others, true, text);
+            photonView.RPC("UpdateInfoTextBox", RpcTarget.Others, gameObject.name, true, text);
         }
         else if (cG.alpha == 1f)
         {
             if (displayText.text == text)
             {
                 cG.alpha = 0f;
+                photonView.RPC("UpdateInfoTextBox", RpcTarget.Others, gameObject.name, false, null);
             }
             else
             {
                 displayText.text = text;
                 cG.alpha = 1f;
+                photonView.RPC("UpdateInfoTextBox", RpcTarget.Others, gameObject.name, true, text);
             }
         }
     }
@@ -50,20 +52,6 @@ public class TextBox : MonoBehaviour
     public void HideTextBox()
     {
         if (cG.alpha == 1f)
-        {
-            cG.alpha = 0f;
-        }
-    }
-
-    [PunRPC]
-    void SyncTextBox(bool visibility, string text)
-    {
-        if (visibility)
-        {
-            cG.alpha = 1f;
-            displayText.text = text;
-        }
-        else
         {
             cG.alpha = 0f;
         }

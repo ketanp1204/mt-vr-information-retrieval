@@ -17,6 +17,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
     public CanvasGroup msPanel;
     public float animDuration = 0.1f;
     public List<CanvasGroup> infoPanels = new List<CanvasGroup>();
+    public List<CanvasGroup> infoTextBoxes = new List<CanvasGroup>();
 
 
     // Private Variables //
@@ -125,6 +126,35 @@ public class MenuSphere : MonoBehaviourPunCallbacks
             for (int i = 0; i < infoPanels.Count; i++)
             {
                 infoPanels[i].alpha = 0f;
+            }
+        }
+    }
+
+    [PunRPC]
+    void UpdateInfoTextBox(string name, bool visibility, string text)
+    {
+        CanvasGroup canvasGroup = null;
+        TextMeshProUGUI displayText = null;
+        for (int i = 0; i < infoTextBoxes.Count; i++)
+        {
+            if (name == infoTextBoxes[i].name)
+            {
+                canvasGroup = infoTextBoxes[i];
+                displayText = canvasGroup.transform.Find("Viewport/Content/Text").GetComponent<TextMeshProUGUI>();
+                break;
+            }
+        }
+
+        if (canvasGroup != null)
+        {
+            if (visibility)
+            {
+                canvasGroup.alpha = 1f;
+                displayText.text = text;
+            }
+            else
+            {
+                canvasGroup.alpha = 0f;
             }
         }
     }
