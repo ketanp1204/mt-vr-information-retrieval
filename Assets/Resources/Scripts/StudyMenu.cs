@@ -13,6 +13,7 @@ public class StudyMenu : MonoBehaviour
 
     [Space(20)]
     [Header("Interaction Properties")]
+    public CanvasGroup studyMenuPanelCG;
     public CanvasGroup topCG;
     public CanvasGroup controllerInstructionsCG;
     public CanvasGroup nextButtonCG;
@@ -21,6 +22,7 @@ public class StudyMenu : MonoBehaviour
     public CanvasGroup startButtonCG;
     public float fadeInDuration = 0.5f;
     public float fadeOutDuration = 0.1f;
+    public float beginInstructionsDelay = 3f;
 
     [Space(20)]
     [Header("Tutorial Content")]
@@ -52,7 +54,9 @@ public class StudyMenu : MonoBehaviour
         {
             playerJoinedRoom = true;
 
-            StartCoroutine(FadeCanvasGroup(topCG, 0f, 1f, fadeInDuration, 1f));
+            StartCoroutine(FadeCanvasGroup(studyMenuPanelCG, 0f, 1f, fadeInDuration, 1f, true));
+
+            StartCoroutine(FadeCanvasGroup(topCG, 0f, 1f, fadeInDuration, 2f));
 
             StartCoroutine(BeginInstructions());
         }
@@ -60,7 +64,7 @@ public class StudyMenu : MonoBehaviour
 
     private IEnumerator BeginInstructions()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(beginInstructionsDelay);
 
         // Show controller primary button controls
         controllerInstructionsCG.GetComponentInChildren<TextMeshProUGUI>().text = controllerTutorialTexts[0];
@@ -186,7 +190,7 @@ public class StudyMenu : MonoBehaviour
 
     private void HideStudyMenu()
     {
-        gameObject.SetActive(false);
+        StartCoroutine(FadeCanvasGroup(studyMenuPanelCG, 1f, 0f, fadeOutDuration, enableInteraction: false));
     }
 
     private IEnumerator SetButtonInteractableAfterDelay(Button button, float delay)
@@ -219,6 +223,11 @@ public class StudyMenu : MonoBehaviour
         {
             cG.interactable = true;
             cG.blocksRaycasts = true;
+        }
+        else
+        {
+            cG.interactable = false;
+            cG.blocksRaycasts = false;
         }
     }
 }

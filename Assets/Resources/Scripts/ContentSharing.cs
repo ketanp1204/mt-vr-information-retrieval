@@ -11,7 +11,7 @@ public class ContentSharing : MonoBehaviourPunCallbacks, IPunInstantiateMagicCal
 
     public GameObject visibilityObject;
     public Vector3 guideSpawnOffset;
-    public string guideText;
+    public string guideText = "Drag out to Share";
     // public GameObject shareTextPrefab;
 
 
@@ -43,7 +43,7 @@ public class ContentSharing : MonoBehaviourPunCallbacks, IPunInstantiateMagicCal
 
     void Update()
     {
-        if(isSharable)
+        if(isSharable && contentSphere != null)
         {   
             distanceFromSphere = Vector3.Distance(transform.position, contentSphere.transform.position);
 

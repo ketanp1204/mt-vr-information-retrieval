@@ -41,7 +41,6 @@ public class MenuArea : XRSimpleInteractable
     public Tooltip gripHoldTooltip;
     public GameObject guidePrefab;
     public string infoVisibilityText;
-    public GameObject menuSpherePrefab;
     public GameObject linePrefab;
     public string imagePrefabLoc = "UtilityPrefabs/ImagePrefab";
     public string descBoxPrefabLoc = "UtilityPrefabs/DescBoxPrefab";
@@ -50,7 +49,7 @@ public class MenuArea : XRSimpleInteractable
     public GameObject exitSphere;
     public float pullDistance = 0.3f;
     public float menuItemAnimDuration = 0.1f;
-    public float nextLayerLoadDelay = 0.05f;
+    public float layerLoadDuration = 0.05f;
 
 
 
@@ -75,6 +74,7 @@ public class MenuArea : XRSimpleInteractable
     private bool firstLayerOpen = false;
     private float menuSphereInitialZ = 0f;
     private object[] contentSphereInfo;
+    private bool infoVisibilityTextSeen = false;
     
 
 
@@ -115,7 +115,7 @@ public class MenuArea : XRSimpleInteractable
 
                             // Scaling the exit sphere
                             exitSphere.transform.localScale = Vector3.one * exitSphereScale;
-                            Vector3 exitSphereFinalPos = new Vector3(0f, -0.1f, pullDistance);
+                            Vector3 exitSphereFinalPos = new Vector3(-0.03f, -0.1f, pullDistance);
                             exitSphere.transform.localPosition = Vector3.Lerp(Vector3.zero, exitSphereFinalPos, currentPullDistance);
                         }
 
@@ -141,7 +141,11 @@ public class MenuArea : XRSimpleInteractable
                     exitSphere.GetComponent<SphereCollider>().enabled = true;
 
                     // Show information visibility guide
-                    LoadGuide(infoVisibilityText, exitSphere.transform.position, -0.05f, 3f);
+                    if (!infoVisibilityTextSeen)
+                    {
+                        infoVisibilityTextSeen = true;
+                        LoadGuide(infoVisibilityText, exitSphere.transform.position, -0.05f, 3f);
+                    }
                 }
                     
 
@@ -298,22 +302,30 @@ public class MenuArea : XRSimpleInteractable
             switch (menuElement.name)
             {
                 case "Description":
-
+                    
+                    /*
                     // Animate all items to the zero position
                     for (int i = 0; i < currentMenuLayer.items.Count; i++)
                     {
                        StartCoroutine(AnimateMenuItemToZero(i, true));         // Scaling to zero
                     }
+                    */
 
-                    // Clear menu layer array
-                    menuElement.menuLayer.items.Clear();
+                    // Animate menu item to zero position
+                    for (int i = 0; i  < currentMenuLayer.items.Count; i++)
+                    {
+                        if (currentMenuLayer.items[i] == menuElement.gameObject)
+                        {
+                            StartCoroutine(AnimateMenuItemToZero(i, true));  
+                        }
+                    }
 
-                    // Create description box
+                    // Calculate description box rotation 
                     rot = menuRotationOffset.y == 180 ? menuElement.transform.localRotation : 
                                                                     menuElement.transform.localRotation * Quaternion.Euler(menuRotationOffset);
-
+                    // Create description box
                     GameObject descGO = PhotonNetwork.Instantiate(descBoxPrefabLoc,
-                                                                    menuElement.transform.position,
+                                                                    menuElement.transform.position + new Vector3(0.04f, 0f, 0f),
                                                                     rot,
                                                                     data: contentSphereInfo);
                     descGO.name = gameObject.name.Replace("MA_", "DB_");
@@ -328,7 +340,7 @@ public class MenuArea : XRSimpleInteractable
                     // Set as sharable
                     descGO.GetComponent<ContentSharing>().SetSharable(true);
 
-                    ExitMenu();
+                    // ExitMenu();
 
                     break;
 
@@ -391,21 +403,29 @@ public class MenuArea : XRSimpleInteractable
 
                 case "Audio":
 
+                    /*
                     // Animate all items to the zero position
                     for (int i = 0; i < currentMenuLayer.items.Count; i++)
                     {
                         StartCoroutine(AnimateMenuItemToZero(i, true));         // Scaling to zero
                     }
+                    */
 
-                    // Clear menu layer array
-                    menuElement.menuLayer.items.Clear();
+                    // Animate menu item to zero position
+                    for (int i = 0; i < currentMenuLayer.items.Count; i++)
+                    {
+                        if (currentMenuLayer.items[i] == menuElement.gameObject)
+                        {
+                            StartCoroutine(AnimateMenuItemToZero(i, true));
+                        }
+                    }
 
                     // Create audio box
                     rot = menuRotationOffset.y == 180 ? menuElement.transform.localRotation :
                                                                     menuElement.transform.localRotation * Quaternion.Euler(menuRotationOffset);
 
                     GameObject audioGO = PhotonNetwork.Instantiate(audioPrefabLoc, 
-                                                                    menuElement.transform.position, 
+                                                                    menuElement.transform.position + new Vector3(0f, 0.09f, 0f), 
                                                                     rot, 
                                                                     data: contentSphereInfo);
                     audioGO.name = gameObject.name.Replace("MA_", "AB_");
@@ -421,7 +441,7 @@ public class MenuArea : XRSimpleInteractable
                     // Set as sharable
                     audioGO.GetComponent<ContentSharing>().SetSharable(true);
 
-                    ExitMenu();
+                    // ExitMenu();
 
                     break;
 
@@ -440,11 +460,16 @@ public class MenuArea : XRSimpleInteractable
         }
     }
 
+    public void OnMenuBackButton()
+    {
+
+    }
+
     private IEnumerator LoadNextMenuLayer(MenuElement mE)
     {
         yield return new WaitForSeconds(menuItemAnimDuration);
 
-        yield return new WaitForSeconds(nextLayerLoadDelay);
+        yield return new WaitForSeconds(layerLoadDuration);
 
         // Reset item final positions array
         menuItemFinalPositions.Clear();        

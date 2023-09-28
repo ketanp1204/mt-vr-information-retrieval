@@ -445,7 +445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visibilityObject: {fileID: 4825156996491689814}
   guideSpawnOffset: {x: 0, y: 0, z: 0}
-  guideText: 
+  guideText: Drag out to Share
 --- !u!1 &9196715599455002162
 GameObject:
   m_ObjectHideFlags: 0
