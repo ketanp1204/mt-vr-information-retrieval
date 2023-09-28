@@ -10,6 +10,9 @@ public class FaceCamera : MonoBehaviour
     public bool rotateTowardsUser = true;
     public bool isInitialized = false;
     public bool objectActiveOnStart = false;
+    public bool rotateX = true;
+    public bool rotateY = true;
+    public bool rotateZ = true;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +57,19 @@ public class FaceCamera : MonoBehaviour
         {
             Vector3 directionToCam = transform.position - cam.transform.position;
             Quaternion rotation = Quaternion.LookRotation(directionToCam, Vector3.up);
+
+            if (!rotateX)
+            {
+                rotation.eulerAngles = new Vector3(0f, rotation.eulerAngles.y, rotation.eulerAngles.z);
+            }
+            if (!rotateY)
+            {
+                rotation.eulerAngles = new Vector3(rotation.eulerAngles.x, 0f, rotation.eulerAngles.z);
+            }
+            if (!rotateZ)
+            {
+                rotation.eulerAngles = new Vector3(rotation.eulerAngles.x, rotation.eulerAngles.y, 0f);
+            }
 
             //transform.LookAt(cam.transform.position);
             //transform.localRotation *= Quaternion.Euler(rotationOffset);

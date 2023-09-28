@@ -88,6 +88,11 @@ public class StudyMenu : MonoBehaviour
         controllerInstructionsCG.alpha = 0f;
         controllerInstructionsCG.gameObject.SetActive(false);
 
+        // Show tooltips on the player's controllers
+        TooltipHandler tH = Vrsys.NetworkUser.localNetworkUser.GetComponent<TooltipHandler>();
+        tH.SetShowTooltipsBool(true);
+        tH.InitializeTooltips();
+
         // Show study selector 
         studySelectorCG.gameObject.SetActive(true);
         StartCoroutine(FadeCanvasGroup(studySelectorCG, 0f, 1f, fadeInDuration, enableInteraction: true));

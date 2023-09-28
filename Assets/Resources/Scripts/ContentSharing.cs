@@ -43,17 +43,23 @@ public class ContentSharing : MonoBehaviourPunCallbacks, IPunInstantiateMagicCal
 
     void Update()
     {
-        if(isSharable && !shareTextDisplayed)
+        if(isSharable)
         {   
             distanceFromSphere = Vector3.Distance(transform.position, contentSphere.transform.position);
 
-            if (distanceFromSphere > (0.7f * (contentSphere.transform.localScale.x / 2)) && !shareTextDisplayed)
+            if (distanceFromSphere > (0.6f * (contentSphere.transform.localScale.x / 2)) && !shareTextDisplayed)
             {
                 shareTextDisplayed = true;
 
                 StartCoroutine(DisplayShareText());
 
                 particles.Play();
+            } 
+            else if (distanceFromSphere < (0.6f * (contentSphere.transform.localScale.x / 2)) && shareTextDisplayed)
+            {
+                particles.Stop();
+
+                shareTextDisplayed = false;
             }
         }        
     }

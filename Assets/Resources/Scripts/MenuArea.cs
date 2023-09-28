@@ -28,14 +28,16 @@ public class MenuArea : XRSimpleInteractable
         public GameObject parentSelectedItem;
     }
 
-    // Public Variables
 
+
+    // Public Variables
 
     [Space(20)]
     public ExhibitInformation exhibitInfo;
     [Space(20)]
     [Header("Interaction Properties")]
     public Menu menuLayer;
+    public Vector3 menuRotationOffset;
     public Tooltip gripHoldTooltip;
     public GameObject guidePrefab;
     public string infoVisibilityText;
@@ -49,6 +51,7 @@ public class MenuArea : XRSimpleInteractable
     public float pullDistance = 0.3f;
     public float menuItemAnimDuration = 0.1f;
     public float nextLayerLoadDelay = 0.05f;
+
 
 
     // Private variables
@@ -72,6 +75,9 @@ public class MenuArea : XRSimpleInteractable
     private bool firstLayerOpen = false;
     private float menuSphereInitialZ = 0f;
     private object[] contentSphereInfo;
+    
+
+
 
     private void Start()
     {
@@ -257,7 +263,6 @@ public class MenuArea : XRSimpleInteractable
             contentSphere = contentSphere.transform.Find("Sphere").gameObject;
             contentSphere.transform.localScale = Vector3.zero;
             menuSphereInitialZ = contentSphere.transform.localPosition.z;
-            // menuSphere.AddComponent<FaceCamera>();
 
             // Create a line from the center of interaction to the controller's current position
             menuLine = GameObject.Instantiate(linePrefab, contentSphere.transform);
@@ -268,9 +273,12 @@ public class MenuArea : XRSimpleInteractable
             UpdateCurrentMenuItems(menuLayer);
 
             // Menu facing in the direction of the user
-            contentSphere.transform.parent.localRotation = rotation;
-            menuLayer.parent.transform.localRotation = rotation;
-            exitSphere.AddComponent<FaceCamera>();
+            // contentSphere.transform.parent.localRotation = rotation;
+            // menuLayer.parent.transform.rotation = rotation;
+            FaceCamera cam = exitSphere.AddComponent<FaceCamera>();
+            cam.rotateX = false;
+            cam.rotateZ = false;
+            cam.rotationOffset = menuRotationOffset;
 
             // Get the tooltip handler reference
             tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
@@ -282,6 +290,7 @@ public class MenuArea : XRSimpleInteractable
         if (!menuElement.isSelected)
         {
             menuElement.isSelected = true;
+            Quaternion rot = Quaternion.identity;
 
             // Share content sphere as object info
             contentSphereInfo = new object[] { contentSphere.transform.parent.GetComponent<PhotonView>().ViewID };
@@ -296,9 +305,17 @@ public class MenuArea : XRSimpleInteractable
                        StartCoroutine(AnimateMenuItemToZero(i, true));         // Scaling to zero
                     }
 
-                    // Create description box
+                    // Clear menu layer array
                     menuElement.menuLayer.items.Clear();
-                    GameObject descGO = PhotonNetwork.Instantiate(descBoxPrefabLoc, menuElement.transform.position, menuElement.transform.rotation, data: contentSphereInfo);
+
+                    // Create description box
+                    rot = menuRotationOffset.y == 180 ? menuElement.transform.localRotation : 
+                                                                    menuElement.transform.localRotation * Quaternion.Euler(menuRotationOffset);
+
+                    GameObject descGO = PhotonNetwork.Instantiate(descBoxPrefabLoc,
+                                                                    menuElement.transform.position,
+                                                                    rot,
+                                                                    data: contentSphereInfo);
                     descGO.name = gameObject.name.Replace("MA_", "DB_");
 
                     // Set display text
@@ -380,9 +397,17 @@ public class MenuArea : XRSimpleInteractable
                         StartCoroutine(AnimateMenuItemToZero(i, true));         // Scaling to zero
                     }
 
-                    // Create audio box
+                    // Clear menu layer array
                     menuElement.menuLayer.items.Clear();
-                    GameObject audioGO = PhotonNetwork.Instantiate(audioPrefabLoc, menuElement.transform.position, menuElement.transform.rotation, data: contentSphereInfo);
+
+                    // Create audio box
+                    rot = menuRotationOffset.y == 180 ? menuElement.transform.localRotation :
+                                                                    menuElement.transform.localRotation * Quaternion.Euler(menuRotationOffset);
+
+                    GameObject audioGO = PhotonNetwork.Instantiate(audioPrefabLoc, 
+                                                                    menuElement.transform.position, 
+                                                                    rot, 
+                                                                    data: contentSphereInfo);
                     audioGO.name = gameObject.name.Replace("MA_", "AB_");
 
                     // Set audio clip
@@ -459,8 +484,12 @@ public class MenuArea : XRSimpleInteractable
         foreach (GameObject item in menuLayer.items)
         {
             if (item.GetComponent<FaceCamera>() == null)
-                item.AddComponent<FaceCamera>();
-            // item.GetComponent<FaceCamera>().SetUserCamera();
+            {
+                FaceCamera cam = item.AddComponent<FaceCamera>();
+                cam.rotateX = false;
+                cam.rotateZ = false;
+                cam.rotationOffset = menuRotationOffset;
+            }
         }
 
         // Calculate the end positions of the menu items
