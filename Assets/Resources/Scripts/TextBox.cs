@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class TextBox : MonoBehaviour
 {
     // Public Variables //
 
     public PhotonView photonView;
+
 
 
     // Private Variables //
@@ -31,6 +33,8 @@ public class TextBox : MonoBehaviour
         {
             displayText.text = text;
             cG.alpha = 1f;
+            cG.interactable = true;
+            cG.blocksRaycasts = true;
             photonView.RPC("UpdateInfoTextBox", RpcTarget.Others, gameObject.name, true, text);
         }
         else if (cG.alpha == 1f)
@@ -38,22 +42,30 @@ public class TextBox : MonoBehaviour
             if (displayText.text == text)
             {
                 cG.alpha = 0f;
+                cG.interactable = false;
+                cG.blocksRaycasts = false;
                 photonView.RPC("UpdateInfoTextBox", RpcTarget.Others, gameObject.name, false, null);
             }
             else
             {
                 displayText.text = text;
                 cG.alpha = 1f;
+                cG.interactable = true;
+                cG.blocksRaycasts = true;
                 photonView.RPC("UpdateInfoTextBox", RpcTarget.Others, gameObject.name, true, text);
             }
         }
     }
 
-    public void HideTextBox()
+    public void HideTextBox(bool syncOverNetwork)
     {
         if (cG.alpha == 1f)
         {
             cG.alpha = 0f;
+            cG.interactable = false;
+            cG.blocksRaycasts = false;
+            if (syncOverNetwork)
+                photonView.RPC("UpdateInfoTextBox", RpcTarget.Others, gameObject.name, false, null);
         }
     }
 }

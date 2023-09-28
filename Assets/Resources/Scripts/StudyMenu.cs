@@ -36,7 +36,6 @@ public class StudyMenu : MonoBehaviour
     // Private Variables //
 
     private bool playerJoinedRoom = false;
-    private bool skipControls = false;
     private int tutorialLayer = 1;
     private int selectedStudy = 0;
     
@@ -79,8 +78,6 @@ public class StudyMenu : MonoBehaviour
 
     public void SkipControls()
     {
-        skipControls = true;
-
         // Disable skip controls button
         skipButtonCG.gameObject.SetActive(false);
         

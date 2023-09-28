@@ -53,7 +53,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
         photonView.RPC(nameof(UpdateMSPanel), RpcTarget.Others, false, 0);
     }
 
-    private IEnumerator FadeCanvasGroup(CanvasGroup cG, float startAlpha, float endAlpha)
+    private IEnumerator FadeCanvasGroup(CanvasGroup cG, float startAlpha, float endAlpha, bool enableInteraction = false)
     {
         float t = 0f;
         while (t < animDuration)
@@ -65,6 +65,17 @@ public class MenuSphere : MonoBehaviourPunCallbacks
         }
 
         cG.alpha = endAlpha;
+
+        if (enableInteraction)
+        {
+            cG.interactable = true;
+            cG.blocksRaycasts = true;
+        }
+        else
+        {
+            cG.interactable = false;
+            cG.blocksRaycasts = false;
+        }
     }
 
     public void OnSelectEntered()
@@ -74,7 +85,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
             menuOpen = true;
 
             // Show information panels
-            StartCoroutine(FadeInformationPanels(0f, 1f));
+            StartCoroutine(FadeInformationPanels(0f, 1f, true));
             photonView.RPC(nameof(UpdateInfoPanels), RpcTarget.Others, true);
         }
         else
@@ -82,16 +93,16 @@ public class MenuSphere : MonoBehaviourPunCallbacks
             menuOpen = false;
 
             // Hide information panels
-            StartCoroutine(FadeInformationPanels(1f, 0f));
+            StartCoroutine(FadeInformationPanels(1f, 0f, false));
             photonView.RPC(nameof(UpdateInfoPanels), RpcTarget.Others, false);
         }
     }
 
-    private IEnumerator FadeInformationPanels(float startAlpha, float endAlpha)
+    private IEnumerator FadeInformationPanels(float startAlpha, float endAlpha, bool enableInteraction)
     {
         for (int i = 0; i < infoPanels.Count; i++)
         {
-            StartCoroutine(FadeCanvasGroup(infoPanels[i], startAlpha, endAlpha));
+            StartCoroutine(FadeCanvasGroup(infoPanels[i], startAlpha, endAlpha, enableInteraction));
 
             yield return new WaitForSeconds(0.05f);
         }
@@ -150,11 +161,15 @@ public class MenuSphere : MonoBehaviourPunCallbacks
             if (visibility)
             {
                 canvasGroup.alpha = 1f;
+                canvasGroup.interactable = true;
+                canvasGroup.blocksRaycasts = true;
                 displayText.text = text;
             }
             else
             {
                 canvasGroup.alpha = 0f;
+                canvasGroup.interactable = false;
+                canvasGroup.blocksRaycasts = false;
             }
         }
     }
