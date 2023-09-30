@@ -12,7 +12,14 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
     public GameObject dVContainer;
     public List<GameObject> dVObjectPrefabs;
     public List<Transform> syncObjects;
+    public string imagePrefabLoc = "UtilityPrefabs/ImagePrefab";
 
+
+    // Private Variables //
+
+    private Transform imageLocs;
+    private Transform videoLocs;
+    private Transform relatedItemLocs;
 
 
 
@@ -26,6 +33,40 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
         string itemName = (string)data[1];
         string dVName = "DV_" + itemName;
 
+        // Get info placement locations
+        GameObject dVGO = transform.Find("DetailViews/" + dVName).gameObject;
+        imageLocs = GetChildWithName(dVGO, "ImageLocs");
+        videoLocs = GetChildWithName(dVGO, "VideoLocs");
+        relatedItemLocs = GetChildWithName(dVGO, "RelatedItemLocs");
+
+        // Get exhibit information object
+        ExhibitInformation exhibitInfo = null;
+        ExhibitInfoRefs exhibitInfoRefs = Resources.Load("Miscellaneous/ExhibitInfoRefs") as ExhibitInfoRefs;
+        for (int i = 0; i < exhibitInfoRefs.exhibitInfos.Length; i++)
+        {
+            if (exhibitInfoRefs.exhibitInfos[i].exhibitName == itemName)
+            {
+                exhibitInfo = exhibitInfoRefs.exhibitInfos[i].exhibitInfo;
+            }
+        }
+
+        // Spawn detail view text
+
+
+        // Spawn detail view images
+        for (int i = 0; i < exhibitInfo.detailInfoImages.Length; i++)
+        {
+            GameObject image = PhotonNetwork.Instantiate(imagePrefabLoc, imageLocs.GetChild(i).transform.position, imageLocs.GetChild(i).transform.rotation);
+            image.GetComponent<ImagePrefab>().SetImage(exhibitInfo.detailInfoImages[i].image.texture);
+        }
+
+        // Spawn detail view videos
+
+        
+        // Spawn detail view related items
+
+        
+        /*
         // Spawn detail view items
         foreach (GameObject gO in dVObjectPrefabs)
         {
@@ -34,6 +75,7 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
                 StartCoroutine(InstantiateDVAfterDelay(gO));
             }
         }
+        */
     }
 
     private IEnumerator InstantiateDVAfterDelay(GameObject gO)
@@ -47,6 +89,20 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
         List<GameObject> objs = new List<GameObject>();
         objs.Add(dV);
         focus.AddFocused(objs);
+    }
+
+    private Transform GetChildWithName(GameObject gO, string childName)
+    {
+        Transform child = null;
+        foreach (Transform t in gO.GetComponentsInChildren<Transform>())
+        {
+            if (t.name == childName)
+            {
+                child = t;
+                break;
+            }
+        }
+        return child;
     }
 
     /*

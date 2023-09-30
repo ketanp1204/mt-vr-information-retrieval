@@ -278,7 +278,7 @@ public class MenuArea : XRSimpleInteractable
 
             // Menu facing in the direction of the user
             // contentSphere.transform.parent.localRotation = rotation;
-            // menuLayer.parent.transform.rotation = rotation;
+            menuLayer.parent.transform.rotation = rotation;
             FaceCamera cam = exitSphere.AddComponent<FaceCamera>();
             cam.rotateX = false;
             cam.rotateZ = false;

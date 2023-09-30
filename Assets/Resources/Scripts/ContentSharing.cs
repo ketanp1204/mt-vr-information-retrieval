@@ -27,6 +27,7 @@ public class ContentSharing : MonoBehaviourPunCallbacks, IPunInstantiateMagicCal
     
     public void OnPhotonInstantiate(PhotonMessageInfo info)
     {
+        /*
         object[] data = info.photonView.InstantiationData;
 
         int sphereViewID = (int)data[0];
@@ -39,6 +40,7 @@ public class ContentSharing : MonoBehaviourPunCallbacks, IPunInstantiateMagicCal
         {
             visibilityObject.SetActive(false);
         }
+        */
     }
 
     void Update()

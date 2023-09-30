@@ -21,3 +21,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: feb24c36335a4144481e7f98b57fdb07, type: 3}
   videos:
   - {fileID: 32900000, guid: 99daf13362949664283372dbbd92ae46, type: 3}
+  basicInfo: {fileID: 0}
+  detailInfo: {fileID: 0}
+  basicAudioGuide: {fileID: 0}
+  detailAudioGuide: {fileID: 0}
+  images1:
+  - image: {fileID: 0}
+    imageDescription: {fileID: 0}
+  videos1: []
+  relatedItems: []
