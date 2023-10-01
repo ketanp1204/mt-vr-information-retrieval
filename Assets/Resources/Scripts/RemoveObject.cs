@@ -11,7 +11,7 @@ public class RemoveObject : MonoBehaviour
 
     [HideInInspector]
     public bool removable = false;
-    public bool showRemoveTooltip = true;
+    public bool enableRemoveTooltip = true;
     public Tooltip removeObjectTooltip;
     public InputActionReference secondaryButton;
 
@@ -49,14 +49,16 @@ public class RemoveObject : MonoBehaviour
                 isHovering = true;
 
                 // Show select action tooltip
-                if (showRemoveTooltip)
+                if (enableRemoveTooltip)
                 {
+                    // Show tooltip
                     tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
                     tooltipHandler.ShowTooltip(removeObjectTooltip);
+                
+                    // Enable input action
+                    secondaryButton.action.Enable();
+                    secondaryButton.action.performed += RemoveGameObject;
                 }
-
-                secondaryButton.action.Enable();
-                secondaryButton.action.performed += RemoveGameObject;
 
             }
         }
@@ -72,14 +74,16 @@ public class RemoveObject : MonoBehaviour
                 isHovering = false;
 
                 // Show select action tooltip
-                if (showRemoveTooltip)
+                if (enableRemoveTooltip)
                 {
+                    // Hide tooltip
                     tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
                     tooltipHandler.HideTooltip(removeObjectTooltip);
+                
+                    // Disable input action
+                    secondaryButton.action.Disable();
+                    secondaryButton.action.performed -= RemoveGameObject;
                 }
-
-                secondaryButton.action.Disable();
-                secondaryButton.action.performed -= RemoveGameObject;
             }
         }        
     }

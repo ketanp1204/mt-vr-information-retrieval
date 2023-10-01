@@ -57,7 +57,9 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
         for (int i = 0; i < exhibitInfo.detailInfoImages.Length; i++)
         {
             GameObject image = PhotonNetwork.Instantiate(imagePrefabLoc, imageLocs.GetChild(i).transform.position, imageLocs.GetChild(i).transform.rotation);
-            image.GetComponent<ImagePrefab>().SetImage(exhibitInfo.detailInfoImages[i].image.texture);
+            ImagePrefab iP = image.GetComponent<ImagePrefab>();
+            iP.SetImage(exhibitInfo.detailInfoImages[i].image);
+            iP.SetText(exhibitInfo.detailInfoImages[i].imageText.text);
         }
 
         // Spawn detail view videos

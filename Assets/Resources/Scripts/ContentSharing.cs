@@ -137,8 +137,6 @@ public class ContentSharing : MonoBehaviourPunCallbacks, IPunInstantiateMagicCal
 
     public void HandleSelect(SelectEnterEventArgs args)
     {
-        PhotonView player = args.interactorObject.transform.root.GetComponent<PhotonView>();
-
         photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
     }
 }
