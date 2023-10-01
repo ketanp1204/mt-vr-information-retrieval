@@ -265,10 +265,10 @@ RectTransform:
   m_Father: {fileID: 5787619029294990042}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 13.5}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5787619028523889381
 CanvasRenderer:
@@ -361,7 +361,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -834,7 +834,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 7
+  m_PixelsPerUnitMultiplier: 10
 --- !u!225 &5787619029278972674
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -879,10 +879,10 @@ RectTransform:
   m_Father: {fileID: 5787619028687022607}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 15}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -5.8, y: 3.7475595}
+  m_SizeDelta: {x: 11.55, y: 15}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &5787619029700590180
 GameObject:
@@ -1141,7 +1141,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &6188413563737656317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1450,10 +1450,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73192fd5b83c20445be0a07d977c5402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  imageComp: {fileID: 3874735296990044580}
+  textPanelCG: {fileID: 5787619029278972674}
   textField: {fileID: 5787619028523889380}
   showTextTooltip:
     tooltipName: Primary Action
     actionButtonReference: 0
     tooltipText: Show Info
     hand: 2
-  primaryButton: {fileID: -3444445515797504187, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}
+  showTextInputAction: {fileID: -3444445515797504187, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}

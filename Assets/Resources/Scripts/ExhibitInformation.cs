@@ -1,15 +1,16 @@
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Video;
 
 [System.Serializable]
-public class ImageInfo
+public struct ImageInfo
 {
     public Sprite image;
     public TextAsset imageText;
 }
 
 [System.Serializable]
-public class VideoInfo
+public struct VideoInfo
 {
     public VideoClip videoClip;
     public TextAsset videoClipText;
@@ -17,10 +18,18 @@ public class VideoInfo
 }
 
 [System.Serializable]
-public class RelatedItemInfo
+public struct ModelInfo
 {
     public GameObject model;
     public TextAsset modelText;
+}
+
+[System.Serializable]
+public struct RelatedItemInfo
+{
+    public ModelInfo modelInfo;
+    public ImageInfo imageInfo;
+    public VideoInfo videoInfo;
 }
 
 [CreateAssetMenu(menuName = "Exhibit Info")]

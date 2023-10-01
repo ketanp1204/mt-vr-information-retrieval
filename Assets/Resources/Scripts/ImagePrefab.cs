@@ -11,9 +11,11 @@ public class ImagePrefab : MonoBehaviour
 
     // Public Variables //
 
+    public Image imageComp;
+    public CanvasGroup textPanelCG;
     public TextMeshProUGUI textField;
     public Tooltip showTextTooltip;
-    public InputActionReference primaryButton;
+    public InputActionReference showTextInputAction;
 
 
     // Private Variables
@@ -30,16 +32,14 @@ public class ImagePrefab : MonoBehaviour
     public void SetImage(Sprite image)
     {
         // Set and resize image on the child
-        Transform child = transform.GetChild(0);
-        Image imageComp = child.GetComponent<Image>();
         imageComp.sprite = image;
         float aspectRatio = image.rect.width / image.rect.height;
-        var fitter = child.GetComponent<AspectRatioFitter>();
+        var fitter = imageComp.GetComponent<AspectRatioFitter>();
         fitter.aspectRatio = aspectRatio;
 
         // Resize box collider
-        BoxCollider c = child.GetComponent<BoxCollider>();
-        RectTransform rt = child.GetComponent<RectTransform>();
+        BoxCollider c = imageComp.GetComponent<BoxCollider>();
+        RectTransform rt = imageComp.GetComponent<RectTransform>();
         c.size = new Vector3(rt.rect.width, rt.rect.height, c.size.z);
     }
 
@@ -53,18 +53,17 @@ public class ImagePrefab : MonoBehaviour
     {
         if (isHovering)
         {
-            Transform child = transform.GetChild(1);
-            StartCoroutine(FadeCanvasGroup(child.GetComponent<CanvasGroup>(), 0f, 1f, 0.1f, enableInteraction: true));
+            StartCoroutine(FadeCanvasGroup(textPanelCG, 0f, 1f, 0.1f, enableInteraction: true));
             isTextVisible = true;
 
             // Remove show text input action
-            primaryButton.action.performed -= ShowText;
+            showTextInputAction.action.performed -= ShowText;
 
             // Change tooltip string
             showTextTooltip.tooltipText = hideTextString;
 
             // Add hide text input action
-            primaryButton.action.performed += HideText;
+            showTextInputAction.action.performed += HideText;
         }
     }
 
@@ -72,18 +71,17 @@ public class ImagePrefab : MonoBehaviour
     {
         if (isHovering)
         {
-            Transform child = transform.GetChild(1);
-            StartCoroutine(FadeCanvasGroup(child.GetComponent<CanvasGroup>(), 1f, 0f, 0.1f, enableInteraction: false));
+            StartCoroutine(FadeCanvasGroup(textPanelCG, 1f, 0f, 0.1f, enableInteraction: false));
             isTextVisible = false;
 
             // Remove hide text input action
-            primaryButton.action.performed -= HideText;
+            showTextInputAction.action.performed -= HideText;
 
             // Change tooltip string
             showTextTooltip.tooltipText = showTextString;
 
             // Add show text input action
-            primaryButton.action.performed += ShowText;
+            showTextInputAction.action.performed += ShowText;
         }
     }
 
@@ -99,18 +97,18 @@ public class ImagePrefab : MonoBehaviour
                 tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
                 tooltipHandler.ShowTooltip(showTextTooltip);
 
-                primaryButton.action.Enable();
+                showTextInputAction.action.Enable();
                 if (!isTextVisible)
                 {
                     showTextTooltip.tooltipText = showTextString;
-                    primaryButton.action.performed -= ShowText;
-                    primaryButton.action.performed += ShowText;
+                    showTextInputAction.action.performed -= ShowText;
+                    showTextInputAction.action.performed += ShowText;
                 }
                 else
                 {
                     showTextTooltip.tooltipText = hideTextString;
-                    primaryButton.action.performed -= HideText;
-                    primaryButton.action.performed += HideText;                   
+                    showTextInputAction.action.performed -= HideText;
+                    showTextInputAction.action.performed += HideText;                   
                 }
             }
         }
@@ -128,11 +126,11 @@ public class ImagePrefab : MonoBehaviour
                 tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
                 tooltipHandler.HideTooltip(showTextTooltip);
 
-                primaryButton.action.Disable();
+                showTextInputAction.action.Disable();
                 if (!isTextVisible)
-                    primaryButton.action.performed -= ShowText;
+                    showTextInputAction.action.performed -= ShowText;
                 else
-                    primaryButton.action.performed -= HideText;
+                    showTextInputAction.action.performed -= HideText;
             }
         }
     }

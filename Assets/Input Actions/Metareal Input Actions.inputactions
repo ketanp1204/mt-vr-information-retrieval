@@ -269,6 +269,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MediaPlayPause",
+                    "type": "Button",
+                    "id": "fc3f3859-d565-41b5-acf6-c375b56c1eca",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MediaStop",
+                    "type": "Button",
+                    "id": "d37f1813-d4d1-4d5f-8f92-be5501585581",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -276,17 +294,6 @@
                     "name": "",
                     "id": "8a1dbc8e-0313-495c-94c5-d7a4dfb4d9ce",
                     "path": "<XRController>{RightHand}/secondaryButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "XR",
-                    "action": "Remove",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9bdb2301-e35b-4669-87ba-4f6abe7b5dd9",
-                    "path": "<XRController>{LeftHand}/secondaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
@@ -307,12 +314,23 @@
                 },
                 {
                     "name": "",
-                    "id": "6d9205d7-b3da-4a04-bcba-8a2e5fa18bdc",
+                    "id": "155f1c18-7afb-42a4-bcc3-006e0b511edd",
                     "path": "<XRController>{LeftHand}/primaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
-                    "action": "ShowText",
+                    "action": "MediaPlayPause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e135b028-c754-4772-92f1-13888b33cddd",
+                    "path": "<XRController>{LeftHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "XR",
+                    "action": "MediaStop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

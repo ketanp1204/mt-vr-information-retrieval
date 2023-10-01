@@ -18,6 +18,7 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 
     // Private Variables //
 
+    public string videoPrefabLoc = "UtilityPrefabs/VideoPrefab";
     private TextMeshProUGUI detailInfoTextObject;
     private AudioSource detailInfoAudioSource;
     private Transform imageLocs;
@@ -78,12 +79,45 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
         // Spawn detail view videos
         for (int i = 0; i < exhibitInfo.detailInfoVideos.Length; i++)
         {
-            
+            GameObject video = PhotonNetwork.Instantiate(videoPrefabLoc, videoLocs.GetChild(i).transform.position, videoLocs.GetChild(i).transform.rotation);
+            VideoPrefab vP = video.GetComponent<VideoPrefab>();
+            vP.SetThumbnail(exhibitInfo.detailInfoVideos[i].videoClipThumbnail);
+            vP.SetText(exhibitInfo.detailInfoVideos[i].videoClipText.text);
+            vP.SetVideoClip(exhibitInfo.detailInfoVideos[i].videoClip);
+            detailViewSpawnedObjs.Add(video);
         }
 
 
         // Spawn detail view related items
+        for (int i = 0; i < exhibitInfo.detailInfoRelatedItems.Length; i++)
+        {
+            // Item of type image
+            if(exhibitInfo.detailInfoRelatedItems[i].imageInfo.image != null)
+            {
+                GameObject image = PhotonNetwork.Instantiate(imagePrefabLoc, relatedItemLocs.GetChild(i).transform.position, relatedItemLocs.GetChild(i).transform.rotation);
+                ImagePrefab iP = image.GetComponent<ImagePrefab>();
+                iP.SetImage(exhibitInfo.detailInfoRelatedItems[i].imageInfo.image);
+                iP.SetText(exhibitInfo.detailInfoRelatedItems[i].imageInfo.imageText.text);
+                detailViewSpawnedObjs.Add(image);
+            }
 
+            // Item of type video
+            if (exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClip != null)
+            {
+                GameObject video = PhotonNetwork.Instantiate(videoPrefabLoc, relatedItemLocs.GetChild(i).transform.position, relatedItemLocs.GetChild(i).transform.rotation);
+                VideoPrefab vP = video.GetComponent<VideoPrefab>();
+                vP.SetThumbnail(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClipThumbnail);
+                vP.SetText(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClipText.text);
+                vP.SetVideoClip(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClip);
+                detailViewSpawnedObjs.Add(video);
+            }
+
+            // Item of type model
+            if (exhibitInfo.detailInfoRelatedItems[i].modelInfo.model != null)
+            {
+
+            }
+        }
 
 
 

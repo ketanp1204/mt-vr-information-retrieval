@@ -28,4 +28,14 @@ MonoBehaviour:
   - videoClip: {fileID: 32900000, guid: 61dfbd440f198a8499a062ddbf77b07d, type: 3}
     videoClipText: {fileID: 4900000, guid: 6e4530d01cc0f0441b6af5712aa6aa87, type: 3}
     videoClipThumbnail: {fileID: 21300000, guid: 84776a9b8d9b44b4ba368e28b516a99b, type: 3}
-  detailInfoRelatedItems: []
+  detailInfoRelatedItems:
+  - modelInfo:
+      model: {fileID: 0}
+      modelText: {fileID: 0}
+    imageInfo:
+      image: {fileID: 21300000, guid: 7131e9411eab3b14fa07ed064917a4ec, type: 3}
+      imageText: {fileID: 4900000, guid: 877a8ff2f06dbd949825482d64bfc053, type: 3}
+    videoInfo:
+      videoClip: {fileID: 0}
+      videoClipText: {fileID: 0}
+      videoClipThumbnail: {fileID: 0}

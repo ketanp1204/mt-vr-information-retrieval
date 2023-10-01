@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ExhibitInfoRefs
   m_EditorClassIdentifier: 
   exhibitInfos:
-  - exhibitName: 
-    exhibitInfo: {fileID: 0}
+  - exhibitName: GS_B01
+    exhibitInfo: {fileID: 11400000, guid: 7b913a92a26e5d54f83ba220b0e2c31a, type: 2}
   - exhibitName: GS_B02
     exhibitInfo: {fileID: 11400000, guid: 92565415cdc13424c963f27b4345b750, type: 2}
-  - exhibitName: 
-    exhibitInfo: {fileID: 0}
+  - exhibitName: GS_B03
+    exhibitInfo: {fileID: 11400000, guid: a4efea79028682744a31ec6af11c34b9, type: 2}

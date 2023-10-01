@@ -1673,7 +1673,7 @@ GameObject:
   - component: {fileID: 4546737548842042056}
   - component: {fileID: 2921428302430410186}
   m_Layer: 8
-  m_Name: DirectInteractor
+  m_Name: RightHand DirectInteractor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2099,7 +2099,7 @@ GameObject:
   - component: {fileID: 5419619960005620201}
   - component: {fileID: 6528293461712210443}
   m_Layer: 8
-  m_Name: DirectInteractor
+  m_Name: LeftHand DirectInteractor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
