@@ -158,7 +158,8 @@ public class MenuArea : XRSimpleInteractable
                     {
                         foreach (GameObject item in currentMenuLayer.items)
                         {
-                            item.GetComponent<Collider>().enabled = true;
+                            if (item.GetComponent<Collider>() != null)
+                                item.GetComponent<Collider>().enabled = true;
                         }
                     }
                 }
@@ -301,7 +302,7 @@ public class MenuArea : XRSimpleInteractable
             
             switch (menuElement.name)
             {
-                case "Description":
+                case "Info":
                     
                     /*
                     // Animate all items to the zero position
@@ -332,7 +333,7 @@ public class MenuArea : XRSimpleInteractable
 
                     // Set display text
                     TextMeshProUGUI displayText = descGO.transform.Find("Panel/Scroll View/Viewport/Text").GetComponent<TextMeshProUGUI>();
-                    displayText.text = exhibitInfo.description.text;
+                    displayText.text = exhibitInfo.basicInfoText.text;
 
                     // Set removable via button
                     descGO.GetComponent<RemoveObject>().SetRemovableStatus(true);
@@ -359,24 +360,18 @@ public class MenuArea : XRSimpleInteractable
 
                     // Populate images
                     menuElement.menuLayer.items.Clear();
-                    for (int i = 0; i < exhibitInfo.images.Length; i++)
+                    for (int i = 0; i < exhibitInfo.basicInfoImages.Length; i++)
                     {
                         // Instantiate and rename image
                         GameObject imageGO = PhotonNetwork.Instantiate(imagePrefabLoc, menuElement.menuLayer.parent.transform.position,
                             menuElement.menuLayer.parent.transform.rotation, data: contentSphereInfo);
                         imageGO.transform.SetParent(menuElement.menuLayer.parent.transform);
                         imageGO.name = "Image" + (i + 1);
-                        GameObject child = imageGO.transform.Find("Image").gameObject;
 
                         // Set and resize image
-                        RawImage rI = child.GetComponent<RawImage>();
-                        rI.texture = exhibitInfo.images[i].texture;
-                        rI.SetNativeSize();
-
-                        // Resize box collider
-                        BoxCollider c = child.GetComponent<BoxCollider>();
-                        RectTransform rt = child.GetComponent<RectTransform>();
-                        c.size = new Vector3(rt.rect.width, rt.rect.height, c.size.z);
+                        ImagePrefab iP = imageGO.GetComponent<ImagePrefab>();
+                        iP.SetImage(exhibitInfo.basicInfoImages[i].image);
+                        iP.SetText(exhibitInfo.basicInfoImages[i].imageText.text);
 
                         // MenuElement imageMA = imageGO.GetComponent<MenuElement>();
                         // imageMA.menuArea = this;
@@ -432,14 +427,14 @@ public class MenuArea : XRSimpleInteractable
 
                     // Set audio clip
                     AudioSource audioSource = audioGO.transform.Find("Panel/Audio Source").GetComponent<AudioSource>();
-                    audioSource.clip = exhibitInfo.audioGuide;
+                    audioSource.clip = exhibitInfo.basicInfoAudio;
                     audioSource.Play();
 
                     // Set removable via button
                     audioGO.GetComponent<RemoveObject>().SetRemovableStatus(true);
 
                     // Set as sharable
-                    audioGO.GetComponent<ContentSharing>().SetSharable(true);
+                    // audioGO.GetComponent<ContentSharing>().SetSharable(true);
 
                     // ExitMenu();
 
@@ -582,7 +577,8 @@ public class MenuArea : XRSimpleInteractable
             currentMenuLayer.items[index].transform.localScale = endScale;
 
         // Disable collider
-        currentMenuLayer.items[index].GetComponent<Collider>().enabled = false;
+        if (currentMenuLayer.items[index].GetComponent<Collider>() != null) 
+            currentMenuLayer.items[index].GetComponent<Collider>().enabled = false;
     }
 
     public void ExitMenu()
@@ -599,13 +595,45 @@ public class MenuArea : XRSimpleInteractable
         StartCoroutine(AnimateExitSphereToZero());        
     }
 
+    private IEnumerator AnimateExitSphereToZero()
+    {
+        // Get start and end position values
+        Vector3 startPos = exitSphere.transform.localPosition;
+        Vector3 endPos = Vector3.zero;
+
+        // Get start and end scale values
+        Vector3 startScale = Vector3.one * exitSphereScale;
+        Vector3 endScale = Vector3.zero;
+
+        float t = 0f;
+        while (t < menuItemAnimDuration)
+        {
+            // Animate position
+            exitSphere.transform.localPosition = Vector3.Lerp(startPos, endPos, t / menuItemAnimDuration);
+
+            // Animate scale
+            exitSphere.transform.localScale = Vector3.Lerp(startScale, endScale, t / menuItemAnimDuration);
+
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        exitSphere.transform.localPosition = endPos;
+        exitSphere.transform.localScale = endScale;
+        exitSphere.GetComponent<SphereCollider>().enabled = false;
+
+        yield return new WaitForSeconds(menuItemAnimDuration);
+
+        ResetMenu();
+    }
+
     private void ResetMenu()
     {
         // Reset Variables
         menuOpen = false;
         firstLayerOpen = false;
-        // GetComponent<InteractionGuide>().isMenuOpen = false;
         currentPullDistance = 0f;
+        menuItemFinalPositions.Clear();
 
         // Reset top layer menu options
         foreach (GameObject gO in menuLayer.items)
@@ -642,37 +670,5 @@ public class MenuArea : XRSimpleInteractable
 
         // Re-enable collider for new menu interaction
         EnableCollider();
-    }
-
-    private IEnumerator AnimateExitSphereToZero()
-    {
-        // Get start and end position values
-        Vector3 startPos = exitSphere.transform.localPosition;
-        Vector3 endPos = Vector3.zero;
-
-        // Get start and end scale values
-        Vector3 startScale = Vector3.one * exitSphereScale;
-        Vector3 endScale = Vector3.zero;
-
-        float t = 0f;
-        while (t < menuItemAnimDuration)
-        {
-            // Animate position
-            exitSphere.transform.localPosition = Vector3.Lerp(startPos, endPos, t / menuItemAnimDuration);
-
-            // Animate scale
-            exitSphere.transform.localScale = Vector3.Lerp(startScale, endScale, t / menuItemAnimDuration);
-
-            t += Time.deltaTime;
-            yield return null;
-        }
-
-        exitSphere.transform.localPosition = endPos;
-        exitSphere.transform.localScale = endScale;
-        exitSphere.GetComponent<SphereCollider>().enabled = false;
-
-        yield return new WaitForSeconds(menuItemAnimDuration);
-
-        ResetMenu();
     }
 }

@@ -13,6 +13,7 @@ public class VideoInfo
 {
     public VideoClip videoClip;
     public TextAsset videoClipText;
+    public Sprite videoClipThumbnail;
 }
 
 [System.Serializable]
@@ -25,11 +26,6 @@ public class RelatedItemInfo
 [CreateAssetMenu(menuName = "Exhibit Info")]
 public class ExhibitInformation : ScriptableObject
 {
-    public TextAsset description;
-    public AudioClip audioGuide;
-    public Sprite[] images;
-    public VideoClip[] videos;
-
     // Text 
     public TextAsset basicInfoText;
     public TextAsset detailInfoText;

@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -17,9 +18,12 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 
     // Private Variables //
 
+    private TextMeshProUGUI detailInfoTextObject;
+    private AudioSource detailInfoAudioSource;
     private Transform imageLocs;
     private Transform videoLocs;
     private Transform relatedItemLocs;
+    private List<GameObject> detailViewSpawnedObjs = new List<GameObject>();
 
 
 
@@ -33,8 +37,13 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
         string itemName = (string)data[1];
         string dVName = "DV_" + itemName;
 
-        // Get info placement locations
+        // Get DV GameObject
         GameObject dVGO = transform.Find("DetailViews/" + dVName).gameObject;
+        dVGO.SetActive(true);
+
+        // Get info placement objects
+        detailInfoTextObject = GetChildWithName(dVGO, "DetailInfoText").GetComponent<TextMeshProUGUI>();
+        detailInfoAudioSource = GetChildWithName(dVGO, "DetailInfoAudioSource").GetComponent<AudioSource>();
         imageLocs = GetChildWithName(dVGO, "ImageLocs");
         videoLocs = GetChildWithName(dVGO, "VideoLocs");
         relatedItemLocs = GetChildWithName(dVGO, "RelatedItemLocs");
@@ -50,8 +59,11 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
             }
         }
 
-        // Spawn detail view text
+        // Set detail view text
+        detailInfoTextObject.text = exhibitInfo.detailInfoText.text;
 
+        // Set detail info audio 
+        detailInfoAudioSource.clip = exhibitInfo.detailInfoAudio;
 
         // Spawn detail view images
         for (int i = 0; i < exhibitInfo.detailInfoImages.Length; i++)
@@ -60,14 +72,27 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
             ImagePrefab iP = image.GetComponent<ImagePrefab>();
             iP.SetImage(exhibitInfo.detailInfoImages[i].image);
             iP.SetText(exhibitInfo.detailInfoImages[i].imageText.text);
+            detailViewSpawnedObjs.Add(image);
         }
 
         // Spawn detail view videos
+        for (int i = 0; i < exhibitInfo.detailInfoVideos.Length; i++)
+        {
+            
+        }
 
-        
+
         // Spawn detail view related items
 
+
+
+
+
+        // Add focused objects after delay
+        StartCoroutine(AddFocusedObjectsAfterDelay());
         
+
+
         /*
         // Spawn detail view items
         foreach (GameObject gO in dVObjectPrefabs)
@@ -91,6 +116,15 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
         List<GameObject> objs = new List<GameObject>();
         objs.Add(dV);
         focus.AddFocused(objs);
+    }
+
+    private IEnumerator AddFocusedObjectsAfterDelay()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        // Add focus objects
+        var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();
+        focus.AddFocused(detailViewSpawnedObjs);
     }
 
     private Transform GetChildWithName(GameObject gO, string childName)

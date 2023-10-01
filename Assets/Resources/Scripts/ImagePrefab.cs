@@ -22,6 +22,8 @@ public class ImagePrefab : MonoBehaviour
     private bool enableTextTooltip = false;
     private bool isTextVisible = false;
     private TooltipHandler tooltipHandler;
+    private string showTextString = "Show Info";
+    private string hideTextString = "Hide Info";
 
 
     
@@ -54,6 +56,15 @@ public class ImagePrefab : MonoBehaviour
             Transform child = transform.GetChild(1);
             StartCoroutine(FadeCanvasGroup(child.GetComponent<CanvasGroup>(), 0f, 1f, 0.1f, enableInteraction: true));
             isTextVisible = true;
+
+            // Remove show text input action
+            primaryButton.action.performed -= ShowText;
+
+            // Change tooltip string
+            showTextTooltip.tooltipText = hideTextString;
+
+            // Add hide text input action
+            primaryButton.action.performed += HideText;
         }
     }
 
@@ -64,6 +75,15 @@ public class ImagePrefab : MonoBehaviour
             Transform child = transform.GetChild(1);
             StartCoroutine(FadeCanvasGroup(child.GetComponent<CanvasGroup>(), 1f, 0f, 0.1f, enableInteraction: false));
             isTextVisible = false;
+
+            // Remove hide text input action
+            primaryButton.action.performed -= HideText;
+
+            // Change tooltip string
+            showTextTooltip.tooltipText = showTextString;
+
+            // Add show text input action
+            primaryButton.action.performed += ShowText;
         }
     }
 
@@ -81,9 +101,17 @@ public class ImagePrefab : MonoBehaviour
 
                 primaryButton.action.Enable();
                 if (!isTextVisible)
+                {
+                    showTextTooltip.tooltipText = showTextString;
+                    primaryButton.action.performed -= ShowText;
                     primaryButton.action.performed += ShowText;
+                }
                 else
-                    primaryButton.action.performed += HideText;
+                {
+                    showTextTooltip.tooltipText = hideTextString;
+                    primaryButton.action.performed -= HideText;
+                    primaryButton.action.performed += HideText;                   
+                }
             }
         }
     }

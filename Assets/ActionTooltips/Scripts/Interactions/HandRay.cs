@@ -188,7 +188,7 @@ public class HandRay : MonoBehaviour
                 xrRayInteractor.maxRaycastDistance = 10;
                 HandlePointing();
                 rayState = RayState.Hover;
-                tooltipHandler.HideTooltip(showRayTooltip);
+                // tooltipHandler.HideTooltip(showRayTooltip);
             }
             else if (hoverValue && isActive)
             {
@@ -202,7 +202,7 @@ public class HandRay : MonoBehaviour
                 xrRayInteractor.maxRaycastDistance = 0;
                 rayState = RayState.None;
                 remoteHit.SetActive(false);
-                tooltipHandler.ShowTooltip(showRayTooltip, add: true);
+                // tooltipHandler.ShowTooltip(showRayTooltip, add: true);
             }
         }
         else if (isInitialized && !isLocal)
@@ -232,7 +232,7 @@ public class HandRay : MonoBehaviour
         if (hasTooltips)
         {
             TooltipHandler tooltipHandler = GetComponent<TooltipHandler>();
-            tooltipHandler.ShowTooltip(showRayTooltip, add: true);
+            // tooltipHandler.ShowTooltip(showRayTooltip, add: true);
         }
     }
 

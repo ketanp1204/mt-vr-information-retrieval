@@ -385,7 +385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   removable: 0
-  showRemoveTooltip: 1
+  enableRemoveTooltip: 1
   removeObjectTooltip:
     tooltipName: Secondary Action
     actionButtonReference: 1

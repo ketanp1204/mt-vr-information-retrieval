@@ -98,6 +98,11 @@ public class TooltipHandler : MonoBehaviour
         }
     }
 
+    public void ShowTriggerTooltip()
+    {
+        this.ShowTooltip(triggerTooltip, add: true);
+    }
+
     private IEnumerator ControlsTutorial()
     {
         yield return new WaitForSeconds(3f);
@@ -115,13 +120,10 @@ public class TooltipHandler : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        GetComponent<HandRayController>().InitializeTooltips();
         leftHandController.SendHapticImpulse(0.7f, 0.5f);
         rightHandController.SendHapticImpulse(0.7f, 0.5f);
 
         yield return new WaitForSeconds(3f);
-
-        GetComponent<HandRayController>().HideShowRayTooltip();
 
         yield return new WaitForSeconds(1.5f);
 

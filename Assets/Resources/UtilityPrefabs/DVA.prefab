@@ -2750,7 +2750,7 @@ GameObject:
   - component: {fileID: 1587212619855568286}
   - component: {fileID: 1587212619855568284}
   m_Layer: 0
-  m_Name: UICanvas
+  m_Name: FrontUICanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7093,7 +7093,7 @@ GameObject:
   - component: {fileID: 3878489031046550559}
   - component: {fileID: 3878489031046550558}
   m_Layer: 8
-  m_Name: Audio Source
+  m_Name: DetailInfoAudioSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7941,7 +7941,7 @@ GameObject:
   - component: {fileID: 3878489031286570397}
   - component: {fileID: 3878489031286570398}
   m_Layer: 8
-  m_Name: Text
+  m_Name: DetailInfoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7995,14 +7995,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The mask of Medusa, also called Gorgo, is made of white plaster. Two wings
-    grow from her head, and her hair is made of flames. The snakes, Medusa's distinguishing
-    feature, knot around her face and cheeks. The mask measures 39.5 cm and stands
-    on a round base. The artist is unknown. The first evidence of this work was around
-    460 BC in Athens. Goethe admired the original in the Palazzo Rondanini in Rome.
-    Later this came to the Glyptothek in Munich. J. W. von Goethe asked the crown
-    prince Ludwig I. for a cast. As a result, a plaster mask from Rome was sent to
-    him. You can see the mask of Medusa in the Yellow Room of Goethe's residence.
+  m_text: Detail Info Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6c65e84caf90c7d40a347856d8a93abe, type: 2}
   m_sharedMaterial: {fileID: 3050311079752911339, guid: 6c65e84caf90c7d40a347856d8a93abe, type: 2}

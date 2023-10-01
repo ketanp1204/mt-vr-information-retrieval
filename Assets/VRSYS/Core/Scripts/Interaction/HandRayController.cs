@@ -252,7 +252,7 @@ public class HandRayController : MonoBehaviourPunCallbacks, IPunObservable
                 xrRayInteractor.enabled = true;
                 xrRayInteractor.maxRaycastDistance = 10;
                 HandlePointing();
-                tooltipHandler.HideTooltip(showRayTooltip);
+                // tooltipHandler.HideTooltip(showRayTooltip);
             }
             else if (hoverValue && isActive)
             {
@@ -266,7 +266,7 @@ public class HandRayController : MonoBehaviourPunCallbacks, IPunObservable
                 xrRayInteractor.enabled = false;
                 xrRayInteractor.maxRaycastDistance = 0;
                 hitVisualization.SetActive(false);
-                tooltipHandler.ShowTooltip(showRayTooltip, add: true);
+                // tooltipHandler.ShowTooltip(showRayTooltip, add: true);
             }
         } else if (isInitialized && !isLocal)
         {

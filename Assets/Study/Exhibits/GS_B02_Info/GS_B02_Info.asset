@@ -12,14 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75cab151d60be76498f3580f615015d8, type: 3}
   m_Name: GS_B02_Info
   m_EditorClassIdentifier: 
-  description: {fileID: 0}
-  audioGuide: {fileID: 0}
-  images: []
-  videos: []
-  basicInfoText: {fileID: 0}
-  detailInfoText: {fileID: 0}
-  basicInfoAudio: {fileID: 0}
-  detailInfoAudio: {fileID: 0}
+  basicInfoText: {fileID: 4900000, guid: 966f24a8d7739a8408a8b849e26a4c80, type: 3}
+  detailInfoText: {fileID: 4900000, guid: 7c4450e76dbea054db996dcf7c11b64e, type: 3}
+  basicInfoAudio: {fileID: 8300000, guid: 0e22b08962b522f45b790d30d2b8de25, type: 3}
+  detailInfoAudio: {fileID: 8300000, guid: ccc547927cbaef84ba715c411e69074b, type: 3}
   basicInfoImages:
   - image: {fileID: 21300000, guid: 3db48dde317cfbf4abd061b24786b731, type: 3}
     imageText: {fileID: 4900000, guid: 9d7440308d6bc254fa273b221f90ca31, type: 3}
@@ -28,5 +24,8 @@ MonoBehaviour:
     imageText: {fileID: 4900000, guid: 5af697d9a576f114187fa627ad7c40c2, type: 3}
   - image: {fileID: 21300000, guid: 7548d458384099b4ab80475b192b64c1, type: 3}
     imageText: {fileID: 4900000, guid: 15eab32e325308d4d9d6dfde7ad5d755, type: 3}
-  detailInfoVideos: []
+  detailInfoVideos:
+  - videoClip: {fileID: 32900000, guid: 61dfbd440f198a8499a062ddbf77b07d, type: 3}
+    videoClipText: {fileID: 4900000, guid: 6e4530d01cc0f0441b6af5712aa6aa87, type: 3}
+    videoClipThumbnail: {fileID: 21300000, guid: 84776a9b8d9b44b4ba368e28b516a99b, type: 3}
   detailInfoRelatedItems: []

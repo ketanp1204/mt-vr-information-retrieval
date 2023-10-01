@@ -378,7 +378,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  exhibitInfo: {fileID: 11400000, guid: 984e9fa0d0944904b837abcf54eb45e2, type: 2}
+  exhibitInfo: {fileID: 11400000, guid: a4efea79028682744a31ec6af11c34b9, type: 2}
   menuLayer:
     parent: {fileID: 289505662}
     items:
@@ -396,7 +396,7 @@ MonoBehaviour:
     tooltipText: Hold and Pull
     hand: 2
   guidePrefab: {fileID: 4415107699491610967, guid: 5c361afb6b020f94eb41eab185ae47f8, type: 3}
-  infoVisibilityText: Information will stay private inside the sphere
+  infoVisibilityText: Information will stay private inside the transparent  sphere
   linePrefab: {fileID: 6033866870466899385, guid: 4268efaa43e38a446bd6c65580b316ff, type: 3}
   imagePrefabLoc: UtilityPrefabs/ImagePrefab
   descBoxPrefabLoc: UtilityPrefabs/DescBoxPrefab
@@ -6600,9 +6600,9 @@ MonoBehaviour:
   controllerTutorialTexts:
   - Hover over the primary button to show the interaction ray and press to interact
     with UI
-  - You will find tooltips on the controller and can toggle them by pressing the
-    thumbstick
-  - Use the trigger button to move around the scene in the direction the controller
+  - Tooltips on the controller will show possible interactions, you can toggle them
+    by pressing the thumbstick
+  - Use the trigger button to move forward in the scene in the direction the controller
     is facing
   study1GameObject: {fileID: 592429159}
   study2GameObject: {fileID: 1641058160}
@@ -32310,7 +32310,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6598815579406187026, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_RootOrder
@@ -32366,7 +32366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
@@ -35401,7 +35401,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  exhibitInfo: {fileID: 11400000, guid: df489c721946ae34aba5178d87ed44ec, type: 2}
+  exhibitInfo: {fileID: 11400000, guid: 92565415cdc13424c963f27b4345b750, type: 2}
   menuLayer:
     parent: {fileID: 48686650}
     items:
@@ -35419,7 +35419,7 @@ MonoBehaviour:
     tooltipText: Hold and Pull
     hand: 2
   guidePrefab: {fileID: 4415107699491610967, guid: 5c361afb6b020f94eb41eab185ae47f8, type: 3}
-  infoVisibilityText: Information will stay private inside the sphere
+  infoVisibilityText: Information will stay private inside the transparent  sphere
   linePrefab: {fileID: 6033866870466899385, guid: 4268efaa43e38a446bd6c65580b316ff, type: 3}
   imagePrefabLoc: UtilityPrefabs/ImagePrefab
   descBoxPrefabLoc: UtilityPrefabs/DescBoxPrefab
@@ -57370,7 +57370,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  exhibitInfo: {fileID: 11400000, guid: 72b7ec05440ec9a4b8dfaa145a00a662, type: 2}
+  exhibitInfo: {fileID: 11400000, guid: 7b913a92a26e5d54f83ba220b0e2c31a, type: 2}
   menuLayer:
     parent: {fileID: 1409246276}
     items:
@@ -57388,7 +57388,7 @@ MonoBehaviour:
     tooltipText: Hold and Pull
     hand: 2
   guidePrefab: {fileID: 4415107699491610967, guid: 5c361afb6b020f94eb41eab185ae47f8, type: 3}
-  infoVisibilityText: Information will stay private inside the sphere
+  infoVisibilityText: Information will stay private inside the transparent  sphere
   linePrefab: {fileID: 6033866870466899385, guid: 4268efaa43e38a446bd6c65580b316ff, type: 3}
   imagePrefabLoc: UtilityPrefabs/ImagePrefab
   descBoxPrefabLoc: UtilityPrefabs/DescBoxPrefab
@@ -80727,7 +80727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   removable: 0
-  showRemoveTooltip: 1
+  enableRemoveTooltip: 1
   removeObjectTooltip:
     tooltipName: Secondary Action
     actionButtonReference: 1

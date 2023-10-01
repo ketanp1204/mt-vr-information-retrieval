@@ -96,6 +96,7 @@ public class StudyMenu : MonoBehaviour
         TooltipHandler tH = Vrsys.NetworkUser.localNetworkUser.GetComponent<TooltipHandler>();
         tH.SetShowTooltipsBool(true);
         tH.InitializeTooltips();
+        tH.ShowTriggerTooltip();
 
         // Show study selector 
         studySelectorCG.gameObject.SetActive(true);
@@ -128,11 +129,15 @@ public class StudyMenu : MonoBehaviour
         }
         if (tutorialLayer == 3)
         {
-            // Show controller primary button controls
+            // Show controller trigger button controls
             controllerInstructionsCG.alpha = 0f;
             controllerInstructionsCG.GetComponentInChildren<TextMeshProUGUI>().text = controllerTutorialTexts[2];
             controllerInstructionsCG.GetComponentInChildren<Image>().sprite = controllerTutorialSprites[2];
             StartCoroutine(FadeCanvasGroup(controllerInstructionsCG, 0f, 1f, fadeInDuration));
+
+            // Show trigger tooltip on the player's controllers
+            TooltipHandler tH = Vrsys.NetworkUser.localNetworkUser.GetComponent<TooltipHandler>();
+            tH.ShowTriggerTooltip();
 
             // Set button interactable after delay
             StartCoroutine(SetButtonInteractableAfterDelay(nextButton, 1f));

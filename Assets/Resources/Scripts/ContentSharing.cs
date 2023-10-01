@@ -27,20 +27,21 @@ public class ContentSharing : MonoBehaviourPunCallbacks, IPunInstantiateMagicCal
     
     public void OnPhotonInstantiate(PhotonMessageInfo info)
     {
-        /*
         object[] data = info.photonView.InstantiationData;
 
-        int sphereViewID = (int)data[0];
-
-        contentSphere = PhotonView.Find(sphereViewID).transform.Find("Sphere").gameObject;
-        particles = contentSphere.GetComponent<ParticleSystem>();
-
-        // Hide the content for others
-        if (!photonView.IsMine)
+        if (data != null)
         {
-            visibilityObject.SetActive(false);
+            int sphereViewID = (int)data[0];
+
+            contentSphere = PhotonView.Find(sphereViewID).transform.Find("Sphere").gameObject;
+            particles = contentSphere.GetComponent<ParticleSystem>();
+
+            // Hide the content for others
+            if (!photonView.IsMine)
+            {
+                visibilityObject.SetActive(false);
+            }
         }
-        */
     }
 
     void Update()
