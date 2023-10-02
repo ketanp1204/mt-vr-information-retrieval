@@ -564,7 +564,7 @@ RectTransform:
   m_GameObject: {fileID: 23112264}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.04, y: 0.04, z: 0.05}
+  m_LocalScale: {x: 0.03, y: 0.03, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1672404436}
@@ -573,7 +573,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 437, y: 556}
+  m_SizeDelta: {x: 706, y: 766}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &23112266
 MonoBehaviour:
@@ -595,7 +595,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 257560db436145f4fa9e325c5e3c6a63, type: 3}
+  m_Texture: {fileID: 2800000, guid: 7131e9411eab3b14fa07ed064917a4ec, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -663,7 +663,14 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: This is the text for related image 1
+          m_StringArgument: The Medusa was made by Johann Adam Heinrich Oedenthal
+            (1791-1876) as a chalk drawing in 1829. The drawing was painted on gray
+            paper with chalk after an original Roman sculpture in 137 AD. In Goethe's
+            time, the head of Medusa was considered one of the main works of the
+            Cologne "Wallrafianum", in which not only medieval paintings, but also
+            ancient sculptures were exhibited. In the 19th century, it was mistaken
+            for a Greek work. This was also the case with Johanna Schopenhauer, who
+            gave Goethe Medusa as a gift in January 1830.
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &28053605
@@ -917,7 +924,7 @@ RectTransform:
   m_Father: {fileID: 1780541562}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.32500005}
+  m_AnchorMin: {x: 0, y: 0.32499993}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -3816,8 +3823,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 84.5, y: -13.5}
-  m_SizeDelta: {x: 18, y: 23}
+  m_AnchoredPosition: {x: 80.850006, y: -13.5}
+  m_SizeDelta: {x: 31.43, y: 17.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &126016594
 GameObject:
@@ -8052,7 +8059,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
+    m_Left: 3
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
@@ -10015,7 +10022,7 @@ RectTransform:
   m_Father: {fileID: 1327103163}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.32499993}
+  m_AnchorMin: {x: 0, y: 0.3249999}
   m_AnchorMax: {x: 1, y: 0.9999999}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -11092,7 +11099,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378473914}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: -0.7071068}
   m_LocalPosition: {x: -5.071, y: 0.079, z: -6.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -11100,7 +11107,7 @@ Transform:
   - {fileID: 1042203749}
   - {fileID: 129686079}
   - {fileID: 1414740037}
-  m_Father: {fileID: 592429160}
+  m_Father: {fileID: 639184814}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!114 &378473916
@@ -11518,7 +11525,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 395552057}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 5.003, y: 0.09, z: -6.183}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -11526,7 +11533,7 @@ Transform:
   - {fileID: 1282839255}
   - {fileID: 577833833}
   - {fileID: 1338999678}
-  m_Father: {fileID: 592429160}
+  m_Father: {fileID: 639184814}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &395552059
@@ -14953,7 +14960,7 @@ RectTransform:
   m_Father: {fileID: 942721918}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.1428568, y: 0}
+  m_AnchorMin: {x: 0.14285682, y: 0}
   m_AnchorMax: {x: 0.9999995, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -15803,43 +15810,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529834666}
   m_CullTransparentMesh: 1
---- !u!1 &532186921
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 532186922}
-  m_Layer: 8
-  m_Name: Video2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &532186922
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532186921}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 632757717}
-  m_Father: {fileID: 681692977}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 55.5, y: -13.5}
-  m_SizeDelta: {x: 32, y: 22}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &534308504
 GameObject:
   m_ObjectHideFlags: 0
@@ -16345,8 +16315,8 @@ RectTransform:
   m_Father: {fileID: 448013066}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.14285713, y: 0}
-  m_AnchorMax: {x: 0.9999999, y: 1}
+  m_AnchorMin: {x: 0.14285725, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -16421,8 +16391,8 @@ RectTransform:
   m_Father: {fileID: 102214083}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.1428556, y: 0}
-  m_AnchorMax: {x: 0.9999987, y: 1}
+  m_AnchorMin: {x: 0.14285569, y: 0}
+  m_AnchorMax: {x: 0.99999845, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -17392,9 +17362,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 395552058}
-  - {fileID: 678358687}
-  - {fileID: 378473915}
+  - {fileID: 639184814}
   m_Father: {fileID: 1912196749}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18548,172 +18516,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 631110914}
   m_CullTransparentMesh: 1
---- !u!1 &632757716
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 632757717}
-  - component: {fileID: 632757719}
-  - component: {fileID: 632757718}
-  - component: {fileID: 632757720}
-  m_Layer: 8
-  m_Name: Thumbnail
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &632757717
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632757716}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.07, y: 0.07, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 532186922}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 406, y: 226}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &632757718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632757716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 05859a30a68bcaf4e9d556a2641330ff, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!222 &632757719
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632757716}
-  m_CullTransparentMesh: 1
---- !u!114 &632757720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632757716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 885276902}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 598428357}
-        m_TargetAssemblyTypeName: TextBox, Assembly-CSharp
-        m_MethodName: DisplayText
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: This is the text for video 2
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2142492129}
-        m_TargetAssemblyTypeName: UnityEngine.Video.VideoPlayer, UnityEngine
-        m_MethodName: set_clip
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 32900000, guid: 71daeab5fa8267d4cb4df215deec5849, type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Video.VideoClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 762823867}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 2142492129}
-        m_TargetAssemblyTypeName: UnityEngine.Video.VideoPlayer, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!1 &637060070
 GameObject:
   m_ObjectHideFlags: 0
@@ -18998,6 +18800,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 638313692}
   m_CullTransparentMesh: 1
+--- !u!1 &639184813
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 639184814}
+  m_Layer: 0
+  m_Name: GelberSaal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &639184814
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639184813}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 395552058}
+  - {fileID: 678358687}
+  - {fileID: 378473915}
+  m_Father: {fileID: 592429160}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &644196853
 GameObject:
   m_ObjectHideFlags: 0
@@ -19309,7 +19145,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 678358686}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -19317,7 +19153,7 @@ Transform:
   - {fileID: 884445673}
   - {fileID: 325543981}
   - {fileID: 189951156}
-  m_Father: {fileID: 592429160}
+  m_Father: {fileID: 639184814}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &678358688
@@ -19526,7 +19362,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 895827446}
-  - {fileID: 532186922}
   m_Father: {fileID: 1937474755}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -19548,7 +19383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
+    m_Left: 4
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
@@ -23486,8 +23321,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 18.5, y: -13.5}
-  m_SizeDelta: {x: 18, y: 23}
+  m_AnchoredPosition: {x: 14.865001, y: -13.5}
+  m_SizeDelta: {x: 16.86, y: 23}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &866460593
 GameObject:
@@ -24530,7 +24365,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 8d2d1fdbeb6d4d4478181ef396d89619, type: 3}
+  m_Texture: {fileID: 2800000, guid: 84776a9b8d9b44b4ba368e28b516a99b, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -24598,7 +24433,9 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: This is the text for video 1
+          m_StringArgument: A showcase of the marble statues at the Ny Carlsberg
+            Glyptothek located in Copenhagen, Denmark which includes the statue of
+            Perseus with the Head of Medusa.
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2142492129}
@@ -24606,7 +24443,7 @@ MonoBehaviour:
         m_MethodName: set_clip
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 32900000, guid: 99daf13362949664283372dbbd92ae46, type: 3}
+          m_ObjectArgument: {fileID: 32900000, guid: 61dfbd440f198a8499a062ddbf77b07d, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Video.VideoClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -24671,7 +24508,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.31935143, y: 0}
-  m_AnchorMax: {x: 0.999351, y: 1}
+  m_AnchorMax: {x: 0.9993513, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -24919,8 +24756,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 17, y: -13.5}
-  m_SizeDelta: {x: 34, y: 22}
+  m_AnchoredPosition: {x: 18.7, y: -13.5}
+  m_SizeDelta: {x: 29.4, y: 22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &895923091
 GameObject:
@@ -28037,7 +27874,7 @@ RectTransform:
   m_GameObject: {fileID: 993594744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2109168262}
@@ -28046,7 +27883,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 336, y: 451}
+  m_SizeDelta: {x: 799, y: 566}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &993594746
 MonoBehaviour:
@@ -28101,7 +27938,10 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: This is the text for image 2
+          m_StringArgument: The Medusa Rondanini was formerly exhibited in Palazzo
+            Rondanini in Rome. The collections included paintings, sculptures, Roman
+            inscriptions, columns and ancient marbles including the beautiful head
+            of Medusa.
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &993594747
@@ -28124,7 +27964,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1ba11ca9378ad2d4180b5d2926bf7e5f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0499a1a805fb7e94fa1f26a8a2850696, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -28376,8 +28216,8 @@ RectTransform:
   m_Father: {fileID: 906791383}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.32500005}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0.3249999}
+  m_AnchorMax: {x: 1, y: 0.9999999}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -29203,7 +29043,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1042846099
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29222,7 +29062,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 64.16667, y: -13.5}
+  m_AnchoredPosition: {x: 50.9, y: -13.5}
   m_SizeDelta: {x: 19, y: 22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1044361972
@@ -30319,7 +30159,9 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: This is the text for image 1
+          m_StringArgument: 'J.W. Goethe admired the original Roman marble in the
+            Palazzo Rondanini in Rome. Later, he asked King Ludwig I of Bavaria for
+            a cast. '
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1071039929
@@ -30342,7 +30184,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1ba11ca9378ad2d4180b5d2926bf7e5f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3db48dde317cfbf4abd061b24786b731, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -31911,7 +31753,7 @@ RectTransform:
   m_GameObject: {fileID: 1139865733}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalScale: {x: 0.009, y: 0.009, z: 0.009}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 125169847}
@@ -31920,7 +31762,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 336, y: 451}
+  m_SizeDelta: {x: 3500, y: 1900.3906}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1139865735
 MonoBehaviour:
@@ -31975,7 +31817,10 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: This is the text for image 3
+          m_StringArgument: 'The Roman marble copy of the Medusa Rondanini is currently
+            located in the Glyptothek in Munich, Germany, having been purchased by
+            the art-loving King Ludwig I of Bavaria from the heirs of the marchese
+            Rondanini, during his Grand Tour of Italy as a prince. '
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1139865736
@@ -31998,7 +31843,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1ba11ca9378ad2d4180b5d2926bf7e5f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7548d458384099b4ab80475b192b64c1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -32784,7 +32629,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 43bd6b2ff1eaac6488af552468d17728, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0e22b08962b522f45b790d30d2b8de25, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -33163,7 +33008,7 @@ RectTransform:
   m_Father: {fileID: 1627520692}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.32499993}
+  m_AnchorMin: {x: 0, y: 0.325}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -40517,8 +40362,8 @@ RectTransform:
   m_Father: {fileID: 916046594}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.3249999}
-  m_AnchorMax: {x: 1, y: 0.9999999}
+  m_AnchorMin: {x: 0, y: 0.325}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -43333,7 +43178,7 @@ RectTransform:
   m_Father: {fileID: 1457274894}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.12000024, y: 0}
+  m_AnchorMin: {x: 0.12000018, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -47651,14 +47496,21 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The mask of Medusa, also called Gorgo, is made of white plaster. Two wings
-    grow from her head, and her hair is made of flames. The snakes, Medusa's distinguishing
-    feature, knot around her face and cheeks. The mask measures 39.5 cm and stands
-    on a round base. The artist is unknown. The first evidence of this work was around
-    460 BC in Athens. Goethe admired the original in the Palazzo Rondanini in Rome.
-    Later this came to the Glyptothek in Munich. J. W. von Goethe asked the crown
-    prince Ludwig I. for a cast. As a result, a plaster mask from Rome was sent to
-    him. You can see the mask of Medusa in the Yellow Room of Goethe's residence.
+  m_text: 'Mask of Medusa
+
+    Made of white plaster
+
+    Height: 39.5 cm
+
+    First
+    documented around 460 BC in Athens
+
+    Medusa''s even facial features are characterized
+    by a strong round chin, bulging lips, a sharply drawn nose and almond-shaped
+    eyes. Wild, thick locks of hair wreath the face. The snakes, Medusa''s distinguishing
+    feature, tie themselves around her face and cheeks. Above the forehead there
+    are horizontally placed wings that emerge from the curls. Two snake ends converge
+    under the chin and are intertwined. '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6c65e84caf90c7d40a347856d8a93abe, type: 2}
   m_sharedMaterial: {fileID: 3050311079752911339, guid: 6c65e84caf90c7d40a347856d8a93abe, type: 2}
@@ -47750,7 +47602,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1641058161
 Transform:
   m_ObjectHideFlags: 0
@@ -48680,8 +48532,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10, y: -13.5}
-  m_SizeDelta: {x: 20, y: 22}
+  m_AnchoredPosition: {x: 14.4, y: -13.5}
+  m_SizeDelta: {x: 22.8, y: 23}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1674459952
 GameObject:
@@ -50598,8 +50450,8 @@ RectTransform:
   m_Father: {fileID: 2115051510}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.3249999}
-  m_AnchorMax: {x: 1, y: 0.9999999}
+  m_AnchorMin: {x: 0, y: 0.325}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -52045,7 +51897,7 @@ RectTransform:
   m_Father: {fileID: 742312412}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.31935003, y: 0}
+  m_AnchorMin: {x: 0.3193501, y: 0}
   m_AnchorMax: {x: 0.9993501, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -53623,7 +53475,7 @@ RectTransform:
   m_Father: {fileID: 904784412}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.3249997}
+  m_AnchorMin: {x: 0, y: 0.3249999}
   m_AnchorMax: {x: 1, y: 0.9999999}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -56086,8 +55938,8 @@ RectTransform:
   m_Father: {fileID: 953937320}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.31935126, y: 0}
-  m_AnchorMax: {x: 0.99935126, y: 1}
+  m_AnchorMin: {x: 0.31935132, y: 0}
+  m_AnchorMax: {x: 0.9993511, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -56469,7 +56321,7 @@ RectTransform:
   m_Father: {fileID: 1151631410}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.45999986}
+  m_AnchorMin: {x: 0, y: 0.45999998}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -62085,8 +61937,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 51.5, y: -13.5}
-  m_SizeDelta: {x: 18, y: 23}
+  m_AnchoredPosition: {x: 44.214996, y: -13.5}
+  m_SizeDelta: {x: 24.1, y: 17.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2111741210
 GameObject:
@@ -63079,7 +62931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2138287101
 RectTransform:
   m_ObjectHideFlags: 0
@@ -63098,7 +62950,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 37.333336, y: -13.5}
+  m_AnchoredPosition: {x: 39.199997, y: -13.5}
   m_SizeDelta: {x: 24, y: 22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2139146186
@@ -89470,6 +89322,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   imagePrefabLoc: UtilityPrefabs/ImagePrefab
+  videoPrefabLoc: UtilityPrefabs/VideoPrefab
 --- !u!4 &4250964685138574442
 Transform:
   m_ObjectHideFlags: 0
