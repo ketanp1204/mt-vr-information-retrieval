@@ -6871,7 +6871,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -3596653830992379978, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
+    m_Reference: {fileID: 8523984977189035797, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
   rotationAction:
     m_UseReference: 1
     m_Action:
@@ -6883,7 +6883,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -6124535377817815037, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
+    m_Reference: {fileID: -6048076417341658563, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
   scaleUpAction:
     m_UseReference: 1
     m_Action:
@@ -6919,7 +6919,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -8139143846721361788, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
+    m_Reference: {fileID: 2403962402223992789, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
   resetAction:
     m_UseReference: 1
     m_Action:
@@ -6960,15 +6960,15 @@ MonoBehaviour:
     m_Reference: {fileID: 3048755613885763842, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
   hasTooltips: 1
   toggleTooltip:
-    tooltipName: Toggle Tooltips
+    tooltipName: Thumbstick Toggle Tooltips
     actionButtonReference: 2
     tooltipText: Toggle Tooltips
     hand: 2
   triggerTooltip:
-    tooltipName: Movement Tutorial
+    tooltipName: Trigger Movement Right
     actionButtonReference: 5
     tooltipText: Move Forward
-    hand: 2
+    hand: 1
 --- !u!114 &2474190517903617712
 MonoBehaviour:
   m_ObjectHideFlags: 0

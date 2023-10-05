@@ -986,11 +986,11 @@ MonoBehaviour:
   removable: 0
   enableRemoveTooltip: 1
   removeObjectTooltip:
-    tooltipName: Secondary Action
+    tooltipName: Secondary Remove Right
     actionButtonReference: 1
     tooltipText: Remove
-    hand: 2
-  secondaryButton: {fileID: -3668144855904488849, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}
+    hand: 1
+  removeInputAction: {fileID: -3668144855904488849, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}
 --- !u!114 &3086628531197291806
 MonoBehaviour:
   m_ObjectHideFlags: 0

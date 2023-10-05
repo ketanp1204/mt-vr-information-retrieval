@@ -126,8 +126,8 @@ namespace Vrsys
 
                 MapInput(transInput, rotInput, scaleInput);
 
-                if (resetAction.action.WasReleasedThisFrame())
-                    ResetTransform();
+                //if (resetAction.action.WasReleasedThisFrame())
+                    // ResetTransform();
 
 
             }

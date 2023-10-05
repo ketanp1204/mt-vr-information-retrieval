@@ -130,6 +130,8 @@ public class MenuSphere : MonoBehaviourPunCallbacks
             for (int i = 0; i < infoPanels.Count; i++)
             {
                 infoPanels[i].alpha = 1f;
+                infoPanels[i].interactable = true;
+                infoPanels[i].blocksRaycasts = true;
             }
         }
         else
@@ -137,6 +139,8 @@ public class MenuSphere : MonoBehaviourPunCallbacks
             for (int i = 0; i < infoPanels.Count; i++)
             {
                 infoPanels[i].alpha = 0f;
+                infoPanels[i].interactable = false;
+                infoPanels[i].blocksRaycasts = false;
             }
         }
     }

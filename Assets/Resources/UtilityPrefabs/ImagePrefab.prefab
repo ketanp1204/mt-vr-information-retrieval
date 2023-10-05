@@ -1379,7 +1379,7 @@ MonoBehaviour:
   removable: 0
   enableRemoveTooltip: 1
   removeObjectTooltip:
-    tooltipName: Secondary Action
+    tooltipName: Secondary Remove Right
     actionButtonReference: 1
     tooltipText: Remove
     hand: 1

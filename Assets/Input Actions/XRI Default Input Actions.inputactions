@@ -337,7 +337,7 @@
                 {
                     "name": "",
                     "id": "b34c79c1-ab5e-4851-87ac-abc43705eae0",
-                    "path": "<XRController>{LeftHand}/triggerPressed",
+                    "path": "<XRController>{LeftHand}/primaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
@@ -348,7 +348,7 @@
                 {
                     "name": "",
                     "id": "71d94579-1bf4-4034-ab9e-e7166842128f",
-                    "path": "<XRController>{LeftHand}/trigger",
+                    "path": "<XRController>{LeftHand}/primaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
@@ -1216,7 +1216,7 @@
                 {
                     "name": "",
                     "id": "ddc41d7f-54e1-410f-83d5-d9b360b71def",
-                    "path": "<XRController>{RightHand}/primary2DAxis",
+                    "path": "<OculusTouchController>/thumbstick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1546,7 +1546,18 @@
                 {
                     "name": "",
                     "id": "c27f8ff6-d52d-4e1e-b384-bc30f43a897c",
-                    "path": "<XRController>{RightHand}/primaryButton",
+                    "path": "<OculusTouchController>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8596c68d-8c0f-48c4-a8f6-7d29880c0800",
+                    "path": "<OculusTouchController>{LeftHand}/primaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
