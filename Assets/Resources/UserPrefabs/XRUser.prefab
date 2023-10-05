@@ -6784,10 +6784,6 @@ MonoBehaviour:
   - {fileID: 84997607874618227}
   - {fileID: 4130196495105427117}
   - {fileID: 1549244365545736751}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -7012,11 +7008,6 @@ MonoBehaviour:
     m_Reference: {fileID: -4416195333031544184, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
   hasTooltips: 1
   tooltipHandler: {fileID: 2474190517903617718}
-  showRayTooltip:
-    tooltipName: Show Ray
-    actionButtonReference: 0
-    tooltipText: Show Ray
-    hand: 2
   pressUITooltip:
     tooltipName: Interact UI Left
     actionButtonReference: 0
@@ -7068,11 +7059,6 @@ MonoBehaviour:
     m_Reference: {fileID: 1957557797345215748, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
   hasTooltips: 1
   tooltipHandler: {fileID: 2474190517903617718}
-  showRayTooltip:
-    tooltipName: Show Ray Right
-    actionButtonReference: 0
-    tooltipText: Show Ray
-    hand: 1
   pressUITooltip:
     tooltipName: Interact UI Right
     actionButtonReference: 0

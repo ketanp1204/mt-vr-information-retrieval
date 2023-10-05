@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1170328032611726836
 RectTransform:
   m_ObjectHideFlags: 0
@@ -690,6 +690,8 @@ MonoBehaviour:
   textPanelCG: {fileID: 9086932720038058413}
   textField: {fileID: 9086932721564774475}
   videoPlayer: {fileID: 1170328032791086216}
+  videoPlayerQuad: {fileID: 1170328032611726837}
+  videoPlayerThumbnail: {fileID: 1985901364450599691}
   showTextTooltip:
     tooltipName: Text Display Primary Right
     actionButtonReference: 0
@@ -702,7 +704,7 @@ MonoBehaviour:
     hand: 0
   stopTooltip:
     tooltipName: Stop Secondary Left
-    actionButtonReference: 0
+    actionButtonReference: 1
     tooltipText: Stop
     hand: 0
   showTextInputAction: {fileID: -3444445515797504187, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}

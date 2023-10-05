@@ -395,6 +395,11 @@ MonoBehaviour:
     actionButtonReference: 4
     tooltipText: Hold and Pull
     hand: 2
+  exitMenuTooltip:
+    tooltipName: Grip Exit Menu Action Right
+    actionButtonReference: 4
+    tooltipText: Select Action
+    hand: 1
   guidePrefab: {fileID: 4415107699491610967, guid: 5c361afb6b020f94eb41eab185ae47f8, type: 3}
   infoVisibilityText: Information will stay private inside the transparent  sphere
   linePrefab: {fileID: 6033866870466899385, guid: 4268efaa43e38a446bd6c65580b316ff, type: 3}
@@ -26445,8 +26450,8 @@ MonoBehaviour:
     parentSelectedItem: {fileID: 0}
   showSelectTooltip: 1
   actionSelectTooltip:
-    tooltipName: Primary Select Right
-    actionButtonReference: 0
+    tooltipName: Grip Select Right
+    actionButtonReference: 4
     tooltipText: Select Action
     hand: 1
   selectActions:
@@ -29522,8 +29527,8 @@ MonoBehaviour:
     parentSelectedItem: {fileID: 0}
   showSelectTooltip: 1
   actionSelectTooltip:
-    tooltipName: Primary Select Right
-    actionButtonReference: 0
+    tooltipName: Grip Select Right
+    actionButtonReference: 4
     tooltipText: Select Action
     hand: 1
   selectActions:
@@ -35263,6 +35268,11 @@ MonoBehaviour:
     actionButtonReference: 4
     tooltipText: Hold and Pull
     hand: 2
+  exitMenuTooltip:
+    tooltipName: Grip Exit Menu Action Right
+    actionButtonReference: 4
+    tooltipText: Select Action
+    hand: 1
   guidePrefab: {fileID: 4415107699491610967, guid: 5c361afb6b020f94eb41eab185ae47f8, type: 3}
   infoVisibilityText: Information will stay private inside the transparent  sphere
   linePrefab: {fileID: 6033866870466899385, guid: 4268efaa43e38a446bd6c65580b316ff, type: 3}
@@ -37783,10 +37793,34 @@ MonoBehaviour:
       m_Calls: []
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1301467036}
+        m_TargetAssemblyTypeName: MenuArea, Assembly-CSharp
+        m_MethodName: HandleExitMenuHoverEntered
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1301467036}
+        m_TargetAssemblyTypeName: MenuArea, Assembly-CSharp
+        m_MethodName: HandleExitMenuHoverExited
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -41535,8 +41569,8 @@ MonoBehaviour:
     parentSelectedItem: {fileID: 0}
   showSelectTooltip: 1
   actionSelectTooltip:
-    tooltipName: Primary Select Right
-    actionButtonReference: 0
+    tooltipName: Grip Select Right
+    actionButtonReference: 4
     tooltipText: Select Action
     hand: 1
   selectActions:
@@ -45157,8 +45191,8 @@ MonoBehaviour:
     parentSelectedItem: {fileID: 0}
   showSelectTooltip: 1
   actionSelectTooltip:
-    tooltipName: Primary Select Right
-    actionButtonReference: 0
+    tooltipName: Grip Select Right
+    actionButtonReference: 4
     tooltipText: Select Action
     hand: 1
   selectActions:
@@ -46876,8 +46910,8 @@ MonoBehaviour:
     parentSelectedItem: {fileID: 0}
   showSelectTooltip: 1
   actionSelectTooltip:
-    tooltipName: Primary Select Right
-    actionButtonReference: 0
+    tooltipName: Grip Select Right
+    actionButtonReference: 4
     tooltipText: Select Action
     hand: 1
   selectActions:
@@ -47602,7 +47636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1641058161
 Transform:
   m_ObjectHideFlags: 0
@@ -47969,8 +48003,8 @@ MonoBehaviour:
     parentSelectedItem: {fileID: 0}
   showSelectTooltip: 1
   actionSelectTooltip:
-    tooltipName: Primary Select Right
-    actionButtonReference: 0
+    tooltipName: Grip Select Right
+    actionButtonReference: 4
     tooltipText: Select Action
     hand: 1
   selectActions:
@@ -49053,8 +49087,8 @@ MonoBehaviour:
     parentSelectedItem: {fileID: 0}
   showSelectTooltip: 1
   actionSelectTooltip:
-    tooltipName: Primary Select Right
-    actionButtonReference: 0
+    tooltipName: Grip Select Right
+    actionButtonReference: 4
     tooltipText: Select Action
     hand: 1
   selectActions:
@@ -50872,8 +50906,8 @@ MonoBehaviour:
     parentSelectedItem: {fileID: 0}
   showSelectTooltip: 1
   actionSelectTooltip:
-    tooltipName: Primary Select Right
-    actionButtonReference: 0
+    tooltipName: Grip Select Right
+    actionButtonReference: 4
     tooltipText: Select Action
     hand: 1
   selectActions:
@@ -51658,8 +51692,8 @@ MonoBehaviour:
     parentSelectedItem: {fileID: 0}
   showSelectTooltip: 1
   actionSelectTooltip:
-    tooltipName: Primary Select Right
-    actionButtonReference: 0
+    tooltipName: Grip Select Right
+    actionButtonReference: 4
     tooltipText: Select Action
     hand: 1
   selectActions:
@@ -54769,8 +54803,8 @@ MonoBehaviour:
     parentSelectedItem: {fileID: 0}
   showSelectTooltip: 1
   actionSelectTooltip:
-    tooltipName: Primary Select Right
-    actionButtonReference: 0
+    tooltipName: Grip Select Right
+    actionButtonReference: 4
     tooltipText: Select Action
     hand: 1
   selectActions:
@@ -55387,10 +55421,34 @@ MonoBehaviour:
       m_Calls: []
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8681115}
+        m_TargetAssemblyTypeName: MenuArea, Assembly-CSharp
+        m_MethodName: HandleExitMenuHoverEntered
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8681115}
+        m_TargetAssemblyTypeName: MenuArea, Assembly-CSharp
+        m_MethodName: HandleExitMenuHoverExited
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -57239,6 +57297,11 @@ MonoBehaviour:
     actionButtonReference: 4
     tooltipText: Hold and Pull
     hand: 2
+  exitMenuTooltip:
+    tooltipName: Grip Exit Menu Action Right
+    actionButtonReference: 4
+    tooltipText: Select Action
+    hand: 1
   guidePrefab: {fileID: 4415107699491610967, guid: 5c361afb6b020f94eb41eab185ae47f8, type: 3}
   infoVisibilityText: Information will stay private inside the transparent  sphere
   linePrefab: {fileID: 6033866870466899385, guid: 4268efaa43e38a446bd6c65580b316ff, type: 3}
@@ -57861,8 +57924,8 @@ MonoBehaviour:
     parentSelectedItem: {fileID: 0}
   showSelectTooltip: 1
   actionSelectTooltip:
-    tooltipName: Primary Select Right
-    actionButtonReference: 0
+    tooltipName: Grip Select Right
+    actionButtonReference: 4
     tooltipText: Select Action
     hand: 1
   selectActions:
@@ -58153,10 +58216,34 @@ MonoBehaviour:
       m_Calls: []
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1972431888}
+        m_TargetAssemblyTypeName: MenuArea, Assembly-CSharp
+        m_MethodName: HandleExitMenuHoverEntered
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1972431888}
+        m_TargetAssemblyTypeName: MenuArea, Assembly-CSharp
+        m_MethodName: HandleExitMenuHoverExited
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -61415,8 +61502,8 @@ MonoBehaviour:
     parentSelectedItem: {fileID: 0}
   showSelectTooltip: 1
   actionSelectTooltip:
-    tooltipName: Primary Select Right
-    actionButtonReference: 0
+    tooltipName: Grip Select Right
+    actionButtonReference: 4
     tooltipText: Select Action
     hand: 1
   selectActions:
@@ -71195,11 +71282,6 @@ MonoBehaviour:
     m_Reference: {fileID: 1957557797345215748, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
   hasTooltips: 1
   tooltipHandler: {fileID: 1259182775565981016}
-  showRayTooltip:
-    tooltipName: Show Ray Right
-    actionButtonReference: 0
-    tooltipText: Show Ray
-    hand: 1
   pressUITooltip:
     tooltipName: Interact UI Right
     actionButtonReference: 0
@@ -71251,11 +71333,6 @@ MonoBehaviour:
     m_Reference: {fileID: -4416195333031544184, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
   hasTooltips: 1
   tooltipHandler: {fileID: 1259182775565981016}
-  showRayTooltip:
-    tooltipName: Show Ray
-    actionButtonReference: 0
-    tooltipText: Show Ray
-    hand: 2
   pressUITooltip:
     tooltipName: Interact UI Left
     actionButtonReference: 0
@@ -80585,7 +80662,7 @@ MonoBehaviour:
     actionButtonReference: 1
     tooltipText: Remove
     hand: 2
-  secondaryButton: {fileID: -3668144855904488849, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}
+  removeInputAction: {fileID: 0}
 --- !u!33 &2617050300167374911
 MeshFilter:
   m_ObjectHideFlags: 0

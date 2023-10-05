@@ -16,6 +16,8 @@ public class VideoPrefab : MonoBehaviour
     public CanvasGroup textPanelCG;
     public TextMeshProUGUI textField;
     public VideoPlayer videoPlayer;
+    public GameObject videoPlayerQuad;
+    public Image videoPlayerThumbnail;
     public Tooltip showTextTooltip;
     public Tooltip playPauseTooltip;
     public Tooltip stopTooltip;
@@ -26,11 +28,12 @@ public class VideoPrefab : MonoBehaviour
 
     // Private Variables
 
-    private bool isHovering = false;
+    private bool isHoveringLeft = false;
+    private bool isHoveringRight = false;
     private bool enableTextTooltip = false;
     private bool enableMediaTooltips = false;
     private bool isTextVisible = false;
-    private bool isVideoVisible = false;
+    private bool isDataSet = false;
     private TooltipHandler tooltipHandler;
     private string showTextString = "Show Info";
     private string hideTextString = "Hide Info";
@@ -54,54 +57,50 @@ public class VideoPrefab : MonoBehaviour
     {
         videoPlayer.clip = clip;
         enableMediaTooltips = true;
+        isDataSet = true;
     }
 
     public void SetText(string text)
     {
         textField.text = text;
         enableTextTooltip = true;
+        isDataSet = true;
     }
 
-    public void ShowText(InputAction.CallbackContext obj)
+    public void ShowHideText(InputAction.CallbackContext obj)
     {
-        if (isHovering)
+        if (isHoveringRight)
         {
-            StartCoroutine(FadeCanvasGroup(textPanelCG, 0f, 1f, 0.1f, enableInteraction: true));
-            isTextVisible = true;
+            if (!isTextVisible)
+            {
+                // Show Text Panel
+                StartCoroutine(FadeCanvasGroup(textPanelCG, 0f, 1f, 0.1f, enableInteraction: true));
+                isTextVisible = true;
 
-            // Remove show text input action
-            playPauseInputAction.action.performed -= ShowText;
+                // Change tooltip string
+                showTextTooltip.tooltipText = hideTextString;
+            }
+            else
+            {
+                // Hide Text Panel
+                StartCoroutine(FadeCanvasGroup(textPanelCG, 1f, 0f, 0.1f, enableInteraction: false));
+                isTextVisible = false;
 
-            // Change tooltip string
-            showTextTooltip.tooltipText = hideTextString;
-
-            // Add hide text input action
-            playPauseInputAction.action.performed += HideText;
-        }
-    }
-
-    public void HideText(InputAction.CallbackContext obj)
-    {
-        if (isHovering)
-        {
-            StartCoroutine(FadeCanvasGroup(textPanelCG, 1f, 0f, 0.1f, enableInteraction: false));
-            isTextVisible = false;
-
-            // Remove hide text input action
-            playPauseInputAction.action.performed -= HideText;
-
-            // Change tooltip string
-            showTextTooltip.tooltipText = showTextString;
-
-            // Add show text input action
-            playPauseInputAction.action.performed += ShowText;
+                // Change tooltip string
+                showTextTooltip.tooltipText = showTextString;
+            }
         }
     }
 
     public void PlayPauseVideo(InputAction.CallbackContext obj)
     {
-        if (isHovering)
+        if (isHoveringLeft)
         {
+            // Hide Video Thumbnail
+            videoPlayerThumbnail.enabled = false;
+
+            // Play/Pause Video
+            videoPlayerQuad.SetActive(true);
             if (videoPlayer.isPlaying)
             {
                 videoPlayer.Pause();
@@ -115,59 +114,69 @@ public class VideoPrefab : MonoBehaviour
 
     public void StopVideo(InputAction.CallbackContext obj)
     {
-        if (!isHovering)
+        if (isHoveringLeft)
         {
-            if (videoPlayer.isPlaying)
-            {
-                videoPlayer.Stop();
-            }
+            // Stop Playing
+            videoPlayer.Stop();
+            videoPlayerQuad.SetActive(false);
+
+            // Show Video Thumbnail
+            videoPlayerThumbnail.enabled = true;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check for controller
-        if (other.GetComponent<XRDirectInteractor>() != null)
+        // Text tooltip
+        if (enableTextTooltip)
         {
-            isHovering = true;
-
-            if (other.name.Contains("Right"))
+            // Check for right controller
+            if (other.GetComponent<XRDirectInteractor>() != null && other.gameObject.name.Contains("Right"))
             {
-                if (enableTextTooltip)
+                isHoveringRight = true;
+
+                if (isDataSet)
                 {
+                    // Display Tooltip
                     tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
                     tooltipHandler.ShowTooltip(showTextTooltip);
 
-                    showTextInputAction.action.Enable();
+                    // Set Tooltip String
                     if (!isTextVisible)
-                    {
                         showTextTooltip.tooltipText = showTextString;
-                        showTextInputAction.action.performed -= ShowText;
-                        showTextInputAction.action.performed += ShowText;
-                    }
                     else
-                    {
                         showTextTooltip.tooltipText = hideTextString;
-                        showTextInputAction.action.performed -= HideText;
-                        showTextInputAction.action.performed += HideText;
-                    }
+
+                    // Subscribe to Input Action
+                    showTextInputAction.action.Enable();
+                    showTextInputAction.action.performed -= ShowHideText;
+                    showTextInputAction.action.performed += ShowHideText;
                 }
             }
-            else
+        }
+
+        // Media tooltips
+        if (enableMediaTooltips)
+        {
+            // Check for left controller
+            if (other.GetComponent<XRDirectInteractor>() != null && other.gameObject.name.Contains("Left"))
             {
-                if (enableMediaTooltips)
+                isHoveringLeft = true;
+
+                if (isDataSet)
                 {
+                    // Display Tooltips
                     tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
                     tooltipHandler.ShowTooltip(playPauseTooltip);
                     tooltipHandler.ShowTooltip(stopTooltip);
 
+                    // Subscribe to Input Actions
                     playPauseInputAction.action.Enable();
                     stopInputAction.action.Enable();
-                    if (isVideoVisible)
-                    {
-                        playPauseInputAction.action.performed += PlayPauseVideo;
-                        stopInputAction.action.performed += StopVideo;
-                    }
+                    playPauseInputAction.action.performed -= PlayPauseVideo;
+                    playPauseInputAction.action.performed += PlayPauseVideo;
+                    stopInputAction.action.performed -= StopVideo;
+                    stopInputAction.action.performed += StopVideo;
                 }
             }
         }
@@ -175,43 +184,58 @@ public class VideoPrefab : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        // Check for controller
-        if (other.GetComponent<XRDirectInteractor>() != null)
+        // Text tooltip
+        if (enableTextTooltip)
         {
-            isHovering = false;
-
-            if (other.name.Contains("Right"))
+            // Check for right controller
+            if (other.GetComponent<XRDirectInteractor>() != null && other.gameObject.name.Contains("Right"))
             {
-                if (enableTextTooltip)
+                isHoveringRight = false;
+                
+                if (isDataSet)
                 {
+                    // Hide Tooltip
                     tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
                     tooltipHandler.HideTooltip(showTextTooltip);
 
-                    showTextInputAction.action.Disable();
-                    if (!isTextVisible)
-                        showTextInputAction.action.performed -= ShowText;
-                    else
-                        showTextInputAction.action.performed -= HideText;
+                    // Unsubscribe to Input Action
+                    showTextInputAction.action.performed -= ShowHideText;
+                    StartCoroutine(DisableInputActionAfterDelay(showTextInputAction));
                 }
+                
             }
-            else
+        }
+
+        // Media tooltips
+        if (enableMediaTooltips)
+        {
+            // Check for left controller
+            if (other.GetComponent<XRDirectInteractor>() != null && other.gameObject.name.Contains("Left"))
             {
-                if (enableMediaTooltips)
+                isHoveringLeft = false;
+
+                if (isDataSet)
                 {
+                    // Hide Tooltips
                     tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
                     tooltipHandler.HideTooltip(playPauseTooltip);
                     tooltipHandler.HideTooltip(stopTooltip);
 
-                    playPauseInputAction.action.Disable();
-                    stopInputAction.action.Disable();
-                    if (isVideoVisible)
-                    {
-                        playPauseInputAction.action.performed -= PlayPauseVideo;
-                        stopInputAction.action.performed -= StopVideo;
-                    }
+                    // Unsubscribe to Input Actions
+                    playPauseInputAction.action.performed -= PlayPauseVideo;
+                    stopInputAction.action.performed -= StopVideo;
+                    StartCoroutine(DisableInputActionAfterDelay(playPauseInputAction));
+                    StartCoroutine(DisableInputActionAfterDelay(stopInputAction));
                 }
             }
         }
+    }
+
+    private IEnumerator DisableInputActionAfterDelay(InputActionReference inputAction)
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        inputAction.action.Disable();
     }
 
     private IEnumerator FadeCanvasGroup(CanvasGroup cG, float startAlpha, float endAlpha, float duration, float startDelay = 0f, bool enableInteraction = false)

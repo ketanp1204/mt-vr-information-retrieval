@@ -39,6 +39,7 @@ public class MenuArea : XRSimpleInteractable
     public Menu menuLayer;
     public Vector3 menuRotationOffset;
     public Tooltip gripHoldTooltip;
+    public Tooltip exitMenuTooltip;
     public GameObject guidePrefab;
     public string infoVisibilityText;
     public GameObject linePrefab;
@@ -287,6 +288,7 @@ public class MenuArea : XRSimpleInteractable
 
             // Get the tooltip handler reference
             tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
+            tooltipHandler.HideTooltip(gripHoldTooltip);
         }
     }
 
@@ -455,11 +457,6 @@ public class MenuArea : XRSimpleInteractable
         }
     }
 
-    public void OnMenuBackButton()
-    {
-
-    }
-
     private IEnumerator LoadNextMenuLayer(MenuElement mE)
     {
         yield return new WaitForSeconds(menuItemAnimDuration);
@@ -579,6 +576,26 @@ public class MenuArea : XRSimpleInteractable
         // Disable collider
         if (currentMenuLayer.items[index].GetComponent<Collider>() != null) 
             currentMenuLayer.items[index].GetComponent<Collider>().enabled = false;
+    }
+
+    public void HandleExitMenuHoverEntered(HoverEnterEventArgs args)
+    {
+        // Check for controller
+        if (args.interactorObject.transform.GetComponent<XRDirectInteractor>() != null)
+        {
+            tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
+            tooltipHandler.ShowTooltip(exitMenuTooltip);
+        }
+    }
+
+    public void HandleExitMenuHoverExited(HoverExitEventArgs args)
+    {
+        // Check for controller
+        if (args.interactorObject.transform.GetComponent<XRDirectInteractor>() != null)
+        {
+            tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
+            tooltipHandler.HideTooltip(exitMenuTooltip);
+        }
     }
 
     public void ExitMenu()

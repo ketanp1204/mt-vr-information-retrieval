@@ -59,7 +59,7 @@ public class HandRayController : MonoBehaviourPunCallbacks, IPunObservable
 
     public bool hasTooltips = false;
     public TooltipHandler tooltipHandler;
-    public Tooltip showRayTooltip;
+    // public Tooltip showRayTooltip;
     public Tooltip pressUITooltip;
 
     public GameObject hitVisualization;
@@ -181,13 +181,13 @@ public class HandRayController : MonoBehaviourPunCallbacks, IPunObservable
         if (hasTooltips)
         {
             TooltipHandler tooltipHandler = GetComponent<TooltipHandler>();
-            tooltipHandler.ShowTooltip(showRayTooltip, add: true);
+            // tooltipHandler.ShowTooltip(showRayTooltip, add: true);
         }
     }
 
     public void HideShowRayTooltip()
     {
-        tooltipHandler.HideTooltip(showRayTooltip);
+        // tooltipHandler.HideTooltip(showRayTooltip);
     }
 
     private void OnDestroy()

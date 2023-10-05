@@ -8,12 +8,11 @@ public class RemoveObject : MonoBehaviour
 {
 
     // Public Variables
-
-    [HideInInspector]
+    
     public bool removable = false;
     public bool enableRemoveTooltip = true;
     public Tooltip removeObjectTooltip;
-    public InputActionReference secondaryButton;
+    public InputActionReference removeInputAction;
 
 
     // Private Variables
@@ -32,8 +31,8 @@ public class RemoveObject : MonoBehaviour
     {
         if (isHovering)
         {
-            secondaryButton.action.Disable();
-            secondaryButton.action.performed -= RemoveGameObject;
+            removeInputAction.action.Disable();
+            removeInputAction.action.performed -= RemoveGameObject;
             tooltipHandler.HideTooltip(removeObjectTooltip);
             Destroy(gameObject);
         }
@@ -46,20 +45,22 @@ public class RemoveObject : MonoBehaviour
             // Check for controller
             if (other.GetComponent<XRDirectInteractor>() != null)
             {
-                isHovering = true;
-
-                // Show select action tooltip
-                if (enableRemoveTooltip)
+                if (other.gameObject.name.Contains("Right"))
                 {
-                    // Show tooltip
-                    tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
-                    tooltipHandler.ShowTooltip(removeObjectTooltip);
-                
-                    // Enable input action
-                    secondaryButton.action.Enable();
-                    secondaryButton.action.performed += RemoveGameObject;
-                }
+                    isHovering = true;
 
+                    // Show select action tooltip
+                    if (enableRemoveTooltip)
+                    {
+                        // Show tooltip
+                        tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
+                        tooltipHandler.ShowTooltip(removeObjectTooltip);
+
+                        // Enable input action
+                        removeInputAction.action.Enable();
+                        removeInputAction.action.performed += RemoveGameObject;
+                    }
+                }
             }
         }
     }
@@ -71,18 +72,22 @@ public class RemoveObject : MonoBehaviour
             // Check for controller
             if (other.GetComponent<XRDirectInteractor>() != null)
             {
-                isHovering = false;
-
-                // Show select action tooltip
-                if (enableRemoveTooltip)
+                // Check for controller
+                if (other.GetComponent<XRDirectInteractor>() != null)
                 {
-                    // Hide tooltip
-                    tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
-                    tooltipHandler.HideTooltip(removeObjectTooltip);
-                
-                    // Disable input action
-                    secondaryButton.action.Disable();
-                    secondaryButton.action.performed -= RemoveGameObject;
+                    isHovering = false;
+
+                    // Show select action tooltip
+                    if (enableRemoveTooltip)
+                    {
+                        // Hide tooltip
+                        tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
+                        tooltipHandler.HideTooltip(removeObjectTooltip);
+
+                        // Disable input action
+                        removeInputAction.action.Disable();
+                        removeInputAction.action.performed -= RemoveGameObject;
+                    }
                 }
             }
         }        

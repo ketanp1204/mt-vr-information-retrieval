@@ -881,7 +881,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.8, y: 3.7475595}
+  m_AnchoredPosition: {x: -5.8, y: 3.75}
   m_SizeDelta: {x: 11.55, y: 15}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &5787619029700590180
@@ -1005,7 +1005,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5787619029062447793}
   m_HandleRect: {fileID: 5787619029062447792}
   m_Direction: 2
-  m_Value: 0.99977213
+  m_Value: 1
   m_Size: 0.50000006
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1141,7 +1141,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &6188413563737656317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1382,8 +1382,8 @@ MonoBehaviour:
     tooltipName: Secondary Action
     actionButtonReference: 1
     tooltipText: Remove
-    hand: 2
-  secondaryButton: {fileID: -3668144855904488849, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}
+    hand: 1
+  removeInputAction: {fileID: -3668144855904488849, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}
 --- !u!114 &379794752575860865
 MonoBehaviour:
   m_ObjectHideFlags: 0
