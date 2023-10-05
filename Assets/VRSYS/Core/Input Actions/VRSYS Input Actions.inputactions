@@ -1408,7 +1408,7 @@
                     "name": "LeftGrip",
                     "type": "Value",
                     "id": "b2139fe5-204b-4340-b5ba-6edf74e0fe10",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -1426,7 +1426,7 @@
                     "name": "RightGrip",
                     "type": "Value",
                     "id": "44f23b7e-3d53-45ab-92f7-94d29de34e4e",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true

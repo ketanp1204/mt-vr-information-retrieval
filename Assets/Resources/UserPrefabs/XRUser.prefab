@@ -6209,7 +6209,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1940646633508253288}
   - component: {fileID: 1940646633499247002}
-  - component: {fileID: 1940646633508648189}
   m_Layer: 9
   m_Name: RightControllerVisualization
   m_TagString: Untagged
@@ -6256,91 +6255,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1940646633508648189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1940646633508614728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 379491e36a485af48a52ca7148490b2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trigger:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Trigger
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 0d685b2f-2dcf-4e63-9fac-8d1c8101963c
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 5833648674992790963, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
-  grip:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Grip
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 7b273328-a2a6-4b19-8224-5336dee168af
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -4412150925930593991, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
-  buttonA:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Button A
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 1cef7d5e-88d5-4953-9547-8a7e54ba280e
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 1957557797345215748, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
-  buttonB:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Button B
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: ded0fe33-f000-4f0c-a55c-005dc7bda745
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 7693067600595936381, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
-  buttonC:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Button C
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: a1402147-d91a-41ee-9823-4f0395b0c7f3
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 1815045102413055889, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
-  thumbstick:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Thumbstick
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 1b530803-24c1-4161-b78f-0132b2ff1797
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 5907336721097440614, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
-  speed: 10
 --- !u!1 &1940646633508614730
 GameObject:
   m_ObjectHideFlags: 0
@@ -6870,10 +6784,10 @@ MonoBehaviour:
   - {fileID: 84997607874618227}
   - {fileID: 4130196495105427117}
   - {fileID: 1549244365545736751}
-  - {fileID: 3989836400332656428}
-  - {fileID: 6935004369515586791}
-  - {fileID: 2450677986251518946}
-  - {fileID: 1940646633508648189}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -7241,7 +7155,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2582989941989164029}
   - component: {fileID: 2617197041538212874}
-  - component: {fileID: 2450677986251518946}
   m_Layer: 9
   m_Name: RightHandVisualization
   m_TagString: Untagged
@@ -7287,43 +7200,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2450677986251518946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2923767470887770439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09edcf06679a44e4baf6872e987b1904, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trigger:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Trigger
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 2279f0fb-a830-4f1a-b4ce-9db1676ca45b
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -4412150925930593991, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
-  grip:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Grip
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: bcd90427-e056-4784-b0c8-a033efc5b702
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -4412150925930593991, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
-  speed: 10
 --- !u!1 &3055808732878025651
 GameObject:
   m_ObjectHideFlags: 0
@@ -8626,7 +8502,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6935004369515724362}
   - component: {fileID: 6935004369508291002}
-  - component: {fileID: 6935004369515586791}
   m_Layer: 9
   m_Name: LeftControllerVisualization
   m_TagString: Untagged
@@ -8673,91 +8548,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6935004369515586791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6935004369515684458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 379491e36a485af48a52ca7148490b2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trigger:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Trigger
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 9ae24d63-9f94-4006-9816-5fbb95c36a38
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -7389771028417344335, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
-  grip:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Grip
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 3ad368f6-fd82-4e43-a6cf-4a30097c48c6
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 5205351516048009269, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
-  buttonA:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Button A
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: ad68af6d-6429-489c-a6b5-8a2258b7e2b8
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -4416195333031544184, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
-  buttonB:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Button B
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: f919e15f-b6ca-418c-bc47-18e422b055eb
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -2230928083045017374, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
-  buttonC:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Button C
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: a59f8bd4-4a07-406e-9d63-6bd010cf17c3
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 2088444558355622996, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
-  thumbstick:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Thumbstick
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: bd1c4dce-1498-44a6-afa0-e34fb8d5e461
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -2455105843215811768, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
-  speed: 10
 --- !u!1 &6935004369515684460
 GameObject:
   m_ObjectHideFlags: 0
@@ -9713,7 +9503,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9174252866131091706}
   - component: {fileID: 8708773256043628319}
-  - component: {fileID: 3989836400332656428}
   m_Layer: 9
   m_Name: LeftHandVisualization
   m_TagString: Untagged
@@ -9759,43 +9548,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3989836400332656428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8366191617700936256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09edcf06679a44e4baf6872e987b1904, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trigger:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Trigger
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 604511bb-fd0e-4147-a4d4-0105e84e8ef0
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 5205351516048009269, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
-  grip:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Grip
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: c98f81f2-822b-4fa4-8be7-ef4d33ddadd9
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 5205351516048009269, guid: 4dcb2ecf12c5efc42a938a23e1a9516d, type: 3}
-  speed: 10
 --- !u!1 &8477442673910796616
 GameObject:
   m_ObjectHideFlags: 0
