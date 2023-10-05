@@ -123,6 +123,11 @@ public class DVManager : MonoBehaviourPunCallbacks
             }
         }
 
+        // Add controller rays to focused objects list
+        focusObjects.Add(((ViewingSetupHMDAnatomy)Vrsys.NetworkUser.localNetworkUser.viewingSetupAnatomy).leftController);
+        focusObjects.Add(((ViewingSetupHMDAnatomy)Vrsys.NetworkUser.localNetworkUser.viewingSetupAnatomy).rightController);
+        focusObjects.Add(Vrsys.NetworkUser.localNetworkUser.GetComponent<HandRayController>().hitVisualization);
+
         // Set focus objects
         var focus = Vrsys.Utility.FindRecursive(Vrsys.NetworkUser.localNetworkUser.gameObject, "FocusCamera").GetComponent<FocusSwitcher>();
         focus.SetFocused(focusObjects);

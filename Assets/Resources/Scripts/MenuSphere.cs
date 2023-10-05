@@ -83,6 +83,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
         if (!menuOpen)
         {
             menuOpen = true;
+            photonView.RPC(nameof(UpdateMenuOpenBool), RpcTarget.Others, true);
 
             // Show information panels
             StartCoroutine(FadeInformationPanels(0f, 1f, true));
@@ -91,6 +92,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
         else
         {
             menuOpen = false;
+            photonView.RPC(nameof(UpdateMenuOpenBool), RpcTarget.Others, false);
 
             // Hide information panels
             StartCoroutine(FadeInformationPanels(1f, 0f, false));
@@ -106,6 +108,12 @@ public class MenuSphere : MonoBehaviourPunCallbacks
 
             yield return new WaitForSeconds(0.05f);
         }
+    }
+
+    [PunRPC]
+    void UpdateMenuOpenBool(bool status)
+    {
+        menuOpen = status;
     }
 
     [PunRPC]

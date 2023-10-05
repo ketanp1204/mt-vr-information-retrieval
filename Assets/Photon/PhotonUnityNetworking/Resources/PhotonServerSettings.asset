@@ -70,6 +70,7 @@ MonoBehaviour:
   - SyncTextBox
   - UpdateInfoTextBox
   - UpdateVideoBox
+  - UpdateMenuOpenBool
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

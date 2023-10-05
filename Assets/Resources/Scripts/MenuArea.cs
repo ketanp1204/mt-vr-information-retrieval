@@ -334,7 +334,7 @@ public class MenuArea : XRSimpleInteractable
                     descGO.name = gameObject.name.Replace("MA_", "DB_");
 
                     // Set display text
-                    TextMeshProUGUI displayText = descGO.transform.Find("Panel/Scroll View/Viewport/Text").GetComponent<TextMeshProUGUI>();
+                    TextMeshProUGUI displayText = descGO.transform.Find("Panel/Scroll View/Viewport/Content/Text").GetComponent<TextMeshProUGUI>();
                     displayText.text = exhibitInfo.basicInfoText.text;
 
                     // Set removable via button
