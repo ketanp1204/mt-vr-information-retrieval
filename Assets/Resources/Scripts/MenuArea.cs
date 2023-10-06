@@ -271,7 +271,7 @@ public class MenuArea : XRSimpleInteractable
             menuSphereInitialZ = contentSphere.transform.localPosition.z;
 
             // Create a line from the center of interaction to the controller's current position
-            menuLine = GameObject.Instantiate(linePrefab, contentSphere.transform);
+            menuLine = Instantiate(linePrefab, contentSphere.transform);
             lR = menuLine.GetComponent<LineRenderer>();
             lR.positionCount = 2;
             lR.SetPosition(0, interactionInitialPos);
@@ -438,7 +438,7 @@ public class MenuArea : XRSimpleInteractable
                     // Set as sharable
                     // audioGO.GetComponent<ContentSharing>().SetSharable(true);
 
-                    // ExitMenu();
+                    ExitMenu();
 
                     break;
 
@@ -682,7 +682,8 @@ public class MenuArea : XRSimpleInteractable
         }
 
         // Destroy content sphere
-        
+        contentSphere = contentSphere.transform.parent.gameObject;
+        contentSphere.GetComponent<ContentSphere>().DestroySphere();
 
         // Re-enable collider for new menu interaction
         EnableCollider();

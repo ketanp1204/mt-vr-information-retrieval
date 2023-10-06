@@ -51,10 +51,12 @@ MonoBehaviour:
   - RemoveDVALocRPC
   - RemoveDVAObjectRPC
   - RemoveDVAUserCountRPC
+  - RemoveSpawnedObjectsRPC
   - RespawnSpaceship
   - SetColor
   - SetDVAIndexRPC
   - SetDVAObjectRPC
+  - SetInfoFromExhibitInfoRPC
   - SetItemNameRPC
   - SetName
   - SetPlatformId
@@ -62,23 +64,15 @@ MonoBehaviour:
   - SetUsernameRPC
   - SetVisibilityRPC
   - SubtractDVAUserCountRPC
-  - UpdateDVASpawnLocRPC
-  - UpdateDVAUserCountRPC
-  - UpdateMSPanel
-  - UpdateInfoPanels
-  - UpdateCG
-  - SyncTextBox
-  - UpdateInfoTextBox
-  - UpdateVideoBox
-  - UpdateMenuOpenBool
-  - SetInformationPanels
-  - UpdateScrollBarValueRPC
-  - UpdateScrollRectValueRPC
-  - CreateInfoItems
-  - SetInfoFromExhibitInfoRPC
   - UpdateDetailInfoAudio
   - UpdateDetailInfoText
-  - RemoveSpawnedObjectsRPC
+  - UpdateDVASpawnLocRPC
+  - UpdateDVAUserCountRPC
+  - UpdateInfoPanels
+  - UpdateInfoTextBox
+  - UpdateMenuOpenBool
+  - UpdateMSPanel
+  - UpdateScrollRectValueRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
