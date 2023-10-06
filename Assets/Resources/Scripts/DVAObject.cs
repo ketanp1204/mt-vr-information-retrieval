@@ -13,12 +13,13 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
     public GameObject dVContainer;
     public List<GameObject> dVObjectPrefabs;
     public List<Transform> syncObjects;
-    public string imagePrefabLoc = "UtilityPrefabs/3DMenuPrefabs/ImagePrefab3D";
+
 
 
     // Private Variables //
 
-    public string videoPrefabLoc = "UtilityPrefabs/3DMenuPrefabs/VideoPrefab3D";
+    private string imagePrefabLoc = "UtilityPrefabs/3DMenuPrefabs/ImagePrefab3D";
+    private string videoPrefabLoc = "UtilityPrefabs/3DMenuPrefabs/VideoPrefab3D";
     private TextMeshProUGUI detailInfoTextObject;
     private AudioSource detailInfoAudioSource;
     private Transform imageLocs;
@@ -139,6 +140,12 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
         */
     }
 
+    public void RemoveSpawnedObjects()
+    {
+        foreach (GameObject gO in detailViewSpawnedObjs)
+            Destroy(gO);
+    }
+
     private IEnumerator InstantiateDVAfterDelay(GameObject gO)
     {
         yield return new WaitForSeconds(0.1f);
@@ -174,42 +181,4 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
         }
         return child;
     }
-
-    /*
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        Vector3[] positions = new Vector3[syncObjects.Count];
-        Quaternion[] rotations = new Quaternion[syncObjects.Count];
-        Vector3[] scales = new Vector3[syncObjects.Count];
-
-        for (int i = 0; i < syncObjects.Count; i++)
-        {
-            positions[i] = syncObjects[i].transform.position;
-            rotations[i] = syncObjects[i].transform.rotation;
-            scales[i] = syncObjects[i].transform.localScale;
-        }
-
-        // Write
-        if (stream.IsWriting && photonView.IsMine)
-        {
-            stream.SendNext(positions);
-            stream.SendNext(rotations);
-            stream.SendNext(scales);
-        }
-        // Read
-        else if (stream.IsReading)
-        {
-            positions = (Vector3[])stream.ReceiveNext();
-            rotations = (Quaternion[])stream.ReceiveNext();
-            scales = (Vector3[])stream.ReceiveNext();
-
-            for (int i = 0; i < syncObjects.Count; i++)
-            {
-                syncObjects[i].transform.position = positions[i];
-                syncObjects[i].transform.rotation = rotations[i];
-                syncObjects[i].transform.localScale = scales[i];
-            }
-        }
-    }
-    */
 }

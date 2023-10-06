@@ -70,10 +70,12 @@ public class JoinDetailView : XRBaseInteractable
 
                 if (child.gameObject.name == dVName)
                 {
-                    GameObject exitSphere = GameObject.Instantiate(exitSpherePrefab, child.transform);
+                    GameObject exitSphere = Instantiate(exitSpherePrefab, child.transform);
+
+                    DVAObject dVScript = exitSphere.transform.root.GetComponent<DVAObject>();
 
                     exitSphere.GetComponent<XRSimpleInteractable>().selectEntered.AddListener(
-                                        (SelectEnterEventArgs args) => { FindObjectOfType<DVManager>().JoiningUserExitDVA(uD.dVAIndex); });
+                                        (SelectEnterEventArgs args) => { FindObjectOfType<DVManager>().JoiningUserExitDVA(uD.dVAIndex, dVScript); });
                 }
             }
         }

@@ -6,9 +6,9 @@ public class FocusSwitcher : MonoBehaviour
 {
     public string FocusedLayer = "Focused";
 
-    private GameObject currentlyFocused;
-    private List<GameObject> currentlyFocusedList;
-    private int previousLayer;
+    public GameObject currentlyFocused;
+    public List<GameObject> currentlyFocusedList;
+    public int previousLayer;
 
     public void SetFocused(GameObject obj)
     {
@@ -53,7 +53,10 @@ public class FocusSwitcher : MonoBehaviour
 
         // store and focus the new object
         currentlyFocusedList = objs;
-
+        if (currentlyFocusedList != null)
+        {
+            Debug.Log(currentlyFocusedList.Count);
+        }
         if (currentlyFocusedList != null)
         {
             foreach (GameObject obj in currentlyFocusedList)

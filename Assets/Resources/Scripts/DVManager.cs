@@ -47,14 +47,14 @@ public class DVManager : MonoBehaviourPunCallbacks
         StartCoroutine(EnterDetailViewingArea(itemName));
     }
     
-    public void ExitDVA(int index)
+    public void ExitDVA(int index, DVAObject dVScript)
     {
-        StartCoroutine(ExitDetailViewingArea(index));
+        StartCoroutine(ExitDetailViewingArea(index, dVScript));
     }
 
-    public void JoiningUserExitDVA(int index)
+    public void JoiningUserExitDVA(int index, DVAObject dVScript)
     {
-        StartCoroutine(JUserExitDVA(index));
+        StartCoroutine(JUserExitDVA(index, dVScript));
     }
 
     private IEnumerator EnterDetailViewingArea(string itemName)
@@ -106,6 +106,7 @@ public class DVManager : MonoBehaviourPunCallbacks
         string dVName = "DV_" + itemName;
 
         // Get focus objects
+        focusObjects.Clear();
         foreach (Transform child in dVAObject.GetComponentsInChildren<Transform>(true))
         {
             if (child.gameObject.name.Contains(itemName))
@@ -115,10 +116,12 @@ public class DVManager : MonoBehaviourPunCallbacks
 
                 if (child.gameObject.name == dVName)
                 {
-                    GameObject exitSphere = GameObject.Instantiate(exitSpherePrefab, child.transform);
+                    GameObject exitSphere = Instantiate(exitSpherePrefab, child.transform);
+
+                    DVAObject dVScript = dVAObject.GetComponent<DVAObject>();
 
                     exitSphere.GetComponent<XRSimpleInteractable>().selectEntered.AddListener(
-                                        (SelectEnterEventArgs args) => { FindObjectOfType<DVManager>().ExitDVA(index); });
+                                        (SelectEnterEventArgs args) => { FindObjectOfType<DVManager>().ExitDVA(index, dVScript); });
                 }
             }
         }
@@ -136,7 +139,7 @@ public class DVManager : MonoBehaviourPunCallbacks
         Vrsys.NetworkUser.localNetworkUser.FadeInScreen();
     }
 
-    private IEnumerator ExitDetailViewingArea(int index)
+    private IEnumerator ExitDetailViewingArea(int index, DVAObject dVScript)
     {
         // Fade the screen out
         Vrsys.NetworkUser.localNetworkUser.FadeOutScreen();
@@ -164,6 +167,8 @@ public class DVManager : MonoBehaviourPunCallbacks
 
             // Update DVA Spawn Loc
             UpdateDVASpawnLoc(dVASpawnLoc + (Vector3.one * 20f));
+
+            dVScript.RemoveSpawnedObjects();
         }        
 
         // Subtract User Count at index
@@ -178,7 +183,7 @@ public class DVManager : MonoBehaviourPunCallbacks
         Vrsys.NetworkUser.localNetworkUser.FadeInScreen();
     }
 
-    private IEnumerator JUserExitDVA(int index)
+    private IEnumerator JUserExitDVA(int index, DVAObject dVScript)
     {
         // Fade the screen out
         Vrsys.NetworkUser.localNetworkUser.FadeOutScreen();
@@ -205,6 +210,8 @@ public class DVManager : MonoBehaviourPunCallbacks
 
             // Update DVA Spawn Loc
             UpdateDVASpawnLoc(dVASpawnLoc + (Vector3.one * 20f));
+
+            dVScript.RemoveSpawnedObjects();
         }
 
         // Subtract User Count at index
@@ -253,6 +260,7 @@ public class DVManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void RemoveDVAObjectRPC(int index)
     {
+        Destroy(dVAObjects[index]);
         dVAObjects.RemoveAt(index);
     }
 

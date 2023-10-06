@@ -23,6 +23,8 @@ public class MenuSphere : MonoBehaviourPunCallbacks
     [Space(20)]
     [Header("UI Properties")]
     public CanvasGroup msPanel;
+    public GameObject videoPlayerBox;
+    public AudioSource audioSource;
     public float animDuration = 0.1f;
     public List<CanvasGroup> infoPanels = new List<CanvasGroup>();
     public List<CanvasGroup> infoTextBoxes = new List<CanvasGroup>();
@@ -170,6 +172,20 @@ public class MenuSphere : MonoBehaviourPunCallbacks
             // Hide information panels
             StartCoroutine(FadeInformationPanels(1f, 0f, false));
             photonView.RPC(nameof(UpdateInfoPanels), RpcTarget.Others, false);
+
+            // Hide info text boxes
+            for (int i = 0; i < infoTextBoxes.Count;  i++)
+            {
+                infoTextBoxes[i].alpha = 0f;
+                infoTextBoxes[i].interactable = false;
+                infoTextBoxes[i].blocksRaycasts = false;
+            }
+
+            // Hide video player
+            videoPlayerBox.SetActive(false);
+
+            // Reset audio player
+            audioSource.Stop();
         }
     }
 
