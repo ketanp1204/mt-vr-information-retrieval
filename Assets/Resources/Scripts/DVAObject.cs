@@ -20,6 +20,7 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 
     private string imagePrefabLoc = "UtilityPrefabs/3DMenuPrefabs/ImagePrefab3D";
     private string videoPrefabLoc = "UtilityPrefabs/3DMenuPrefabs/VideoPrefab3D";
+    private string modelPrefabLoc = "UtilityPrefabs/3DMenuPrefabs/ModelPrefab3D";
     private TextMeshProUGUI detailInfoTextObject;
     private AudioSource detailInfoAudioSource;
     private Transform imageLocs;
@@ -56,8 +57,6 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 
         if (Vrsys.NetworkUser.localNetworkUser.photonView.ViewID == viewID)
         {
-            
-
             // Get exhibit information object
             ExhibitInformation exhibitInfo = null;
             ExhibitInfoRefs exhibitInfoRefs = Resources.Load("Miscellaneous/ExhibitInfoRefs") as ExhibitInfoRefs;
@@ -154,7 +153,18 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
                 // Item of type model
                 if (exhibitInfo.detailInfoRelatedItems[i].modelInfo.model != null)
                 {
+                    // Instantiate Model Prefab
+                    GameObject model = PhotonNetwork.Instantiate(modelPrefabLoc, relatedItemLocs.GetChild(i).transform.position, relatedItemLocs.GetChild(i).transform.rotation);
+                    model.name = "DVRelatedItems" + i.ToString();
 
+                    // Set Exhibit Info Data
+                    ModelPrefab mP = model.GetComponent<ModelPrefab>();
+                    mP.SetModel(exhibitInfo.detailInfoRelatedItems[i].modelInfo.model);
+                    mP.SetText(exhibitInfo.detailInfoRelatedItems[i].modelInfo.modelText.text);
+                    mP.SetInfoFromExhibitInfo(itemName, i);
+
+                    // Add to detail view spawned objects list
+                    photonView.RPC(nameof(AddToDVSpawnedObjectsList), RpcTarget.All, model.name);
                 }
             }
 
@@ -212,7 +222,6 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
     [PunRPC]
     void RemoveSpawnedObjectsRPC()
     {
-        Debug.Log(detailViewSpawnedObjs.Count);
         foreach (GameObject gO in detailViewSpawnedObjs)
             Destroy(gO);
     }

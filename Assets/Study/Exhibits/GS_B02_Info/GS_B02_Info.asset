@@ -41,3 +41,13 @@ MonoBehaviour:
       videoClip: {fileID: 0}
       videoClipText: {fileID: 0}
       videoClipThumbnail: {fileID: 0}
+  - modelInfo:
+      model: {fileID: 2404388080710386811, guid: 96d48b7c3053a7945b7484a405b9731b, type: 3}
+      modelText: {fileID: 4900000, guid: 4a24ce0b2b9ccb7499db089bbc408ad5, type: 3}
+    imageInfo:
+      image: {fileID: 0}
+      imageText: {fileID: 0}
+    videoInfo:
+      videoClip: {fileID: 0}
+      videoClipText: {fileID: 0}
+      videoClipThumbnail: {fileID: 0}

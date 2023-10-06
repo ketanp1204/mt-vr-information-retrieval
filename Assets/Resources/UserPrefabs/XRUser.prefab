@@ -6852,7 +6852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c9d500f3e832034f88a094fb6a94eeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transVel: 1.5
+  transVel: 0.5
   rotVel: 70
   scaleInputFactor: 1
   pitchEnabled: 0
