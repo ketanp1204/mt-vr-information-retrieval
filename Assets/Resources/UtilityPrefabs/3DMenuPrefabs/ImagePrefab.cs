@@ -50,6 +50,39 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
         enableTextTooltip = true;
     }
 
+    public void SetInfoFromExhibitInfo(string exhibitName, int index, int contentType)
+    {
+        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.Others, exhibitName, index, contentType);
+    }
+
+    [PunRPC]
+    void SetInfoFromExhibitInfoRPC(string exhibitName, int index, int contentType)
+    {
+        // Get exhibit information object
+        ExhibitInformation exhibitInfo = null;
+        ExhibitInfoRefs exhibitInfoRefs = Resources.Load("Miscellaneous/ExhibitInfoRefs") as ExhibitInfoRefs;
+        for (int i = 0; i < exhibitInfoRefs.exhibitInfos.Length; i++)
+        {
+            if (exhibitInfoRefs.exhibitInfos[i].exhibitName == exhibitName)
+            {
+                exhibitInfo = exhibitInfoRefs.exhibitInfos[i].exhibitInfo;
+            }
+        }
+
+        // Set values
+        if (contentType == 0)
+        {
+            SetImage(exhibitInfo.detailInfoImages[index].image);
+            SetText(exhibitInfo.detailInfoImages[index].imageText.text);
+        }
+        else if (contentType == 1)
+        {
+            SetImage(exhibitInfo.detailInfoRelatedItems[index].imageInfo.image);
+            SetText(exhibitInfo.detailInfoRelatedItems[index].imageInfo.imageText.text);
+        }
+    }
+
+
     public void ShowText(InputAction.CallbackContext obj)
     {
         if (isHovering)

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class VideoPrefab : MonoBehaviour
+public class VideoPrefab : MonoBehaviourPunCallbacks
 {
 
     // Public Variables //
@@ -65,6 +66,40 @@ public class VideoPrefab : MonoBehaviour
         textField.text = text;
         enableTextTooltip = true;
         isDataSet = true;
+    }
+
+    public void SetInfoFromExhibitInfo(string exhibitName, int index, int contentType)
+    {
+        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.Others, exhibitName, index, contentType);
+    }
+
+    [PunRPC]
+    void SetInfoFromExhibitInfoRPC(string exhibitName, int index, int contentType)
+    {
+        // Get exhibit information object
+        ExhibitInformation exhibitInfo = null;
+        ExhibitInfoRefs exhibitInfoRefs = Resources.Load("Miscellaneous/ExhibitInfoRefs") as ExhibitInfoRefs;
+        for (int i = 0; i < exhibitInfoRefs.exhibitInfos.Length; i++)
+        {
+            if (exhibitInfoRefs.exhibitInfos[i].exhibitName == exhibitName)
+            {
+                exhibitInfo = exhibitInfoRefs.exhibitInfos[i].exhibitInfo;
+            }
+        }
+
+        // Set values
+        if (contentType == 0)
+        {
+            SetThumbnail(exhibitInfo.detailInfoVideos[index].videoClipThumbnail);
+            SetVideoClip(exhibitInfo.detailInfoVideos[index].videoClip);
+            SetText(exhibitInfo.detailInfoVideos[index].videoClipText.text);
+        }
+        else if (contentType == 1)
+        {
+            SetThumbnail(exhibitInfo.detailInfoRelatedItems[index].videoInfo.videoClipThumbnail);
+            SetVideoClip(exhibitInfo.detailInfoRelatedItems[index].videoInfo.videoClip);
+            SetText(exhibitInfo.detailInfoRelatedItems[index].videoInfo.videoClipText.text);
+        }
     }
 
     public void ShowHideText(InputAction.CallbackContext obj)
