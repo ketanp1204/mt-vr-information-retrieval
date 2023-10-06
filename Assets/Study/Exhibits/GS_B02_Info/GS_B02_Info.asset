@@ -15,6 +15,7 @@ MonoBehaviour:
   exhibitName: GS_B02
   basicInfoText: {fileID: 4900000, guid: 966f24a8d7739a8408a8b849e26a4c80, type: 3}
   detailInfoText: {fileID: 4900000, guid: 7c4450e76dbea054db996dcf7c11b64e, type: 3}
+  menuSphereAudio: {fileID: 8300000, guid: ff9e3a7cdd58fd24281d804f0ebb660c, type: 3}
   basicInfoAudio: {fileID: 8300000, guid: 0e22b08962b522f45b790d30d2b8de25, type: 3}
   detailInfoAudio: {fileID: 8300000, guid: ccc547927cbaef84ba715c411e69074b, type: 3}
   basicInfoImages:

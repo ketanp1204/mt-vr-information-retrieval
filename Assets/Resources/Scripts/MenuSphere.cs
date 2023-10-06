@@ -10,6 +10,7 @@ using Photon.Pun;
 using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 public class MenuSphere : MonoBehaviourPunCallbacks
 {
@@ -24,6 +25,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
     public float animDuration = 0.1f;
     public List<CanvasGroup> infoPanels = new List<CanvasGroup>();
     public List<CanvasGroup> infoTextBoxes = new List<CanvasGroup>();
+    public List<Scrollbar> scrollbars = new List<Scrollbar>();
 
     [Space(20)]
     [Header("Prefabs")]
@@ -40,11 +42,10 @@ public class MenuSphere : MonoBehaviourPunCallbacks
     private void Start()
     {
         msPanelText = msPanel.GetComponentInChildren<TextMeshProUGUI>();
-        photonView.RPC(nameof(SetInformationPanels), RpcTarget.All);
+        SetInformationPanels();
     }
 
-    [PunRPC]
-    void SetInformationPanels()
+    private void SetInformationPanels()
     {
         // Audio Guide
         infoPanels[0].transform.GetComponentInChildren<AudioSource>().clip = exhibitInfo.menuSphereAudio;
@@ -81,6 +82,20 @@ public class MenuSphere : MonoBehaviourPunCallbacks
 
 
 
+    }
+
+    public void UpdateScrollBarValue(Scrollbar scrollbar)
+    {
+        int scrollBarIndex = 0;
+        for (int i = 0; i < scrollbars.Count; i++)
+        {
+            if (scrollbars[i] == scrollbar)
+            {
+                scrollBarIndex = i;
+                break;
+            }
+        }
+        photonView.RPC(nameof(UpdateScrollBarValueRPC), RpcTarget.Others, scrollBarIndex, scrollbar.value);
     }
 
     public void OnHoverEntered()
@@ -162,13 +177,6 @@ public class MenuSphere : MonoBehaviourPunCallbacks
         }
     }
 
-
-    void AddImageInfos()
-    {
-
-    }
-
-
     [PunRPC]
     void UpdateMenuOpenBool(bool status)
     {
@@ -245,6 +253,12 @@ public class MenuSphere : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
+    void UpdateScrollBarValueRPC(int scrollbarIndex, float value)
+    {
+        scrollbars[scrollbarIndex].value = value;
+    }
+
     private Transform GetChildWithName(GameObject gO, string childName)
     {
         Transform child = null;
@@ -259,7 +273,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
         return child;
     }
 
-
+    /*
     // Late join stuff
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -269,4 +283,5 @@ public class MenuSphere : MonoBehaviourPunCallbacks
             photonView.RPC(nameof(SetInformationPanels), newPlayer);
         }
     }
+    */
 }
