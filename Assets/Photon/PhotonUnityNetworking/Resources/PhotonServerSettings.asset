@@ -73,6 +73,9 @@ MonoBehaviour:
   - UpdateMenuOpenBool
   - UpdateMSPanel
   - UpdateScrollRectValueRPC
+  - AddToDVSpawnedObjectsList
+  - UpdateDetailInfoAudioRPC
+  - UpdateDetailInfoTextRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

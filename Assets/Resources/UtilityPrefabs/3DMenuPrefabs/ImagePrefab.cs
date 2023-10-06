@@ -69,14 +69,16 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
             }
         }
 
-        // Set values
+        // Set values depending on type of image prefab (0 - dvImage, 1 - dvRelatedItemImage
         if (contentType == 0)
         {
+            gameObject.name = "DVImages" + index.ToString();
             SetImage(exhibitInfo.detailInfoImages[index].image);
             SetText(exhibitInfo.detailInfoImages[index].imageText.text);
         }
         else if (contentType == 1)
         {
+            gameObject.name = "DVRelatedItems" + index.ToString();
             SetImage(exhibitInfo.detailInfoRelatedItems[index].imageInfo.image);
             SetText(exhibitInfo.detailInfoRelatedItems[index].imageInfo.imageText.text);
         }

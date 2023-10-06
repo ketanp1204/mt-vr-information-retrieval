@@ -334,7 +334,6 @@ public class DVManager : MonoBehaviourPunCallbacks
     {
         if (dVAUserCounts[index] > 1)
         {
-            Debug.Log("subtract User Count");
             photonView.RPC(nameof(SubtractDVAUserCountRPC), RpcTarget.All, index);
         }
         else
