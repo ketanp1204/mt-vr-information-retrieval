@@ -682,8 +682,7 @@ public class MenuArea : XRSimpleInteractable
         }
 
         // Destroy content sphere
-        contentSphere = contentSphere.transform.parent.gameObject;
-        contentSphere.GetComponent<ContentSphere>().DestroySphere();
+        
 
         // Re-enable collider for new menu interaction
         EnableCollider();

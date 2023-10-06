@@ -12632,6 +12632,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  detailViewSpawnedObjs: []
 --- !u!1 &5298137968283769841
 GameObject:
   m_ObjectHideFlags: 0

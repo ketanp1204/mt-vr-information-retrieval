@@ -25,7 +25,7 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
     private Transform imageLocs;
     private Transform videoLocs;
     private Transform relatedItemLocs;
-    private List<GameObject> detailViewSpawnedObjs = new List<GameObject>();
+    public List<GameObject> detailViewSpawnedObjs = new List<GameObject>();
     private string itemName;
     private string dVName;
     private GameObject dVGO = null;
@@ -48,14 +48,16 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
         dVGO = transform.Find("DetailViews/" + dVName).gameObject;
         dVGO.SetActive(true);
 
+        // Get info placement objects
+        detailInfoTextObject = GetChildWithName(dVGO, "DetailInfoText").GetComponent<TextMeshProUGUI>();
+        detailInfoAudioSource = GetChildWithName(dVGO, "DetailInfoAudioSource").GetComponent<AudioSource>();
+        imageLocs = GetChildWithName(dVGO, "ImageLocs");
+        videoLocs = GetChildWithName(dVGO, "VideoLocs");
+        relatedItemLocs = GetChildWithName(dVGO, "RelatedItemLocs");
+
         if (Vrsys.NetworkUser.localNetworkUser.photonView.ViewID == viewID)
         {
-            // Get info placement objects
-            detailInfoTextObject = GetChildWithName(dVGO, "DetailInfoText").GetComponent<TextMeshProUGUI>();
-            detailInfoAudioSource = GetChildWithName(dVGO, "DetailInfoAudioSource").GetComponent<AudioSource>();
-            imageLocs = GetChildWithName(dVGO, "ImageLocs");
-            videoLocs = GetChildWithName(dVGO, "VideoLocs");
-            relatedItemLocs = GetChildWithName(dVGO, "RelatedItemLocs");
+            
 
             // Get exhibit information object
             ExhibitInformation exhibitInfo = null;
@@ -183,6 +185,12 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
     }
 
     public void RemoveSpawnedObjects()
+    {
+        photonView.RPC(nameof(RemoveSpawnedObjectsRPC), RpcTarget.All);
+    }
+
+    [PunRPC]
+    void RemoveSpawnedObjectsRPC()
     {
         foreach (GameObject gO in detailViewSpawnedObjs)
             Destroy(gO);
