@@ -43,6 +43,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
     {
         msPanelText = msPanel.GetComponentInChildren<TextMeshProUGUI>();
         SetInformationPanels();
+        // SetScrollbarsValueUpdate();
     }
 
     private void SetInformationPanels()
@@ -88,6 +89,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
     {
         for (int i = 0; i < scrollbars.Count; i++)
         {
+            Debug.Log(i);
             scrollbars[i].onValueChanged.AddListener((float val) => UpdateScrollBarValue(i));
         }
     }
