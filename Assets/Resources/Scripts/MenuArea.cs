@@ -279,12 +279,7 @@ public class MenuArea : XRSimpleInteractable
             UpdateCurrentMenuItems(menuLayer);
 
             // Menu facing in the direction of the user
-            // contentSphere.transform.parent.localRotation = rotation;
             menuLayer.parent.transform.rotation = rotation;
-            FaceCamera cam = exitSphere.AddComponent<FaceCamera>();
-            cam.rotateX = false;
-            cam.rotateZ = false;
-            cam.rotationOffset = menuRotationOffset;
 
             // Get the tooltip handler reference
             tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
@@ -435,9 +430,6 @@ public class MenuArea : XRSimpleInteractable
                     // Set removable via button
                     audioGO.GetComponent<RemoveObject>().SetRemovableStatus(true);
 
-                    // Set as sharable
-                    // audioGO.GetComponent<ContentSharing>().SetSharable(true);
-
                     ExitMenu();
 
                     break;
@@ -492,22 +484,6 @@ public class MenuArea : XRSimpleInteractable
         // Set the position of the parent of menu items to the center of interaction
         menuLayer.parent.SetActive(true);
         menuLayer.parent.transform.position = interactionInitialPos;
-
-        // Face towards the user
-        //if (menuLayer.parent.GetComponent<FaceCamera>() == null)
-        //menuLayer.parent.AddComponent<FaceCamera>().rotationOffset = new Vector3(0f, 180f, 0f);
-
-        // Set user camera on the items
-        foreach (GameObject item in menuLayer.items)
-        {
-            if (item.GetComponent<FaceCamera>() == null)
-            {
-                FaceCamera cam = item.AddComponent<FaceCamera>();
-                cam.rotateX = false;
-                cam.rotateZ = false;
-                cam.rotationOffset = menuRotationOffset;
-            }
-        }
 
         // Calculate the end positions of the menu items
         for (int i = 0; i < menuLayer.items.Count; i++)
