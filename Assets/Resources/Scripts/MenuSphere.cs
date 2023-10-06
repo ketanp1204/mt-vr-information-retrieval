@@ -11,6 +11,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
 using Photon.Realtime;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class MenuSphere : MonoBehaviourPunCallbacks
 {
@@ -25,7 +26,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
     public float animDuration = 0.1f;
     public List<CanvasGroup> infoPanels = new List<CanvasGroup>();
     public List<CanvasGroup> infoTextBoxes = new List<CanvasGroup>();
-    public List<Scrollbar> scrollbars = new List<Scrollbar>();
+    public List<ScrollRect> scrollRects = new List<ScrollRect>();
 
     [Space(20)]
     [Header("Prefabs")]
@@ -43,7 +44,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
     {
         msPanelText = msPanel.GetComponentInChildren<TextMeshProUGUI>();
         SetInformationPanels();
-        // SetScrollbarsValueUpdate();
+        // SetScrollRectsValueUpdate();
     }
 
     private void SetInformationPanels()
@@ -85,21 +86,22 @@ public class MenuSphere : MonoBehaviourPunCallbacks
 
     }
 
-    private void SetScrollbarsValueUpdate()
+    private void SetScrollRectsValueUpdate()
     {
-        for (int i = 0; i < scrollbars.Count; i++)
+        for (int i = 0; i < scrollRects.Count; i++)
         {
-            Debug.Log(i);
-            scrollbars[i].onValueChanged.AddListener((float val) => UpdateScrollBarValue(i));
+            scrollRects[i].onValueChanged.AddListener((Vector2 val) => UpdateScrollRectValue(i));
         }
     }
 
-    public void UpdateScrollBarValue(int index)
+    public void UpdateScrollRectValue(int index)
     {
-        int scrollBarIndex = index;
-        
-        Debug.Log(scrollBarIndex);
-        photonView.RPC(nameof(UpdateScrollBarValueRPC), RpcTarget.Others, scrollBarIndex, scrollbars[scrollBarIndex].value);
+        Debug.Log(index);
+        photonView.RPC(nameof(UpdateScrollRectValueRPC), 
+                        RpcTarget.Others, 
+                        index,
+                        scrollRects[index].horizontalNormalizedPosition,
+                        scrollRects[index].verticalNormalizedPosition);
     }
 
     public void OnHoverEntered()
@@ -258,9 +260,10 @@ public class MenuSphere : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void UpdateScrollBarValueRPC(int scrollbarIndex, float value)
+    void UpdateScrollRectValueRPC(int index, float hPos, float vPos)
     {
-        scrollbars[scrollbarIndex].value = value;
+        scrollRects[index].horizontalNormalizedPosition = hPos;
+        scrollRects[index].verticalNormalizedPosition = vPos;
     }
 
     private Transform GetChildWithName(GameObject gO, string childName)
