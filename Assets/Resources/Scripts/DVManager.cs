@@ -67,7 +67,7 @@ public class DVManager : MonoBehaviourPunCallbacks
 
         // Initialize instantiation parameters
         int index = GetCurrentCount();
-        object[] info = new object[] { index, itemName, photonView.ViewID };
+        object[] info = new object[] { index, itemName, Vrsys.NetworkUser.localNetworkUser.photonView.ViewID };
         Vector3 spawnLoc = dVASpawnLoc + (Vector3.one * -20f);
 
         // Create detail viewing area

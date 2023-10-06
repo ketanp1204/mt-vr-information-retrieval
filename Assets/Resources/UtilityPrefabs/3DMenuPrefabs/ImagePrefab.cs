@@ -5,8 +5,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
+using Photon.Pun;
 
-public class ImagePrefab : MonoBehaviour
+public class ImagePrefab : MonoBehaviourPunCallbacks
 {
 
     // Public Variables //

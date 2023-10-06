@@ -39,92 +39,99 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
         string itemName = (string)data[1];
         string dVName = "DV_" + itemName;
 
+        int viewID = (int)data[2];
+
         // Get DV GameObject
         GameObject dVGO = transform.Find("DetailViews/" + dVName).gameObject;
         dVGO.SetActive(true);
 
-        // Get info placement objects
-        detailInfoTextObject = GetChildWithName(dVGO, "DetailInfoText").GetComponent<TextMeshProUGUI>();
-        detailInfoAudioSource = GetChildWithName(dVGO, "DetailInfoAudioSource").GetComponent<AudioSource>();
-        imageLocs = GetChildWithName(dVGO, "ImageLocs");
-        videoLocs = GetChildWithName(dVGO, "VideoLocs");
-        relatedItemLocs = GetChildWithName(dVGO, "RelatedItemLocs");
-
-        // Get exhibit information object
-        ExhibitInformation exhibitInfo = null;
-        ExhibitInfoRefs exhibitInfoRefs = Resources.Load("Miscellaneous/ExhibitInfoRefs") as ExhibitInfoRefs;
-        for (int i = 0; i < exhibitInfoRefs.exhibitInfos.Length; i++)
+        if (Vrsys.NetworkUser.localNetworkUser.photonView.ViewID == viewID)
         {
-            if (exhibitInfoRefs.exhibitInfos[i].exhibitName == itemName)
+            // Get info placement objects
+            detailInfoTextObject = GetChildWithName(dVGO, "DetailInfoText").GetComponent<TextMeshProUGUI>();
+            detailInfoAudioSource = GetChildWithName(dVGO, "DetailInfoAudioSource").GetComponent<AudioSource>();
+            imageLocs = GetChildWithName(dVGO, "ImageLocs");
+            videoLocs = GetChildWithName(dVGO, "VideoLocs");
+            relatedItemLocs = GetChildWithName(dVGO, "RelatedItemLocs");
+
+            // Get exhibit information object
+            ExhibitInformation exhibitInfo = null;
+            ExhibitInfoRefs exhibitInfoRefs = Resources.Load("Miscellaneous/ExhibitInfoRefs") as ExhibitInfoRefs;
+            for (int i = 0; i < exhibitInfoRefs.exhibitInfos.Length; i++)
             {
-                exhibitInfo = exhibitInfoRefs.exhibitInfos[i].exhibitInfo;
+                if (exhibitInfoRefs.exhibitInfos[i].exhibitName == itemName)
+                {
+                    exhibitInfo = exhibitInfoRefs.exhibitInfos[i].exhibitInfo;
+                }
             }
-        }
 
-        // Set detail view text
-        detailInfoTextObject.text = exhibitInfo.detailInfoText.text;
+            // Set detail view text
+            detailInfoTextObject.text = exhibitInfo.detailInfoText.text;
 
-        // Set detail info audio 
-        detailInfoAudioSource.clip = exhibitInfo.detailInfoAudio;
+            // Set detail info audio 
+            detailInfoAudioSource.clip = exhibitInfo.detailInfoAudio;
 
-        // Spawn detail view images
-        for (int i = 0; i < exhibitInfo.detailInfoImages.Length; i++)
-        {
-            GameObject image = PhotonNetwork.Instantiate(imagePrefabLoc, imageLocs.GetChild(i).transform.position, imageLocs.GetChild(i).transform.rotation);
-            ImagePrefab iP = image.GetComponent<ImagePrefab>();
-            iP.SetImage(exhibitInfo.detailInfoImages[i].image);
-            iP.SetText(exhibitInfo.detailInfoImages[i].imageText.text);
-            detailViewSpawnedObjs.Add(image);
-        }
-
-        // Spawn detail view videos
-        for (int i = 0; i < exhibitInfo.detailInfoVideos.Length; i++)
-        {
-            GameObject video = PhotonNetwork.Instantiate(videoPrefabLoc, videoLocs.GetChild(i).transform.position, videoLocs.GetChild(i).transform.rotation);
-            VideoPrefab vP = video.GetComponent<VideoPrefab>();
-            vP.SetThumbnail(exhibitInfo.detailInfoVideos[i].videoClipThumbnail);
-            vP.SetText(exhibitInfo.detailInfoVideos[i].videoClipText.text);
-            vP.SetVideoClip(exhibitInfo.detailInfoVideos[i].videoClip);
-            detailViewSpawnedObjs.Add(video);
-        }
-
-
-        // Spawn detail view related items
-        for (int i = 0; i < exhibitInfo.detailInfoRelatedItems.Length; i++)
-        {
-            // Item of type image
-            if(exhibitInfo.detailInfoRelatedItems[i].imageInfo.image != null)
+            // Spawn detail view images
+            for (int i = 0; i < exhibitInfo.detailInfoImages.Length; i++)
             {
-                GameObject image = PhotonNetwork.Instantiate(imagePrefabLoc, relatedItemLocs.GetChild(i).transform.position, relatedItemLocs.GetChild(i).transform.rotation);
+                GameObject image = PhotonNetwork.Instantiate(imagePrefabLoc, imageLocs.GetChild(i).transform.position, imageLocs.GetChild(i).transform.rotation);
                 ImagePrefab iP = image.GetComponent<ImagePrefab>();
-                iP.SetImage(exhibitInfo.detailInfoRelatedItems[i].imageInfo.image);
-                iP.SetText(exhibitInfo.detailInfoRelatedItems[i].imageInfo.imageText.text);
+                iP.SetImage(exhibitInfo.detailInfoImages[i].image);
+                iP.SetText(exhibitInfo.detailInfoImages[i].imageText.text);
                 detailViewSpawnedObjs.Add(image);
             }
 
-            // Item of type video
-            if (exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClip != null)
+            // Spawn detail view videos
+            for (int i = 0; i < exhibitInfo.detailInfoVideos.Length; i++)
             {
-                GameObject video = PhotonNetwork.Instantiate(videoPrefabLoc, relatedItemLocs.GetChild(i).transform.position, relatedItemLocs.GetChild(i).transform.rotation);
+                GameObject video = PhotonNetwork.Instantiate(videoPrefabLoc, videoLocs.GetChild(i).transform.position, videoLocs.GetChild(i).transform.rotation);
                 VideoPrefab vP = video.GetComponent<VideoPrefab>();
-                vP.SetThumbnail(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClipThumbnail);
-                vP.SetText(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClipText.text);
-                vP.SetVideoClip(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClip);
+                vP.SetThumbnail(exhibitInfo.detailInfoVideos[i].videoClipThumbnail);
+                vP.SetText(exhibitInfo.detailInfoVideos[i].videoClipText.text);
+                vP.SetVideoClip(exhibitInfo.detailInfoVideos[i].videoClip);
                 detailViewSpawnedObjs.Add(video);
             }
 
-            // Item of type model
-            if (exhibitInfo.detailInfoRelatedItems[i].modelInfo.model != null)
-            {
 
+            // Spawn detail view related items
+            for (int i = 0; i < exhibitInfo.detailInfoRelatedItems.Length; i++)
+            {
+                // Item of type image
+                if (exhibitInfo.detailInfoRelatedItems[i].imageInfo.image != null)
+                {
+                    GameObject image = PhotonNetwork.Instantiate(imagePrefabLoc, relatedItemLocs.GetChild(i).transform.position, relatedItemLocs.GetChild(i).transform.rotation);
+                    ImagePrefab iP = image.GetComponent<ImagePrefab>();
+                    iP.SetImage(exhibitInfo.detailInfoRelatedItems[i].imageInfo.image);
+                    iP.SetText(exhibitInfo.detailInfoRelatedItems[i].imageInfo.imageText.text);
+                    detailViewSpawnedObjs.Add(image);
+                }
+
+                // Item of type video
+                if (exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClip != null)
+                {
+                    GameObject video = PhotonNetwork.Instantiate(videoPrefabLoc, relatedItemLocs.GetChild(i).transform.position, relatedItemLocs.GetChild(i).transform.rotation);
+                    VideoPrefab vP = video.GetComponent<VideoPrefab>();
+                    vP.SetThumbnail(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClipThumbnail);
+                    vP.SetText(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClipText.text);
+                    vP.SetVideoClip(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClip);
+                    detailViewSpawnedObjs.Add(video);
+                }
+
+                // Item of type model
+                if (exhibitInfo.detailInfoRelatedItems[i].modelInfo.model != null)
+                {
+
+                }
             }
+
+
+
+
+            // Add focused objects after delay
+            StartCoroutine(AddFocusedObjectsAfterDelay());
         }
 
-
-
-
-        // Add focused objects after delay
-        StartCoroutine(AddFocusedObjectsAfterDelay());
+        
         
 
 

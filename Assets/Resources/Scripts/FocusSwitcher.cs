@@ -53,10 +53,7 @@ public class FocusSwitcher : MonoBehaviour
 
         // store and focus the new object
         currentlyFocusedList = objs;
-        if (currentlyFocusedList != null)
-        {
-            Debug.Log(currentlyFocusedList.Count);
-        }
+        
         if (currentlyFocusedList != null)
         {
             foreach (GameObject obj in currentlyFocusedList)
