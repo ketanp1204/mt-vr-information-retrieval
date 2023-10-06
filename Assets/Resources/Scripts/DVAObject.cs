@@ -13,7 +13,7 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
     public GameObject dVContainer;
     public List<GameObject> dVObjectPrefabs;
     public List<Transform> syncObjects;
-
+    public List<GameObject> detailViewSpawnedObjs = new List<GameObject>();
 
 
     // Private Variables //
@@ -25,7 +25,6 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
     private Transform imageLocs;
     private Transform videoLocs;
     private Transform relatedItemLocs;
-    public List<GameObject> detailViewSpawnedObjs = new List<GameObject>();
     private string itemName;
     private string dVName;
     private GameObject dVGO = null;
@@ -72,33 +71,45 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 
             // Set detail view text
             detailInfoTextObject.text = exhibitInfo.detailInfoText.text;
-            photonView.RPC(nameof(UpdateDetailInfoText), RpcTarget.Others, itemName);
+            photonView.RPC(nameof(UpdateDetailInfoTextRPC), RpcTarget.Others, itemName);
 
             // Set detail info audio 
             detailInfoAudioSource.clip = exhibitInfo.detailInfoAudio;
-            photonView.RPC(nameof(UpdateDetailInfoAudio), RpcTarget.Others, itemName);
+            photonView.RPC(nameof(UpdateDetailInfoAudioRPC), RpcTarget.Others, itemName);
 
             // Spawn detail view images
             for (int i = 0; i < exhibitInfo.detailInfoImages.Length; i++)
             {
+                // Instantiate Image Prefab
                 GameObject image = PhotonNetwork.Instantiate(imagePrefabLoc, imageLocs.GetChild(i).transform.position, imageLocs.GetChild(i).transform.rotation);
+                image.name = "DVImages" + i.ToString();
+
+                // Set Exhibit Info Data
                 ImagePrefab iP = image.GetComponent<ImagePrefab>();
                 iP.SetImage(exhibitInfo.detailInfoImages[i].image);
-                iP.SetText(exhibitInfo.detailInfoImages[i].imageText.text);
-                detailViewSpawnedObjs.Add(image);
+                iP.SetText(exhibitInfo.detailInfoImages[i].imageText.text);                
                 iP.SetInfoFromExhibitInfo(itemName, i, 0);
+
+                // Add to detail view spawned objects list
+                photonView.RPC(nameof(AddToDVSpawnedObjectsList), RpcTarget.All, image.name);
             }
 
             // Spawn detail view videos
             for (int i = 0; i < exhibitInfo.detailInfoVideos.Length; i++)
             {
+                // Instantiate Video Prefab
                 GameObject video = PhotonNetwork.Instantiate(videoPrefabLoc, videoLocs.GetChild(i).transform.position, videoLocs.GetChild(i).transform.rotation);
+                video.name = "DVVideos" + i.ToString();
+
+                // Set Exhibit Info Data
                 VideoPrefab vP = video.GetComponent<VideoPrefab>();
                 vP.SetThumbnail(exhibitInfo.detailInfoVideos[i].videoClipThumbnail);
                 vP.SetText(exhibitInfo.detailInfoVideos[i].videoClipText.text);
                 vP.SetVideoClip(exhibitInfo.detailInfoVideos[i].videoClip);
-                detailViewSpawnedObjs.Add(video);
                 vP.SetInfoFromExhibitInfo(itemName, i, 0);
+
+                // Add to detail view spawned objects list
+                photonView.RPC(nameof(AddToDVSpawnedObjectsList), RpcTarget.All, video.name);
             }
 
 
@@ -108,24 +119,36 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
                 // Item of type image
                 if (exhibitInfo.detailInfoRelatedItems[i].imageInfo.image != null)
                 {
+                    // Instantiate Image Prefab
                     GameObject image = PhotonNetwork.Instantiate(imagePrefabLoc, relatedItemLocs.GetChild(i).transform.position, relatedItemLocs.GetChild(i).transform.rotation);
+                    image.name = "DVRelatedItems" + i.ToString();
+
+                    // Set Exhibit Info Data
                     ImagePrefab iP = image.GetComponent<ImagePrefab>();
                     iP.SetImage(exhibitInfo.detailInfoRelatedItems[i].imageInfo.image);
                     iP.SetText(exhibitInfo.detailInfoRelatedItems[i].imageInfo.imageText.text);
-                    detailViewSpawnedObjs.Add(image);
                     iP.SetInfoFromExhibitInfo(itemName, i, 1);
+
+                    // Add to detail view spawned objects list
+                    photonView.RPC(nameof(AddToDVSpawnedObjectsList), RpcTarget.All, image.name);
                 }
 
                 // Item of type video
                 if (exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClip != null)
                 {
+                    // Instantiate Video Prefab
                     GameObject video = PhotonNetwork.Instantiate(videoPrefabLoc, relatedItemLocs.GetChild(i).transform.position, relatedItemLocs.GetChild(i).transform.rotation);
+                    video.name = "DVRelatedItems" + i.ToString();
+
+                    // Set Exhibit Info Data
                     VideoPrefab vP = video.GetComponent<VideoPrefab>();
                     vP.SetThumbnail(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClipThumbnail);
                     vP.SetText(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClipText.text);
                     vP.SetVideoClip(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClip);
-                    detailViewSpawnedObjs.Add(video);
                     vP.SetInfoFromExhibitInfo(itemName, i, 1);
+
+                    // Add to detail view spawned objects list
+                    photonView.RPC(nameof(AddToDVSpawnedObjectsList), RpcTarget.All, video.name);
                 }
 
                 // Item of type model
@@ -138,20 +161,10 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
             // Add focused objects after delay
             StartCoroutine(AddFocusedObjectsAfterDelay());
         }
-        /*
-        // Spawn detail view items
-        foreach (GameObject gO in dVObjectPrefabs)
-        {
-            if (gO.name == dVName)
-            {
-                StartCoroutine(InstantiateDVAfterDelay(gO));
-            }
-        }
-        */
     }
 
     [PunRPC]
-    void UpdateDetailInfoText(string itemName)
+    void UpdateDetailInfoTextRPC(string itemName)
     {
         // Get exhibit information object
         ExhibitInformation exhibitInfo = null;
@@ -168,7 +181,7 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
     }
 
     [PunRPC]
-    void UpdateDetailInfoAudio(string itemName)
+    void UpdateDetailInfoAudioRPC(string itemName)
     {
         // Get exhibit information object
         ExhibitInformation exhibitInfo = null;
@@ -184,6 +197,13 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
         detailInfoAudioSource.clip = exhibitInfo.detailInfoAudio;
     }
 
+    [PunRPC]
+    void AddToDVSpawnedObjectsList(string gOName)
+    {
+        detailViewSpawnedObjs.Add(GameObject.Find(gOName));
+    }
+
+
     public void RemoveSpawnedObjects()
     {
         photonView.RPC(nameof(RemoveSpawnedObjectsRPC), RpcTarget.All);
@@ -192,6 +212,7 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
     [PunRPC]
     void RemoveSpawnedObjectsRPC()
     {
+        Debug.Log(detailViewSpawnedObjs.Count);
         foreach (GameObject gO in detailViewSpawnedObjs)
             Destroy(gO);
     }

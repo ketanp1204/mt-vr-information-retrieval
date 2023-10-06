@@ -168,6 +168,7 @@ public class DVManager : MonoBehaviourPunCallbacks
             // Update DVA Spawn Loc
             UpdateDVASpawnLoc(dVASpawnLoc + (Vector3.one * 20f));
 
+            Debug.Log("remove spawned objects creator");
             dVScript.RemoveSpawnedObjects();
         }        
 
@@ -211,6 +212,7 @@ public class DVManager : MonoBehaviourPunCallbacks
             // Update DVA Spawn Loc
             UpdateDVASpawnLoc(dVASpawnLoc + (Vector3.one * 20f));
 
+            Debug.Log("remove spawned objects joining user");
             dVScript.RemoveSpawnedObjects();
         }
 
