@@ -35,11 +35,15 @@ public struct RelatedItemInfo
 [CreateAssetMenu(menuName = "Exhibit Info")]
 public class ExhibitInformation : ScriptableObject
 {
+    // Name
+    public string exhibitName;
+
     // Text 
     public TextAsset basicInfoText;
     public TextAsset detailInfoText;
 
     // Audio 
+    public AudioClip menuSphereAudio;
     public AudioClip basicInfoAudio;
     public AudioClip detailInfoAudio;
 

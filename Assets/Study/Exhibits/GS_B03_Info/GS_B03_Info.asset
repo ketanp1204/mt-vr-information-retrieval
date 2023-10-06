@@ -12,10 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75cab151d60be76498f3580f615015d8, type: 3}
   m_Name: GS_B03_Info
   m_EditorClassIdentifier: 
-  description: {fileID: 0}
-  audioGuide: {fileID: 0}
-  images: []
-  videos: []
+  exhibitName: GS_B03
   basicInfoText: {fileID: 0}
   detailInfoText: {fileID: 0}
   basicInfoAudio: {fileID: 0}

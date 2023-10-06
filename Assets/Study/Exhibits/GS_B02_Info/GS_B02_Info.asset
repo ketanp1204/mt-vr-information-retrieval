@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75cab151d60be76498f3580f615015d8, type: 3}
   m_Name: GS_B02_Info
   m_EditorClassIdentifier: 
+  exhibitName: GS_B02
   basicInfoText: {fileID: 4900000, guid: 966f24a8d7739a8408a8b849e26a4c80, type: 3}
   detailInfoText: {fileID: 4900000, guid: 7c4450e76dbea054db996dcf7c11b64e, type: 3}
   basicInfoAudio: {fileID: 8300000, guid: 0e22b08962b522f45b790d30d2b8de25, type: 3}

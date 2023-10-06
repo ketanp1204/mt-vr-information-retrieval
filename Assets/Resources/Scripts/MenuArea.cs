@@ -43,9 +43,9 @@ public class MenuArea : XRSimpleInteractable
     public GameObject guidePrefab;
     public string infoVisibilityText;
     public GameObject linePrefab;
-    public string imagePrefabLoc = "UtilityPrefabs/ImagePrefab";
-    public string descBoxPrefabLoc = "UtilityPrefabs/DescBoxPrefab";
-    public string audioPrefabLoc = "UtilityPrefabs/AudioPrefab";
+    public string imagePrefabLoc = "UtilityPrefabs/3DMenuPrefabs/ImagePrefab3D";
+    public string descBoxPrefabLoc = "UtilityPrefabs/3DMenuPrefabs/DescBoxPrefab3D";
+    public string audioPrefabLoc = "UtilityPrefabs/3DMenuPrefabs/AudioPrefab3D";
     public GameObject imageContainer;    
     public GameObject exitSphere;
     public float pullDistance = 0.3f;

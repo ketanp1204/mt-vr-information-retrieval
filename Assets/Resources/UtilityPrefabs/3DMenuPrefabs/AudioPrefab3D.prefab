@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 7856455104535561452}
   - component: {fileID: 8690309152351137231}
   m_Layer: 8
-  m_Name: AudioPrefab
+  m_Name: AudioPrefab3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &5438887212757216702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,7 +391,7 @@ MonoBehaviour:
     actionButtonReference: 1
     tooltipText: Remove
     hand: 2
-  secondaryButton: {fileID: -3668144855904488849, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}
+  removeInputAction: {fileID: 0}
 --- !u!114 &3114822912986851555
 MonoBehaviour:
   m_ObjectHideFlags: 0

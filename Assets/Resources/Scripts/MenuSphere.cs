@@ -9,15 +9,25 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
+using Photon.Realtime;
 
 public class MenuSphere : MonoBehaviourPunCallbacks
 {
     // Public Variables //
 
+    [Header("Exhibit Information")]
+    public ExhibitInformation exhibitInfo;
+
+    [Space(20)]
+    [Header("UI Properties")]
     public CanvasGroup msPanel;
     public float animDuration = 0.1f;
     public List<CanvasGroup> infoPanels = new List<CanvasGroup>();
     public List<CanvasGroup> infoTextBoxes = new List<CanvasGroup>();
+
+    [Space(20)]
+    [Header("Prefabs")]
+    public GameObject imagePrefab2D;
 
 
     // Private Variables //
@@ -26,9 +36,51 @@ public class MenuSphere : MonoBehaviourPunCallbacks
     private TextMeshProUGUI msPanelText;
 
 
+
     private void Start()
     {
         msPanelText = msPanel.GetComponentInChildren<TextMeshProUGUI>();
+        photonView.RPC(nameof(SetInformationPanels), RpcTarget.All);
+    }
+
+    [PunRPC]
+    void SetInformationPanels()
+    {
+        // Audio Guide
+        infoPanels[0].transform.GetComponentInChildren<AudioSource>().clip = exhibitInfo.menuSphereAudio;
+
+        // Videos
+
+
+
+        // Images
+        Transform imagesContainer = GetChildWithName(infoPanels[2].gameObject, "ImagesContainer").transform;
+
+        for (int i = 0; i < exhibitInfo.basicInfoImages.Length; i++)
+        {
+            GameObject image = Instantiate(imagePrefab2D, imagesContainer);
+            image.GetComponent<ImagePrefab2D>().SetData(exhibitInfo.basicInfoImages[i].image,
+                                                        exhibitInfo.basicInfoImages[i].imageText.text,
+                                                        infoTextBoxes[1].GetComponent<TextBox>());
+        }
+        for (int i = 0; i < exhibitInfo.detailInfoImages.Length; i++)
+        {
+            GameObject image = Instantiate(imagePrefab2D, imagesContainer);
+            image.GetComponent<ImagePrefab2D>().SetData(exhibitInfo.detailInfoImages[i].image,
+                                                        exhibitInfo.detailInfoImages[i].imageText.text,
+                                                        infoTextBoxes[1].GetComponent<TextBox>());
+        }
+
+
+
+        // Related Items
+
+
+
+        // Description
+
+
+
     }
 
     public void OnHoverEntered()
@@ -39,7 +91,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
             StartCoroutine(FadeCanvasGroup(msPanel, 0f, 1f));
             photonView.RPC(nameof(UpdateMSPanel), RpcTarget.Others, true, 1);
         }
-        else if (menuOpen) 
+        else if (menuOpen)
         {
             msPanelText.text = "Exit";
             StartCoroutine(FadeCanvasGroup(msPanel, 0f, 1f));
@@ -109,6 +161,13 @@ public class MenuSphere : MonoBehaviourPunCallbacks
             yield return new WaitForSeconds(0.05f);
         }
     }
+
+
+    void AddImageInfos()
+    {
+
+    }
+
 
     [PunRPC]
     void UpdateMenuOpenBool(bool status)
@@ -183,6 +242,31 @@ public class MenuSphere : MonoBehaviourPunCallbacks
                 canvasGroup.interactable = false;
                 canvasGroup.blocksRaycasts = false;
             }
+        }
+    }
+
+    private Transform GetChildWithName(GameObject gO, string childName)
+    {
+        Transform child = null;
+        foreach (Transform t in gO.GetComponentsInChildren<Transform>())
+        {
+            if (t.name == childName)
+            {
+                child = t;
+                break;
+            }
+        }
+        return child;
+    }
+
+
+    // Late join stuff
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC(nameof(SetInformationPanels), newPlayer);
         }
     }
 }

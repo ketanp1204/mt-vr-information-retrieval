@@ -699,7 +699,7 @@ GameObject:
   - component: {fileID: 7847600341979234577}
   - component: {fileID: 8752135120430475314}
   m_Layer: 8
-  m_Name: DescBoxPrefab
+  m_Name: DescBoxPrefab3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -769,7 +769,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &5374260822921144387
 MonoBehaviour:
   m_ObjectHideFlags: 0

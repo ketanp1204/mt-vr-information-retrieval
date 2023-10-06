@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 5395333405361585381}
   - component: {fileID: 8911265374746577223}
   m_Layer: 8
-  m_Name: VideoPrefab
+  m_Name: VideoPrefab3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -424,7 +424,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &8911265374746577234
 MonoBehaviour:
   m_ObjectHideFlags: 0

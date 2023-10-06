@@ -13,12 +13,12 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
     public GameObject dVContainer;
     public List<GameObject> dVObjectPrefabs;
     public List<Transform> syncObjects;
-    public string imagePrefabLoc = "UtilityPrefabs/ImagePrefab";
+    public string imagePrefabLoc = "UtilityPrefabs/3DMenuPrefabs/ImagePrefab3D";
 
 
     // Private Variables //
 
-    public string videoPrefabLoc = "UtilityPrefabs/VideoPrefab";
+    public string videoPrefabLoc = "UtilityPrefabs/3DMenuPrefabs/VideoPrefab3D";
     private TextMeshProUGUI detailInfoTextObject;
     private AudioSource detailInfoAudioSource;
     private Transform imageLocs;
