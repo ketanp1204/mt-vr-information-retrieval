@@ -84,18 +84,20 @@ public class MenuSphere : MonoBehaviourPunCallbacks
 
     }
 
-    public void UpdateScrollBarValue(Scrollbar scrollbar)
+    private void SetScrollbarsValueUpdate()
     {
-        int scrollBarIndex = 0;
         for (int i = 0; i < scrollbars.Count; i++)
         {
-            if (scrollbars[i] == scrollbar)
-            {
-                scrollBarIndex = i;
-                break;
-            }
+            scrollbars[i].onValueChanged.AddListener((float val) => UpdateScrollBarValue(i));
         }
-        photonView.RPC(nameof(UpdateScrollBarValueRPC), RpcTarget.Others, scrollBarIndex, scrollbar.value);
+    }
+
+    public void UpdateScrollBarValue(int index)
+    {
+        int scrollBarIndex = index;
+        
+        Debug.Log(scrollBarIndex);
+        photonView.RPC(nameof(UpdateScrollBarValueRPC), RpcTarget.Others, scrollBarIndex, scrollbars[scrollBarIndex].value);
     }
 
     public void OnHoverEntered()
