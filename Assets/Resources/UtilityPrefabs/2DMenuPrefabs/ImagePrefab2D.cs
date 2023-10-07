@@ -12,6 +12,10 @@ public class ImagePrefab2D : MonoBehaviour
     public Button imageButton;
 
 
+    // Private Variables //
+
+    private float imageHeight = 22f;
+
 
     public void SetData(Sprite image, string imageText, TextBox textBox)
     {
@@ -20,28 +24,14 @@ public class ImagePrefab2D : MonoBehaviour
         imageComp.SetNativeSize();
         float aspectRatio = imageComp.rectTransform.rect.width / imageComp.rectTransform.rect.height;
 
-        if (aspectRatio < 1)
-        {
-            // Resize parent rect
-            float rectWidth = 23f * aspectRatio;
-            RectTransform rT = (RectTransform)transform;
-            rT.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rectWidth);
-            rT.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 23f);
+        // Resize parent rect
+        float rectWidth = imageHeight * aspectRatio;
+        RectTransform rT = (RectTransform)transform;
+        rT.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rectWidth);
+        rT.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, imageHeight);
 
-            // Rescale image component gameObject rect
-            imageComp.GetComponent<RectTransform>().localScale = Vector3.one * (23f / imageComp.rectTransform.rect.height);
-        }
-        else
-        {
-            // Resize parent rect
-            float rectWidth = 17f * aspectRatio;
-            RectTransform rT = (RectTransform)transform;
-            rT.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, rectWidth);
-            rT.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 17f);
-
-            // Rescale image component gameObject rect
-            imageComp.GetComponent<RectTransform>().localScale = Vector3.one * (17f / imageComp.rectTransform.rect.height);
-        }
+        // Rescale image component gameObject rect
+        imageComp.GetComponent<RectTransform>().localScale = Vector3.one * (imageHeight / imageComp.rectTransform.rect.height);
 
         // Set display text on button click
         imageButton.onClick.AddListener(() => { textBox.DisplayText(imageText); });

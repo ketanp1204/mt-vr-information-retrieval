@@ -13,11 +13,43 @@ MonoBehaviour:
   m_Name: GS_B03_Info
   m_EditorClassIdentifier: 
   exhibitName: GS_B03
-  basicInfoText: {fileID: 0}
-  detailInfoText: {fileID: 0}
-  basicInfoAudio: {fileID: 0}
-  detailInfoAudio: {fileID: 0}
-  basicInfoImages: []
-  detailInfoImages: []
-  detailInfoVideos: []
-  detailInfoRelatedItems: []
+  basicInfoText: {fileID: 4900000, guid: eefe05fbd4bfbd44ab42be95caa87ecb, type: 3}
+  detailInfoText: {fileID: 4900000, guid: 1c6ae97eb29fe6b4f95837a43b119d53, type: 3}
+  menuSphereAudio: {fileID: 8300000, guid: 1f07c933d8a48ac4ca29eb15e7397231, type: 3}
+  basicInfoAudio: {fileID: 8300000, guid: 135dd00efabb48b45be1c3adc87ea746, type: 3}
+  detailInfoAudio: {fileID: 8300000, guid: 716f27a61f840aa49be88ebbfc4d5219, type: 3}
+  basicInfoImages:
+  - image: {fileID: 21300000, guid: c00d9b32f4dc3124299571beef5f3d73, type: 3}
+    imageText: {fileID: 4900000, guid: 2c78c390855f81c408303961be1f2298, type: 3}
+  detailInfoImages:
+  - image: {fileID: 21300000, guid: bd23656a2f3eb1f428e516829dee0b75, type: 3}
+    imageText: {fileID: 4900000, guid: d875c40d1a8431a49a52203e0812a3c8, type: 3}
+  - image: {fileID: 21300000, guid: d7b630cc2c785e449a6a59ef04360e8a, type: 3}
+    imageText: {fileID: 4900000, guid: 0b45968e186ddf645ab0647479bc5b13, type: 3}
+  detailInfoVideos:
+  - videoClip: {fileID: 32900000, guid: 605882f55182074459e0e84b58a07dd1, type: 3}
+    videoClipText: {fileID: 4900000, guid: e0d8b4b06bb2c8842b3c29a72689caaa, type: 3}
+    videoClipThumbnail: {fileID: 21300000, guid: 4153487287b01b048b20cef56ef18f94, type: 3}
+  detailInfoRelatedItems:
+  - modelInfo:
+      model: {fileID: 5594939998892716101, guid: 19a2285cb28ca6e4596ad1e7bba14a30, type: 3}
+      modelText: {fileID: 4900000, guid: 1329b2938230019459b27c799d0f0a10, type: 3}
+      model2DPreviewSprite: {fileID: 21300000, guid: 377288ad376d0604ea116dd305288550, type: 3}
+    imageInfo:
+      image: {fileID: 0}
+      imageText: {fileID: 0}
+    videoInfo:
+      videoClip: {fileID: 0}
+      videoClipText: {fileID: 0}
+      videoClipThumbnail: {fileID: 0}
+  - modelInfo:
+      model: {fileID: 0}
+      modelText: {fileID: 0}
+      model2DPreviewSprite: {fileID: 0}
+    imageInfo:
+      image: {fileID: 21300000, guid: b7be78705333b1d4490b3539e03be542, type: 3}
+      imageText: {fileID: 4900000, guid: e4667ad52d6cabc43ab57e216995aad5, type: 3}
+    videoInfo:
+      videoClip: {fileID: 0}
+      videoClipText: {fileID: 0}
+      videoClipThumbnail: {fileID: 0}

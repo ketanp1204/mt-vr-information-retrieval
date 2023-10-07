@@ -12,6 +12,7 @@ using TMPro;
 using Photon.Realtime;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using UnityEngine.Video;
 
 public class MenuSphere : MonoBehaviourPunCallbacks
 {
@@ -21,24 +22,24 @@ public class MenuSphere : MonoBehaviourPunCallbacks
     public ExhibitInformation exhibitInfo;
 
     [Space(20)]
-    [Header("UI Properties")]
+    [Header("UI References")]
     public CanvasGroup msPanel;
     public GameObject videoPlayerBox;
-    public AudioSource audioSource;
-    public float animDuration = 0.1f;
+    public AudioSource audioSource;    
     public List<CanvasGroup> infoPanels = new List<CanvasGroup>();
     public List<CanvasGroup> infoTextBoxes = new List<CanvasGroup>();
-    public List<ScrollRect> scrollRects = new List<ScrollRect>();
 
     [Space(20)]
     [Header("Prefabs")]
     public GameObject imagePrefab2D;
+    public GameObject videoPrefab2D;
 
 
     // Private Variables //
 
     private bool menuOpen = false;
     private TextMeshProUGUI msPanelText;
+    private float animDuration = 0.1f;
 
 
 
@@ -46,7 +47,6 @@ public class MenuSphere : MonoBehaviourPunCallbacks
     {
         msPanelText = msPanel.GetComponentInChildren<TextMeshProUGUI>();
         SetInformationPanels();
-        // SetScrollRectsValueUpdate();
     }
 
     private void SetInformationPanels()
@@ -55,7 +55,18 @@ public class MenuSphere : MonoBehaviourPunCallbacks
         infoPanels[0].transform.GetComponentInChildren<AudioSource>().clip = exhibitInfo.menuSphereAudio;
 
         // Videos
+        Transform videosContainer = GetChildWithName(infoPanels[1].gameObject, "VideosContainer").transform;
 
+        for (int i = 0; i < exhibitInfo.detailInfoVideos.Length; i++)
+        {
+            GameObject video = Instantiate(videoPrefab2D, videosContainer);
+            video.GetComponent<VideoPrefab2D>().SetData(exhibitInfo.detailInfoVideos[i].videoClip,
+                                                        exhibitInfo.detailInfoVideos[i].videoClipThumbnail,
+                                                        exhibitInfo.detailInfoVideos[i].videoClipText.text,
+                                                        infoTextBoxes[0].GetComponent<TextBox>(),
+                                                        videoPlayerBox,
+                                                        videoPlayerBox.GetComponentInChildren<VideoPlayer>());
+        }
 
 
         // Images
@@ -79,31 +90,45 @@ public class MenuSphere : MonoBehaviourPunCallbacks
 
 
         // Related Items
+        Transform relatedItemsContainer = GetChildWithName(infoPanels[3].gameObject, "RelatedItemsContainer").transform;
+
+        for (int i = 0; i < exhibitInfo.detailInfoRelatedItems.Length; i++)
+        {
+            // Item of type image
+            if (exhibitInfo.detailInfoRelatedItems[i].imageInfo.image != null)
+            {
+                GameObject image = Instantiate(imagePrefab2D, relatedItemsContainer);
+                image.GetComponent<ImagePrefab2D>().SetData(exhibitInfo.detailInfoRelatedItems[i].imageInfo.image,
+                                                        exhibitInfo.detailInfoRelatedItems[i].imageInfo.imageText.text,
+                                                        infoTextBoxes[2].GetComponent<TextBox>());
+            }
+
+            // Item of type video
+            if (exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClip != null)
+            {
+                GameObject image = Instantiate(imagePrefab2D, relatedItemsContainer);
+                image.GetComponent<ImagePrefab2D>().SetData(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClipThumbnail,
+                                                        exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClipText.text,
+                                                        infoTextBoxes[2].GetComponent<TextBox>());
+            }
+
+            // Item of type model
+            if (exhibitInfo.detailInfoRelatedItems[i].modelInfo.model != null)
+            {
+                GameObject image = Instantiate(imagePrefab2D, relatedItemsContainer);
+                image.GetComponent<ImagePrefab2D>().SetData(exhibitInfo.detailInfoRelatedItems[i].modelInfo.model2DPreviewSprite,
+                                                        exhibitInfo.detailInfoRelatedItems[i].modelInfo.modelText.text,
+                                                        infoTextBoxes[2].GetComponent<TextBox>());
+            }
+        }
 
 
 
         // Description
+        TextMeshProUGUI descTextArea = GetChildWithName(infoPanels[4].gameObject, "DescriptionTextArea").GetComponent<TextMeshProUGUI>();
 
+        descTextArea.text = exhibitInfo.basicInfoText + "\n" + exhibitInfo.detailInfoText;
 
-
-    }
-
-    private void SetScrollRectsValueUpdate()
-    {
-        for (int i = 0; i < scrollRects.Count; i++)
-        {
-            scrollRects[i].onValueChanged.AddListener((Vector2 val) => UpdateScrollRectValue(i));
-        }
-    }
-
-    public void UpdateScrollRectValue(int index)
-    {
-        Debug.Log(index);
-        photonView.RPC(nameof(UpdateScrollRectValueRPC), 
-                        RpcTarget.Others, 
-                        index,
-                        scrollRects[index].horizontalNormalizedPosition,
-                        scrollRects[index].verticalNormalizedPosition);
     }
 
     public void OnHoverEntered()
@@ -273,13 +298,6 @@ public class MenuSphere : MonoBehaviourPunCallbacks
                 canvasGroup.blocksRaycasts = false;
             }
         }
-    }
-
-    [PunRPC]
-    void UpdateScrollRectValueRPC(int index, float hPos, float vPos)
-    {
-        scrollRects[index].horizontalNormalizedPosition = hPos;
-        scrollRects[index].verticalNormalizedPosition = vPos;
     }
 
     private Transform GetChildWithName(GameObject gO, string childName)

@@ -22,6 +22,7 @@ public struct ModelInfo
 {
     public GameObject model;
     public TextAsset modelText;
+    public Sprite model2DPreviewSprite;
 }
 
 [System.Serializable]

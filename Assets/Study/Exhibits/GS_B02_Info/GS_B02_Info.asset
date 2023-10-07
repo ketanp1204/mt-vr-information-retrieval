@@ -34,6 +34,7 @@ MonoBehaviour:
   - modelInfo:
       model: {fileID: 0}
       modelText: {fileID: 0}
+      model2DPreviewSprite: {fileID: 0}
     imageInfo:
       image: {fileID: 21300000, guid: 7131e9411eab3b14fa07ed064917a4ec, type: 3}
       imageText: {fileID: 4900000, guid: 877a8ff2f06dbd949825482d64bfc053, type: 3}
@@ -44,6 +45,7 @@ MonoBehaviour:
   - modelInfo:
       model: {fileID: 2404388080710386811, guid: 96d48b7c3053a7945b7484a405b9731b, type: 3}
       modelText: {fileID: 4900000, guid: 4a24ce0b2b9ccb7499db089bbc408ad5, type: 3}
+      model2DPreviewSprite: {fileID: 21300000, guid: a628e1206837fbd4d936d60abb4f0885, type: 3}
     imageInfo:
       image: {fileID: 0}
       imageText: {fileID: 0}
