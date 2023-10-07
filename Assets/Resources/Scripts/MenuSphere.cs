@@ -13,6 +13,7 @@ using Photon.Realtime;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using UnityEngine.Video;
+using UnityEngine.InputSystem;
 
 public class MenuSphere : MonoBehaviourPunCallbacks
 {
@@ -178,7 +179,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
         }
     }
 
-    public void OnSelectEntered()
+    public void OnSelectEntered(InputAction.CallbackContext context)
     {
         if (!menuOpen)
         {
