@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
@@ -40,6 +41,10 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
     private string showTextString = "Show Info";
     private string hideTextString = "Hide Info";
     private string gOName = "DVVideos";
+    private ExhibitInformation exhibitInfo = null;
+    private string exhibitNameString = "";
+    private int exhibitInfoItemIndex = 0;
+    private int exhibitInfoContentType = 0;
 
 
     public void SetThumbnail(Sprite thumbnail)
@@ -72,23 +77,14 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
 
     public void SetInfoFromExhibitInfo(string exhibitName, int index, int contentType)
     {
-        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.Others, exhibitName, index, contentType);
+        SetExhibitInfo(exhibitName, index, contentType);
+
+        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.Others, index, contentType);
     }
 
     [PunRPC]
-    void SetInfoFromExhibitInfoRPC(string exhibitName, int index, int contentType)
+    void SetInfoFromExhibitInfoRPC(int index, int contentType)
     {
-        // Get exhibit information object
-        ExhibitInformation exhibitInfo = null;
-        ExhibitInfoRefs exhibitInfoRefs = Resources.Load("Miscellaneous/ExhibitInfoRefs") as ExhibitInfoRefs;
-        for (int i = 0; i < exhibitInfoRefs.exhibitInfos.Length; i++)
-        {
-            if (exhibitInfoRefs.exhibitInfos[i].exhibitName == exhibitName)
-            {
-                exhibitInfo = exhibitInfoRefs.exhibitInfos[i].exhibitInfo;
-            }
-        }
-
         // Set values
         if (contentType == 1)
         {
@@ -108,6 +104,23 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
         // Update GameObject name
         gOName = gOName + index.ToString();
         gameObject.name = gOName;
+    }
+
+    private void SetExhibitInfo(string exhibitName, int index, int contentType)
+    {
+        // Get exhibit information object
+        ExhibitInfoRefs exhibitInfoRefs = Resources.Load("Miscellaneous/ExhibitInfoRefs") as ExhibitInfoRefs;
+        for (int i = 0; i < exhibitInfoRefs.exhibitInfos.Length; i++)
+        {
+            if (exhibitInfoRefs.exhibitInfos[i].exhibitName == exhibitName)
+            {
+                exhibitInfo = exhibitInfoRefs.exhibitInfos[i].exhibitInfo;
+            }
+        }
+
+        exhibitNameString = exhibitName;
+        exhibitInfoItemIndex = index;
+        exhibitInfoContentType = contentType;
     }
 
     public void ShowHideText(InputAction.CallbackContext obj)
@@ -309,5 +322,20 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
             cG.interactable = false;
             cG.blocksRaycasts = false;
         }
+    }
+
+    // Late join stuff
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        photonView.RPC(nameof(SetLateJoinInfo), newPlayer, exhibitNameString, exhibitInfoItemIndex, exhibitInfoContentType);
+    }
+
+    [PunRPC]
+    void SetLateJoinInfo(string exhibitName, int exhibitInfoIndex, int exhibitInfoContentType)
+    {
+        SetExhibitInfo(exhibitName, exhibitInfoIndex, exhibitInfoContentType);
+
+        SetInfoFromExhibitInfoRPC(exhibitInfoIndex, exhibitInfoContentType);
     }
 }

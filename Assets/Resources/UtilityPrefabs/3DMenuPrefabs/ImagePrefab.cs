@@ -223,9 +223,11 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
         }
     }
 
+
+    // Late join stuff
+
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Debug.Log("player join");
         photonView.RPC(nameof(SetLateJoinInfo), newPlayer, exhibitNameString, exhibitInfoItemIndex, exhibitInfoContentType);
     }
 
