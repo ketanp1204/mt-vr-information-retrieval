@@ -31,6 +31,7 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
     private string hideTextString = "Hide Info";
     private string gOName = "";
     private ExhibitInformation exhibitInfo = null;
+    private string exhibitNameString = "";
     private int exhibitInfoItemIndex = 0;
     private int exhibitInfoContentType = 0;
 
@@ -68,6 +69,7 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
             }
         }
 
+        exhibitNameString = exhibitName;
         exhibitInfoItemIndex = index;
         exhibitInfoContentType = contentType;
 
@@ -218,6 +220,12 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.Others, exhibitInfoItemIndex, exhibitInfoContentType);
+        photonView.RPC(nameof(SetLateJoinInfo), newPlayer, exhibitNameString, exhibitInfoItemIndex, exhibitInfoContentType);
+    }
+
+    [PunRPC]
+    void SetLateJoinInfo(string exhibitName, int exhibitInfoIndex, int exhibitInfoContentType)
+    {
+        SetInfoFromExhibitInfo(exhibitName, exhibitInfoIndex, exhibitInfoContentType);
     }
 }

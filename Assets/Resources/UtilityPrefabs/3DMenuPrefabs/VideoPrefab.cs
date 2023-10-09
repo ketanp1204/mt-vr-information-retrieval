@@ -90,14 +90,14 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
         }
 
         // Set values
-        if (contentType == 0)
+        if (contentType == 1)
         {
             gameObject.name = "DVVideos" + index.ToString();
             SetThumbnail(exhibitInfo.detailInfoVideos[index].videoClipThumbnail);
             SetVideoClip(exhibitInfo.detailInfoVideos[index].videoClip);
             SetText(exhibitInfo.detailInfoVideos[index].videoClipText.text);
         }
-        else if (contentType == 1)
+        else if (contentType == 2)
         {
             gameObject.name = "DVRelatedItems" + index.ToString();
             SetThumbnail(exhibitInfo.detailInfoRelatedItems[index].videoInfo.videoClipThumbnail);
