@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class ModelPrefab : MonoBehaviourPunCallbacks
 {
@@ -23,6 +24,10 @@ public class ModelPrefab : MonoBehaviourPunCallbacks
     private TooltipHandler tooltipHandler;
     private string showTextString = "Show Info";
     private string hideTextString = "Hide Info";
+    private string gOName = "DVVideos";
+    private ExhibitInformation exhibitInfo = null;
+    private string exhibitNameString = "";
+    private int exhibitInfoItemIndex = 0;
 
 
     public void SetModel(GameObject model)
@@ -44,14 +49,14 @@ public class ModelPrefab : MonoBehaviourPunCallbacks
 
     public void SetInfoFromExhibitInfo(string exhibitName, int index)
     {
-        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.Others, exhibitName, index);
+        SetExhibitInfo(exhibitName, index);
+
+        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.Others, index);
     }
 
-    [PunRPC]
-    void SetInfoFromExhibitInfoRPC(string exhibitName, int index)
+    private void SetExhibitInfo(string exhibitName, int index)
     {
         // Get exhibit information object
-        ExhibitInformation exhibitInfo = null;
         ExhibitInfoRefs exhibitInfoRefs = Resources.Load("Miscellaneous/ExhibitInfoRefs") as ExhibitInfoRefs;
         for (int i = 0; i < exhibitInfoRefs.exhibitInfos.Length; i++)
         {
@@ -61,14 +66,22 @@ public class ModelPrefab : MonoBehaviourPunCallbacks
             }
         }
 
-        // Set values
+        exhibitNameString = exhibitName;
+        exhibitInfoItemIndex = index;
+    }
+
+    [PunRPC]
+    void SetInfoFromExhibitInfoRPC(int index)
+    {
+        // Set exhibit info values
         gameObject.name = "DVRelatedItems" + index.ToString();
         SetModel(exhibitInfo.detailInfoRelatedItems[index].modelInfo.model);
         SetText(exhibitInfo.detailInfoRelatedItems[index].modelInfo.modelText.text);
+
+        // Update GameObject name
+        gOName = "DVRelatedItems" + index.ToString();
+        gameObject.name = gOName;
     }
-
-
-
 
     public void ShowText(InputAction.CallbackContext obj)
     {
@@ -186,4 +199,18 @@ public class ModelPrefab : MonoBehaviourPunCallbacks
         }
     }
 
+    // Late join stuff
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        photonView.RPC(nameof(SetLateJoinInfo), newPlayer, exhibitNameString, exhibitInfoItemIndex);
+    }
+
+    [PunRPC]
+    void SetLateJoinInfo(string exhibitName, int exhibitInfoIndex)
+    {
+        SetExhibitInfo(exhibitName, exhibitInfoIndex);
+
+        SetInfoFromExhibitInfoRPC(exhibitInfoIndex);
+    }
 }

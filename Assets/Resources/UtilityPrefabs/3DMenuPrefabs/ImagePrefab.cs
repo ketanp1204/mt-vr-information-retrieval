@@ -64,32 +64,6 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
         photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.Others, index, contentType);
     }
 
-    [PunRPC]
-    void SetInfoFromExhibitInfoRPC(int index, int contentType)
-    {
-        // Set values depending on type of image prefab (1 - dvImage, 2 - dvRelatedItemImage
-        if (contentType == 1)
-        {
-            gameObject.name = "DVImages" + index.ToString();
-            SetImage(exhibitInfo.detailInfoImages[index].image);
-            SetText(exhibitInfo.detailInfoImages[index].imageText.text);
-
-            // Update GameObject name
-            gOName = "DVImages" + index.ToString();
-            gameObject.name = gOName;
-        }
-        else if (contentType == 2)
-        {
-            gameObject.name = "DVRelatedItems" + index.ToString();
-            SetImage(exhibitInfo.detailInfoRelatedItems[index].imageInfo.image);
-            SetText(exhibitInfo.detailInfoRelatedItems[index].imageInfo.imageText.text);
-
-            // Update GameObject name
-            gOName = "DVRelatedItems" + index.ToString();
-            gameObject.name = gOName;
-        }
-    }
-
     private void SetExhibitInfo(string exhibitName, int index, int contentType)
     {
         // Get exhibit information object
@@ -105,6 +79,31 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
         exhibitNameString = exhibitName;
         exhibitInfoItemIndex = index;
         exhibitInfoContentType = contentType;
+    }
+
+    [PunRPC]
+    void SetInfoFromExhibitInfoRPC(int index, int contentType)
+    {
+        if (contentType == 1)           // Image
+        {
+            // Set exhibit info values
+            SetImage(exhibitInfo.detailInfoImages[index].image);
+            SetText(exhibitInfo.detailInfoImages[index].imageText.text);
+
+            // Update GameObject name
+            gOName = "DVImages" + index.ToString();
+            gameObject.name = gOName;
+        }
+        else if (contentType == 2)      // Related Items Image
+        {
+            // Set exhibit info values
+            SetImage(exhibitInfo.detailInfoRelatedItems[index].imageInfo.image);
+            SetText(exhibitInfo.detailInfoRelatedItems[index].imageInfo.imageText.text);
+
+            // Update GameObject name
+            gOName = "DVRelatedItems" + index.ToString();
+            gameObject.name = gOName;
+        }
     }
 
     public void ShowText(InputAction.CallbackContext obj)

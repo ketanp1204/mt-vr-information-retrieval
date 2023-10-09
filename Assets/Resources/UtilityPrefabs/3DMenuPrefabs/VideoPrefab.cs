@@ -40,7 +40,7 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
     private TooltipHandler tooltipHandler;
     private string showTextString = "Show Info";
     private string hideTextString = "Hide Info";
-    private string gOName = "DVVideos";
+    private string gOName = "";
     private ExhibitInformation exhibitInfo = null;
     private string exhibitNameString = "";
     private int exhibitInfoItemIndex = 0;
@@ -82,30 +82,6 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
         photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.Others, index, contentType);
     }
 
-    [PunRPC]
-    void SetInfoFromExhibitInfoRPC(int index, int contentType)
-    {
-        // Set values
-        if (contentType == 1)
-        {
-            gameObject.name = "DVVideos" + index.ToString();
-            SetThumbnail(exhibitInfo.detailInfoVideos[index].videoClipThumbnail);
-            SetVideoClip(exhibitInfo.detailInfoVideos[index].videoClip);
-            SetText(exhibitInfo.detailInfoVideos[index].videoClipText.text);
-        }
-        else if (contentType == 2)
-        {
-            gameObject.name = "DVRelatedItems" + index.ToString();
-            SetThumbnail(exhibitInfo.detailInfoRelatedItems[index].videoInfo.videoClipThumbnail);
-            SetVideoClip(exhibitInfo.detailInfoRelatedItems[index].videoInfo.videoClip);
-            SetText(exhibitInfo.detailInfoRelatedItems[index].videoInfo.videoClipText.text);
-        }
-
-        // Update GameObject name
-        gOName = gOName + index.ToString();
-        gameObject.name = gOName;
-    }
-
     private void SetExhibitInfo(string exhibitName, int index, int contentType)
     {
         // Get exhibit information object
@@ -121,6 +97,33 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
         exhibitNameString = exhibitName;
         exhibitInfoItemIndex = index;
         exhibitInfoContentType = contentType;
+    }
+
+    [PunRPC]
+    void SetInfoFromExhibitInfoRPC(int index, int contentType)
+    {
+        if (contentType == 1)           // Video 
+        {
+            // Set exhibit info values
+            SetThumbnail(exhibitInfo.detailInfoVideos[index].videoClipThumbnail);
+            SetVideoClip(exhibitInfo.detailInfoVideos[index].videoClip);
+            SetText(exhibitInfo.detailInfoVideos[index].videoClipText.text);
+
+            // Update GameObject name
+            gOName = "DVVideos" + index.ToString();
+            gameObject.name = gOName;
+        }
+        else if (contentType == 2)      // Related Items Video
+        {
+            // Set exhibit info values
+            SetThumbnail(exhibitInfo.detailInfoRelatedItems[index].videoInfo.videoClipThumbnail);
+            SetVideoClip(exhibitInfo.detailInfoRelatedItems[index].videoInfo.videoClip);
+            SetText(exhibitInfo.detailInfoRelatedItems[index].videoInfo.videoClipText.text);
+
+            // Update GameObject name
+            gOName = "DVRelatedItems" + index.ToString();
+            gameObject.name = gOName;
+        }
     }
 
     public void ShowHideText(InputAction.CallbackContext obj)
