@@ -170,7 +170,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &5438887212757216702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,7 +391,7 @@ MonoBehaviour:
     actionButtonReference: 1
     tooltipText: Remove
     hand: 2
-  removeInputAction: {fileID: 0}
+  removeInputAction: {fileID: -3668144855904488849, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}
 --- !u!114 &3114822912986851555
 MonoBehaviour:
   m_ObjectHideFlags: 0

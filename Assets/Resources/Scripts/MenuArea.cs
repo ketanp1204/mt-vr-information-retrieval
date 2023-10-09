@@ -33,21 +33,27 @@ public class MenuArea : XRSimpleInteractable
     // Public Variables
 
     [Space(20)]
+    [Header("Exhibit Information")]
     public ExhibitInformation exhibitInfo;
     [Space(20)]
-    [Header("Interaction Properties")]
+    [Header("Menu Properties")]
     public Menu menuLayer;
     public Vector3 menuRotationOffset;
+    public GameObject imageContainer;
+    public GameObject exitSphere;
+    public float sphereMaxScale = 0.3f;
+    public float exitSphereScale = 0.03f;
+    public float menuItemLinearSpacing = 0.1f;
+    [Space(20)]
+    [Header("Tooltips")]
     public Tooltip gripHoldTooltip;
     public Tooltip exitMenuTooltip;
+    [Space(20)]
+    [Header("Prefabs")]
     public GameObject guidePrefab;
-    public string infoVisibilityText;
     public GameObject linePrefab;
-    public string imagePrefabLoc = "UtilityPrefabs/3DMenuPrefabs/ImagePrefab3D";
-    public string descBoxPrefabLoc = "UtilityPrefabs/3DMenuPrefabs/DescBoxPrefab3D";
-    public string audioPrefabLoc = "UtilityPrefabs/3DMenuPrefabs/AudioPrefab3D";
-    public GameObject imageContainer;    
-    public GameObject exitSphere;
+    [Space(20)]
+    [Header("Animation Properties")]
     public float pullDistance = 0.3f;
     public float menuItemAnimDuration = 0.1f;
     public float layerLoadDuration = 0.05f;
@@ -58,8 +64,7 @@ public class MenuArea : XRSimpleInteractable
 
     private BoxCollider col;
     private bool menuOpen = false;
-    [SerializeField] private float menuItemCircleRadius = 0.08f;
-    [SerializeField] private float menuItemLinearSpacing = 0.1f;
+    
     private float currentPullDistance = 0f;
     private TooltipHandler tooltipHandler;
     private Vector3 interactionInitialPos;
@@ -68,16 +73,17 @@ public class MenuArea : XRSimpleInteractable
     private GameObject menuLine;
     private LineRenderer lR;
     private List<Vector3> menuItemFinalPositions = new List<Vector3>();
-    [SerializeField] private float sphereMaxScale = 0.3f;
-    [SerializeField] private float exitSphereScale = 0.03f;
+    
     private Menu currentMenuLayer = new();
     private string menuSpherePrefabLoc = "UtilityPrefabs/MenuSphere";
     private bool firstLayerOpen = false;
     private float menuSphereInitialZ = 0f;
     private object[] contentSphereInfo;
-    private bool infoVisibilityTextSeen = false;
-    
-
+    private string infoVisibilityText = "Information will stay private inside the transparent sphere";
+    private string menuOpenGuideText = "Open Menu\nHold the Grip Button and Pull Back";
+    private string imagePrefabLoc = "UtilityPrefabs/3DMenuPrefabs/ImagePrefab3D";
+    private string descBoxPrefabLoc = "UtilityPrefabs/3DMenuPrefabs/DescBoxPrefab3D";
+    private string audioPrefabLoc = "UtilityPrefabs/3DMenuPrefabs/AudioPrefab3D";
 
 
     private void Start()
@@ -142,11 +148,8 @@ public class MenuArea : XRSimpleInteractable
                     exitSphere.GetComponent<SphereCollider>().enabled = true;
 
                     // Show information visibility guide
-                    if (!infoVisibilityTextSeen)
-                    {
-                        infoVisibilityTextSeen = true;
-                        LoadGuide(infoVisibilityText, exitSphere.transform.position, -0.05f, 3f);
-                    }
+                    LoadGuide(infoVisibilityText, exitSphere.transform.position, Quaternion.identity, verticalOffset: -0.05f, destroyAfterDelay: 3f);
+                    
                 }
                     
 
@@ -174,11 +177,11 @@ public class MenuArea : XRSimpleInteractable
         }
     }
     
-    private void LoadGuide(string guideText, Vector3 position, float verticalOffset, float destroyAfterDelay)
+    private void LoadGuide(string guideText, Vector3 position, Quaternion rotation, float verticalOffset = 0f, float horizontalOffset = 0f, float destroyAfterDelay = 0f)
     {
         GameObject guide = Instantiate(Resources.Load("UtilityPrefabs/GuideCanvas") as GameObject,
-                                                    position + new Vector3(0f, verticalOffset, 0f),
-                                                    Quaternion.identity);
+                                                    position + new Vector3(horizontalOffset, verticalOffset, 0f),
+                                                    rotation);
 
         guide.transform.Find("Panel/GuideText").GetComponent<TextMeshProUGUI>().text = guideText;
         StartCoroutine(FadeCanvasGroup(guide.GetComponent<CanvasGroup>(), 0f, 1f, menuItemAnimDuration, destroyAfterDelay));
@@ -208,11 +211,15 @@ public class MenuArea : XRSimpleInteractable
     {
         base.OnHoverEntered(args);
 
-        // Show the tooltip if not selected
+        // Check if menu is opened
         if (!isSelected)
         {
+            // Show the tooltip if not selected
             tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
             tooltipHandler.ShowTooltip(gripHoldTooltip);
+
+            float hOffset = args.interactorObject.transform.name.Contains("Right") ? 0.1f : -0.1f;
+            LoadGuide(menuOpenGuideText, args.interactorObject.transform.position, args.interactorObject.transform.rotation, horizontalOffset: hOffset, destroyAfterDelay: 3f);
         }
     }
 
@@ -220,9 +227,10 @@ public class MenuArea : XRSimpleInteractable
     {
         base.OnHoverExited(args);
 
-        // Hide the tooltip if not selected
+        // Check if menu is opened
         if (!isSelected)
         {
+            // Hide the tooltip if not selected
             tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
             tooltipHandler.HideTooltip(gripHoldTooltip);
         }
@@ -329,7 +337,7 @@ public class MenuArea : XRSimpleInteractable
                     descGO.name = gameObject.name.Replace("MA_", "DB_");
 
                     // Set display text
-                    TextMeshProUGUI displayText = descGO.transform.Find("Panel/Scroll View/Viewport/Content/Text").GetComponent<TextMeshProUGUI>();
+                    TextMeshProUGUI displayText = GetChildWithName(descGO, "DescBoxText").GetComponent<TextMeshProUGUI>();
                     displayText.text = exhibitInfo.basicInfoText.text;
 
                     // Set removable via button
@@ -423,7 +431,7 @@ public class MenuArea : XRSimpleInteractable
                     audioGO.name = gameObject.name.Replace("MA_", "AB_");
 
                     // Set audio clip
-                    AudioSource audioSource = audioGO.transform.Find("Panel/Audio Source").GetComponent<AudioSource>();
+                    AudioSource audioSource = GetChildWithName(audioGO, "Audio Source").GetComponent<AudioSource>();
                     audioSource.clip = exhibitInfo.basicInfoAudio;
                     audioSource.Play();
 
@@ -663,5 +671,19 @@ public class MenuArea : XRSimpleInteractable
 
         // Re-enable collider for new menu interaction
         EnableCollider();
+    }
+
+    private Transform GetChildWithName(GameObject gO, string childName)
+    {
+        Transform child = null;
+        foreach (Transform t in gO.GetComponentsInChildren<Transform>())
+        {
+            if (t.name == childName)
+            {
+                child = t;
+                break;
+            }
+        }
+        return child;
     }
 }

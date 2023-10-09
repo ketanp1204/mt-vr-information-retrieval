@@ -351,6 +351,7 @@ GameObject:
   - component: {fileID: 3102919315618247214}
   - component: {fileID: 5395333405361585381}
   - component: {fileID: 8911265374746577223}
+  - component: {fileID: 3377207470712731493}
   m_Layer: 8
   m_Name: VideoPrefab3D
   m_TagString: Untagged
@@ -527,7 +528,19 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3377207470712731493}
+        m_TargetAssemblyTypeName: ContentSharing, Assembly-CSharp
+        m_MethodName: HandleSelect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls: []
@@ -710,6 +723,21 @@ MonoBehaviour:
   showTextInputAction: {fileID: -3444445515797504187, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}
   playPauseInputAction: {fileID: -4469142970434513980, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}
   stopInputAction: {fileID: -5353296368245017833, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}
+--- !u!114 &3377207470712731493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8911265374746577232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12d8fb07de2b1df4fb8072d8b7a989ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visibilityObject: {fileID: 0}
+  guideSpawnOffset: {x: 0, y: 0, z: 0}
+  guideText: Drag out to Share
 --- !u!1 &9086932719890353809
 GameObject:
   m_ObjectHideFlags: 0

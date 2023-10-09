@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7342585306867457762}
   - component: {fileID: 1646433263523779366}
   - component: {fileID: 3447658881749082411}
-  - component: {fileID: 484411346041781843}
+  - component: {fileID: 8291703470945958295}
   m_Layer: 8
   m_Name: GuideCanvas
   m_TagString: Untagged
@@ -85,7 +85,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &1646433263523779366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +115,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &484411346041781843
+--- !u!114 &8291703470945958295
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,17 +124,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4415107699491610967}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29027d795fc09444897a080854621cb0, type: 3}
+  m_Script: {fileID: 11500000, guid: 149a94a40addad84198f69b951628daa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
-  rotationOffset: {x: 0, y: 180, z: 0}
-  rotateTowardsUser: 1
-  isInitialized: 0
-  objectActiveOnStart: 0
-  rotateX: 1
-  rotateY: 1
-  rotateZ: 1
 --- !u!1 &6136354306681830874
 GameObject:
   m_ObjectHideFlags: 0

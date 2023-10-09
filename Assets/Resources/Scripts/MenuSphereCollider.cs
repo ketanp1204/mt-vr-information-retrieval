@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class MenuSphereCollider : MonoBehaviour
 {
@@ -22,7 +23,35 @@ public class MenuSphereCollider : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        mS.GetComponentInParent<MenuSphere>();
+        mS = GetComponentInParent<MenuSphere>();
+    }
+
+    public void OnHoverEntered(HoverEnterEventArgs args)
+    {
+        // Show tooltip
+        tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
+        tooltipHandler.ShowTooltip(showInfoTooltip);
+
+        // Handle hover action on parent script
+        mS.OnHoverEntered();
+
+        // Enable input action
+        anyPrimaryButton.action.Enable();
+        anyPrimaryButton.action.performed += mS.OnSelectEntered;
+    }
+
+    public void OnHoverExited(HoverExitEventArgs  args)
+    {
+        // Hide tooltip
+        tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
+        tooltipHandler.HideTooltip(showInfoTooltip);
+
+        // Handle hover action on parent script
+        mS.OnHoverExited();
+
+        // Disable input action
+        anyPrimaryButton.action.performed -= mS.OnSelectEntered;
+        anyPrimaryButton.action.Disable();
     }
 
     private void OnCollisionEnter(Collision collision)
