@@ -30,6 +30,7 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
     private string itemName;
     private string dVName;
     private GameObject dVGO = null;
+    ExhibitInformation exhibitInfo = null;
 
 
 
@@ -59,16 +60,7 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
         if (Vrsys.NetworkUser.localNetworkUser != null)
             if (Vrsys.NetworkUser.localNetworkUser.photonView.ViewID == viewID)
             {
-                // Get exhibit information object
-                ExhibitInformation exhibitInfo = null;
-                ExhibitInfoRefs exhibitInfoRefs = Resources.Load("Miscellaneous/ExhibitInfoRefs") as ExhibitInfoRefs;
-                for (int i = 0; i < exhibitInfoRefs.exhibitInfos.Length; i++)
-                {
-                    if (exhibitInfoRefs.exhibitInfos[i].exhibitName == itemName)
-                    {
-                        exhibitInfo = exhibitInfoRefs.exhibitInfos[i].exhibitInfo;
-                    }
-                }
+                SetExhibitInfo(itemName);
 
                 // Set detail view text
                 detailInfoTextObject.text = exhibitInfo.detailInfoText.text;
@@ -175,6 +167,19 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
         }
     }
 
+    private void SetExhibitInfo(string exhibitName)
+    {
+        // Get exhibit information object
+        ExhibitInfoRefs exhibitInfoRefs = Resources.Load("Miscellaneous/ExhibitInfoRefs") as ExhibitInfoRefs;
+        for (int i = 0; i < exhibitInfoRefs.exhibitInfos.Length; i++)
+        {
+            if (exhibitInfoRefs.exhibitInfos[i].exhibitName == itemName)
+            {
+                exhibitInfo = exhibitInfoRefs.exhibitInfos[i].exhibitInfo;
+            }
+        }
+    }
+
     //void 
 
     [PunRPC]
@@ -264,5 +269,22 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
             }
         }
         return child;
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC(nameof(SetDVTextAndAudioOnJoin), newPlayer, itemName);
+        }
+    }
+
+    [PunRPC]
+    void SetDVTextAndAudioOnJoin(string exhibitName)
+    {
+        SetExhibitInfo(exhibitName);
+
+        detailInfoTextObject.text = exhibitInfo.detailInfoText.text;
+        detailInfoAudioSource.clip = exhibitInfo.detailInfoAudio;
     }
 }

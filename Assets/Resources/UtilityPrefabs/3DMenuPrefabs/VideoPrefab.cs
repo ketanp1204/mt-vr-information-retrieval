@@ -331,7 +331,10 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        photonView.RPC(nameof(SetLateJoinInfo), newPlayer, exhibitNameString, exhibitInfoItemIndex, exhibitInfoContentType);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC(nameof(SetLateJoinInfo), newPlayer, exhibitNameString, exhibitInfoItemIndex, exhibitInfoContentType);
+        }
     }
 
     [PunRPC]
