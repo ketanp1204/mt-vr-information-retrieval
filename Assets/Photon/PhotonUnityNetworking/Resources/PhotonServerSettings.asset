@@ -38,6 +38,7 @@ MonoBehaviour:
   - AddDVAObjectRPC
   - AddDVAUserCountRPC
   - AddNewDVAUserCountRPC
+  - AddToDVSpawnedObjectsList
   - CantHearYou
   - ChangeColour
   - ClickRpc
@@ -58,24 +59,22 @@ MonoBehaviour:
   - SetDVAObjectRPC
   - SetInfoFromExhibitInfoRPC
   - SetItemNameRPC
+  - SetLateJoinInfo
   - SetName
   - SetPlatformId
   - SetSharableRPC
   - SetUsernameRPC
   - SetVisibilityRPC
   - SubtractDVAUserCountRPC
-  - UpdateDetailInfoAudio
-  - UpdateDetailInfoText
+  - UpdateDetailInfoAudioRPC
+  - UpdateDetailInfoTextRPC
   - UpdateDVASpawnLocRPC
   - UpdateDVAUserCountRPC
   - UpdateInfoPanels
   - UpdateInfoTextBox
   - UpdateMenuOpenBool
   - UpdateMSPanel
-  - UpdateScrollRectValueRPC
-  - AddToDVSpawnedObjectsList
-  - UpdateDetailInfoAudioRPC
-  - UpdateDetailInfoTextRPC
+  - SetDVTextAndAudioOnJoin
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

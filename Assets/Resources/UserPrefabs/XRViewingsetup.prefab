@@ -90,6 +90,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FocusedLayer: Focused
+  currentlyFocused: {fileID: 0}
+  currentlyFocusedList: []
+  previousLayer: 0
 --- !u!1 &930325096893210771
 GameObject:
   m_ObjectHideFlags: 0

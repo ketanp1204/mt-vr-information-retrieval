@@ -203,7 +203,10 @@ public class ModelPrefab : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        photonView.RPC(nameof(SetLateJoinInfo), newPlayer, exhibitNameString, exhibitInfoItemIndex);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC(nameof(SetLateJoinInfo), newPlayer, exhibitNameString, exhibitInfoItemIndex);
+        }
     }
 
     [PunRPC]

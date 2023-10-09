@@ -35,13 +35,19 @@ public class MenuSphere : MonoBehaviourPunCallbacks
     public GameObject imagePrefab2D;
     public GameObject videoPrefab2D;
 
+    [Space(20)]
+    [Header("Tooltip")]
+    public Tooltip showInfoTooltip;
+
 
     // Private Variables //
 
     private bool menuOpen = false;
     private TextMeshProUGUI msPanelText;
     private float animDuration = 0.1f;
-
+    private TooltipHandler tooltipHandler;
+    private string showInfoString = "Show Info";
+    private string hideInfoString = "Hide Info";
 
 
     private void Start()
@@ -132,24 +138,39 @@ public class MenuSphere : MonoBehaviourPunCallbacks
 
     }
 
-    public void OnHoverEntered()
+    public void OnHoverEntered(HoverEnterEventArgs args)
     {
         if (!menuOpen)
         {
+            // Show  tooltip
+            tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
+            showInfoTooltip.tooltipText = showInfoString;
+            tooltipHandler.ShowTooltip(showInfoTooltip);
+
             msPanelText.text = "Show Information";
             StartCoroutine(FadeCanvasGroup(msPanel, 0f, 1f));
             photonView.RPC(nameof(UpdateMSPanel), RpcTarget.Others, true, 1);
         }
         else if (menuOpen)
         {
+            // Show  tooltip
+            tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
+            showInfoTooltip.tooltipText = hideInfoString;
+            tooltipHandler.ShowTooltip(showInfoTooltip);
+
             msPanelText.text = "Exit";
             StartCoroutine(FadeCanvasGroup(msPanel, 0f, 1f));
             photonView.RPC(nameof(UpdateMSPanel), RpcTarget.Others, true, 2);
         }
     }
 
-    public void OnHoverExited()
+    public void OnHoverExited(HoverExitEventArgs args)
     {
+        // Hide tooltip
+        tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
+        tooltipHandler.HideTooltip(showInfoTooltip);
+
+        // Hide Panel Text
         StartCoroutine(FadeCanvasGroup(msPanel, 1f, 0f));
         photonView.RPC(nameof(UpdateMSPanel), RpcTarget.Others, false, 0);
     }
@@ -179,8 +200,12 @@ public class MenuSphere : MonoBehaviourPunCallbacks
         }
     }
 
-    public void OnSelectEntered(InputAction.CallbackContext context)
+    public void OnSelectEntered(SelectEnterEventArgs args)
     {
+        // Hide tooltip
+        tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
+        tooltipHandler.HideTooltip(showInfoTooltip);
+
         if (!menuOpen)
         {
             menuOpen = true;
@@ -201,42 +226,6 @@ public class MenuSphere : MonoBehaviourPunCallbacks
 
             // Hide info text boxes
             for (int i = 0; i < infoTextBoxes.Count;  i++)
-            {
-                infoTextBoxes[i].alpha = 0f;
-                infoTextBoxes[i].interactable = false;
-                infoTextBoxes[i].blocksRaycasts = false;
-            }
-
-            // Hide video player
-            videoPlayerBox.SetActive(false);
-
-            // Reset audio player
-            audioSource.Stop();
-        }
-    }
-
-    public void OnSelectEntered()
-    {
-        if (!menuOpen)
-        {
-            menuOpen = true;
-            photonView.RPC(nameof(UpdateMenuOpenBool), RpcTarget.Others, true);
-
-            // Show information panels
-            StartCoroutine(FadeInformationPanels(0f, 1f, true));
-            photonView.RPC(nameof(UpdateInfoPanels), RpcTarget.Others, true);
-        }
-        else
-        {
-            menuOpen = false;
-            photonView.RPC(nameof(UpdateMenuOpenBool), RpcTarget.Others, false);
-
-            // Hide information panels
-            StartCoroutine(FadeInformationPanels(1f, 0f, false));
-            photonView.RPC(nameof(UpdateInfoPanels), RpcTarget.Others, false);
-
-            // Hide info text boxes
-            for (int i = 0; i < infoTextBoxes.Count; i++)
             {
                 infoTextBoxes[i].alpha = 0f;
                 infoTextBoxes[i].interactable = false;
