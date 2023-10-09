@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 using Photon.Pun;
+using Photon.Realtime;
+using System;
 
 public class ImagePrefab : MonoBehaviourPunCallbacks
 {
@@ -27,6 +29,10 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
     private TooltipHandler tooltipHandler;
     private string showTextString = "Show Info";
     private string hideTextString = "Hide Info";
+    private string gOName = "";
+    private ExhibitInformation exhibitInfo = null;
+    private int exhibitInfoItemIndex = 0;
+    private int exhibitInfoContentType = 0;
 
 
     
@@ -52,14 +58,7 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
 
     public void SetInfoFromExhibitInfo(string exhibitName, int index, int contentType)
     {
-        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.Others, exhibitName, index, contentType);
-    }
-
-    [PunRPC]
-    void SetInfoFromExhibitInfoRPC(string exhibitName, int index, int contentType)
-    {
         // Get exhibit information object
-        ExhibitInformation exhibitInfo = null;
         ExhibitInfoRefs exhibitInfoRefs = Resources.Load("Miscellaneous/ExhibitInfoRefs") as ExhibitInfoRefs;
         for (int i = 0; i < exhibitInfoRefs.exhibitInfos.Length; i++)
         {
@@ -69,21 +68,37 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
             }
         }
 
-        // Set values depending on type of image prefab (0 - dvImage, 1 - dvRelatedItemImage
-        if (contentType == 0)
+        exhibitInfoItemIndex = index;
+        exhibitInfoContentType = contentType;
+
+        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.Others, index, contentType);
+    }
+
+    [PunRPC]
+    void SetInfoFromExhibitInfoRPC(int index, int contentType)
+    {
+        // Set values depending on type of image prefab (1 - dvImage, 2 - dvRelatedItemImage
+        if (contentType == 1)
         {
             gameObject.name = "DVImages" + index.ToString();
             SetImage(exhibitInfo.detailInfoImages[index].image);
             SetText(exhibitInfo.detailInfoImages[index].imageText.text);
+
+            // Update GameObject name
+            gOName = "DVImages" + index.ToString();
+            gameObject.name = gOName;
         }
-        else if (contentType == 1)
+        else if (contentType == 2)
         {
             gameObject.name = "DVRelatedItems" + index.ToString();
             SetImage(exhibitInfo.detailInfoRelatedItems[index].imageInfo.image);
             SetText(exhibitInfo.detailInfoRelatedItems[index].imageInfo.imageText.text);
+
+            // Update GameObject name
+            gOName = "DVRelatedItems" + index.ToString();
+            gameObject.name = gOName;
         }
     }
-
 
     public void ShowText(InputAction.CallbackContext obj)
     {
@@ -199,5 +214,10 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
             cG.interactable = false;
             cG.blocksRaycasts = false;
         }
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.Others, exhibitInfoItemIndex, exhibitInfoContentType);
     }
 }

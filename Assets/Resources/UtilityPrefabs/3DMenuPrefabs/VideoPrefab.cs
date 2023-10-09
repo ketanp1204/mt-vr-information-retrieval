@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -38,6 +39,7 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
     private TooltipHandler tooltipHandler;
     private string showTextString = "Show Info";
     private string hideTextString = "Hide Info";
+    private string gOName = "DVVideos";
 
 
     public void SetThumbnail(Sprite thumbnail)
@@ -102,6 +104,10 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
             SetVideoClip(exhibitInfo.detailInfoRelatedItems[index].videoInfo.videoClip);
             SetText(exhibitInfo.detailInfoRelatedItems[index].videoInfo.videoClipText.text);
         }
+
+        // Update GameObject name
+        gOName = gOName + index.ToString();
+        gameObject.name = gOName;
     }
 
     public void ShowHideText(InputAction.CallbackContext obj)

@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -81,7 +82,6 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
             {
                 // Instantiate Image Prefab
                 GameObject image = PhotonNetwork.Instantiate(imagePrefabLoc, imageLocs.GetChild(i).transform.position, imageLocs.GetChild(i).transform.rotation);
-                image.name = "DVImages" + i.ToString();
 
                 // Set Exhibit Info Data
                 ImagePrefab iP = image.GetComponent<ImagePrefab>();
