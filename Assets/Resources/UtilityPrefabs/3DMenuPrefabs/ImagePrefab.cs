@@ -59,19 +59,7 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
 
     public void SetInfoFromExhibitInfo(string exhibitName, int index, int contentType)
     {
-        // Get exhibit information object
-        ExhibitInfoRefs exhibitInfoRefs = Resources.Load("Miscellaneous/ExhibitInfoRefs") as ExhibitInfoRefs;
-        for (int i = 0; i < exhibitInfoRefs.exhibitInfos.Length; i++)
-        {
-            if (exhibitInfoRefs.exhibitInfos[i].exhibitName == exhibitName)
-            {
-                exhibitInfo = exhibitInfoRefs.exhibitInfos[i].exhibitInfo;
-            }
-        }
-
-        exhibitNameString = exhibitName;
-        exhibitInfoItemIndex = index;
-        exhibitInfoContentType = contentType;
+        SetExhibitInfo(exhibitName, index, contentType);
 
         photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.Others, index, contentType);
     }
@@ -100,6 +88,23 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
             gOName = "DVRelatedItems" + index.ToString();
             gameObject.name = gOName;
         }
+    }
+
+    private void SetExhibitInfo(string exhibitName, int index, int contentType)
+    {
+        // Get exhibit information object
+        ExhibitInfoRefs exhibitInfoRefs = Resources.Load("Miscellaneous/ExhibitInfoRefs") as ExhibitInfoRefs;
+        for (int i = 0; i < exhibitInfoRefs.exhibitInfos.Length; i++)
+        {
+            if (exhibitInfoRefs.exhibitInfos[i].exhibitName == exhibitName)
+            {
+                exhibitInfo = exhibitInfoRefs.exhibitInfos[i].exhibitInfo;
+            }
+        }
+
+        exhibitNameString = exhibitName;
+        exhibitInfoItemIndex = index;
+        exhibitInfoContentType = contentType;
     }
 
     public void ShowText(InputAction.CallbackContext obj)
@@ -220,12 +225,15 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+        Debug.Log("player join");
         photonView.RPC(nameof(SetLateJoinInfo), newPlayer, exhibitNameString, exhibitInfoItemIndex, exhibitInfoContentType);
     }
 
     [PunRPC]
     void SetLateJoinInfo(string exhibitName, int exhibitInfoIndex, int exhibitInfoContentType)
     {
-        SetInfoFromExhibitInfo(exhibitName, exhibitInfoIndex, exhibitInfoContentType);
+        SetExhibitInfo(exhibitName, exhibitInfoIndex, exhibitInfoContentType);
+
+        SetInfoFromExhibitInfoRPC(exhibitInfoIndex, exhibitInfoContentType);
     }
 }
