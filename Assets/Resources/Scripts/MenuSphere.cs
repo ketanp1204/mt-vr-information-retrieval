@@ -215,6 +215,42 @@ public class MenuSphere : MonoBehaviourPunCallbacks
         }
     }
 
+    public void OnSelectEntered()
+    {
+        if (!menuOpen)
+        {
+            menuOpen = true;
+            photonView.RPC(nameof(UpdateMenuOpenBool), RpcTarget.Others, true);
+
+            // Show information panels
+            StartCoroutine(FadeInformationPanels(0f, 1f, true));
+            photonView.RPC(nameof(UpdateInfoPanels), RpcTarget.Others, true);
+        }
+        else
+        {
+            menuOpen = false;
+            photonView.RPC(nameof(UpdateMenuOpenBool), RpcTarget.Others, false);
+
+            // Hide information panels
+            StartCoroutine(FadeInformationPanels(1f, 0f, false));
+            photonView.RPC(nameof(UpdateInfoPanels), RpcTarget.Others, false);
+
+            // Hide info text boxes
+            for (int i = 0; i < infoTextBoxes.Count; i++)
+            {
+                infoTextBoxes[i].alpha = 0f;
+                infoTextBoxes[i].interactable = false;
+                infoTextBoxes[i].blocksRaycasts = false;
+            }
+
+            // Hide video player
+            videoPlayerBox.SetActive(false);
+
+            // Reset audio player
+            audioSource.Stop();
+        }
+    }
+
     private IEnumerator FadeInformationPanels(float startAlpha, float endAlpha, bool enableInteraction)
     {
         for (int i = 0; i < infoPanels.Count; i++)
