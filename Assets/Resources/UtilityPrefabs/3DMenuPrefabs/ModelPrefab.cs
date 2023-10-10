@@ -36,7 +36,18 @@ public class ModelPrefab : MonoBehaviourPunCallbacks
 
         // Add collider to XR Grab Interactable
         var interactable = GetComponent<XRGrabInteractable>();
-        interactable.colliders.Add(modelGO.GetComponent<BoxCollider>());
+
+        BoxCollider boxCollider = null;
+        foreach (Transform t in modelGO.GetComponentsInChildren<Transform>())
+        {
+            if (t.GetComponent<BoxCollider>() != null)
+            {
+                boxCollider = t.GetComponent<BoxCollider>();
+                break;
+            }
+        }
+        
+        interactable.colliders.Add(boxCollider);
         interactable.interactionManager.UnregisterInteractable(interactable.GetComponent<IXRInteractable>());
         interactable.interactionManager.RegisterInteractable(interactable.GetComponent<IXRInteractable>());
     }
