@@ -11,6 +11,7 @@ public class VideoPlayerBox : MonoBehaviour
     public PhotonView photonView;
     public GameObject videoPlayerQuad;
     public VideoPlayer videoPlayer;
+    public AudioSource audioSource;
 
     // Private Variables //
 
@@ -41,6 +42,7 @@ public class VideoPlayerBox : MonoBehaviour
 
             // Set and Play Video
             videoPlayer.clip = clip;
+            videoPlayer.SetTargetAudioSource(0, audioSource);
             videoPlayer.Play();
 
             // Sync over network
