@@ -12,11 +12,11 @@ public class TextBox : MonoBehaviour
     public PhotonView photonView;
 
 
-
     // Private Variables //
 
     private TextMeshProUGUI displayText;
     private CanvasGroup cG;
+    
 
 
 

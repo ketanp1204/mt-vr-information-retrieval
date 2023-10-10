@@ -25,7 +25,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
     [Space(20)]
     [Header("UI References")]
     public CanvasGroup msPanel;
-    public GameObject videoPlayerBox;
+    public VideoPlayerBox videoPlayerBox;
     public AudioSource audioSource;    
     public List<CanvasGroup> infoPanels = new List<CanvasGroup>();
     public List<CanvasGroup> infoTextBoxes = new List<CanvasGroup>();
@@ -72,7 +72,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
                                                         exhibitInfo.detailInfoVideos[i].videoClipText.text,
                                                         infoTextBoxes[0].GetComponent<TextBox>(),
                                                         videoPlayerBox,
-                                                        videoPlayerBox.GetComponentInChildren<VideoPlayer>());
+                                                        i);
         }
 
 
@@ -233,7 +233,7 @@ public class MenuSphere : MonoBehaviourPunCallbacks
             }
 
             // Hide video player
-            videoPlayerBox.SetActive(false);
+            videoPlayerBox.HideVideo(true);
 
             // Reset audio player
             audioSource.Stop();
@@ -323,6 +323,38 @@ public class MenuSphere : MonoBehaviourPunCallbacks
                 canvasGroup.interactable = false;
                 canvasGroup.blocksRaycasts = false;
             }
+        }
+    }
+
+    [PunRPC]
+    void UpdateVideoPlayer(bool visibility, int exhibitInfoVideoIndex)
+    {
+        if (visibility)
+        {
+
+            videoPlayerBox.PlayVideo(exhibitInfo.detailInfoVideos[exhibitInfoVideoIndex].videoClip, false, 0);
+
+        }
+        else
+        {
+            videoPlayerBox.HideVideo(false);
+        }
+    }
+
+    [PunRPC]
+    void VideoMediaControlsUpdate(bool playVideo, bool pauseVideo, bool stopVideo)
+    {
+        if (playVideo)
+        {
+            videoPlayerBox.PlayButton(false);
+        }
+        else if (pauseVideo)
+        {
+            videoPlayerBox.PauseButton(false);
+        }
+        else if (stopVideo)
+        {
+            videoPlayerBox.StopButton(false);
         }
     }
 

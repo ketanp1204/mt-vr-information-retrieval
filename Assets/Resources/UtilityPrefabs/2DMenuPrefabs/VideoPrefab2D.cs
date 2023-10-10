@@ -17,7 +17,7 @@ public class VideoPrefab2D : MonoBehaviour
     private float imageHeight = 22f;
 
 
-    public void SetData(VideoClip videoClip, Sprite videoThumbnail, string videoText, TextBox textBox, GameObject videoPlayerBox, VideoPlayer videoPlayer)
+    public void SetData(VideoClip videoClip, Sprite videoThumbnail, string videoText, TextBox textBox, VideoPlayerBox videoPlayerBox, int exhibitInfoVideoIndex)
     {
         // Set and resize image on the child
         imageComp.sprite = videoThumbnail;
@@ -37,8 +37,6 @@ public class VideoPrefab2D : MonoBehaviour
         imageButton.onClick.AddListener(() => { textBox.DisplayText(videoText); });
 
         // Set video clip on player on button click event
-        imageButton.onClick.AddListener(() => { videoPlayer.clip = videoClip; });
-        imageButton.onClick.AddListener(() => { videoPlayerBox.SetActive(true); });
-        imageButton.onClick.AddListener(() => { videoPlayer.Play(); });
+        imageButton.onClick.AddListener(() => { videoPlayerBox.PlayVideo(videoClip, true, exhibitInfoVideoIndex); });
     }
 }
