@@ -20,6 +20,7 @@ public class StudyMenu : MonoBehaviour
     public CanvasGroup skipButtonCG;
     public CanvasGroup studySelectorCG;
     public CanvasGroup startButtonCG;
+    public CanvasGroup practiceButtonCG;
     public float fadeInDuration = 0.5f;
     public float fadeOutDuration = 0.1f;
     public float beginInstructionsDelay = 3f;
@@ -31,8 +32,12 @@ public class StudyMenu : MonoBehaviour
 
     [Space(20)]
     [Header("Study Selection")]
-    public GameObject study1GameObject;
-    public GameObject study2GameObject;
+    public GameObject study1PracticeExhibit;
+    public GameObject study2PracticeExhibit;
+    public GameObject study1Exhibit1;
+    public GameObject study1Exhibit2;
+    public GameObject study2Exhibit1;
+    public GameObject study2Exhibit2;
 
 
     // Private Variables //
@@ -102,8 +107,9 @@ public class StudyMenu : MonoBehaviour
         studySelectorCG.gameObject.SetActive(true);
         StartCoroutine(FadeCanvasGroup(studySelectorCG, 0f, 1f, fadeInDuration, enableInteraction: true));
 
-        // Show start button
+        // Show start and practice buttons
         StartCoroutine(FadeCanvasGroup(startButtonCG, 0f, 1f, fadeInDuration, 0.6f, true));
+        StartCoroutine(FadeCanvasGroup(practiceButtonCG, 0f, 1f, fadeInDuration, 0.6f, true));
     }
 
     public void HandleNext(Button nextButton)
@@ -158,14 +164,42 @@ public class StudyMenu : MonoBehaviour
             // Hide skip controls button
             skipButtonCG.gameObject.SetActive(false);
 
-            // Show start button
+            // Show start and practice buttons
             StartCoroutine(FadeCanvasGroup(startButtonCG, 0f, 1f, fadeInDuration, 0.6f, true));
+            StartCoroutine(FadeCanvasGroup(practiceButtonCG, 0f, 1f, fadeInDuration, 0.6f, true));
         }
     }
 
     public void SelectStudy(int studyIndex)
     {
         selectedStudy = studyIndex;
+    }
+
+    public void StartStudyPractice()
+    {
+        if (selectedStudy == 0)
+        {
+            // Show no selection warning
+            CanvasGroup noSelectionWarningCG = studySelectorCG.transform.Find("NoSelectionWarning").GetComponent<CanvasGroup>();
+            StartCoroutine(FadeCanvasGroup(noSelectionWarningCG, 0f, 1f, 0.1f));
+            StartCoroutine(FadeCanvasGroup(noSelectionWarningCG, 1f, 0f, 0.1f, 2f));
+        }
+        else if (selectedStudy == 1)
+        {
+            // Enable GameObject
+            study1PracticeExhibit.SetActive(true);
+
+            // Hide study menu
+            HideStudyMenu();
+        }
+        else if (selectedStudy == 2)
+        {
+            // Enable GameObject
+            study2PracticeExhibit.SetActive(true);
+
+            // Hide study menu
+            HideStudyMenu();
+        } 
     }
 
     public void StartStudy()
@@ -179,14 +213,18 @@ public class StudyMenu : MonoBehaviour
         }
         else if (selectedStudy == 1)
         {
-            study1GameObject.SetActive(true);
+            // Enable GameObjects
+            study1Exhibit1.SetActive(true);
+            study1Exhibit2.SetActive(true);
 
             // Hide study menu
             HideStudyMenu();
         }
         else if (selectedStudy == 2)
         {
-            study2GameObject.SetActive(true);
+            // Enable GameObjects
+            study2Exhibit1.SetActive(true);
+            study2Exhibit2.SetActive(true);
 
             // Hide study menu
             HideStudyMenu();

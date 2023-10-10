@@ -13,11 +13,48 @@ MonoBehaviour:
   m_Name: GS_B01_Info
   m_EditorClassIdentifier: 
   exhibitName: GS_B01
-  basicInfoText: {fileID: 0}
-  detailInfoText: {fileID: 0}
-  basicInfoAudio: {fileID: 0}
-  detailInfoAudio: {fileID: 0}
-  basicInfoImages: []
-  detailInfoImages: []
-  detailInfoVideos: []
-  detailInfoRelatedItems: []
+  basicInfoText: {fileID: 4900000, guid: daa6695d6aff1aa47ba087fca16fd2f6, type: 3}
+  detailInfoText: {fileID: 4900000, guid: ee12abaf285dee143812d84e2994dc94, type: 3}
+  menuSphereAudio: {fileID: 8300000, guid: ce1c0b1db170b6e4b81669c16c64965b, type: 3}
+  basicInfoAudio: {fileID: 8300000, guid: e14364730660e2d4182bb8c7dbc22573, type: 3}
+  detailInfoAudio: {fileID: 8300000, guid: 9fd11849600338547a9b9c0ce3b6288c, type: 3}
+  basicInfoImages:
+  - image: {fileID: 21300000, guid: 7bf22ede8867c6d48b10d0b1c4b58cad, type: 3}
+    imageText: {fileID: 4900000, guid: 8e1911bff22adad4f976355c5b60ade0, type: 3}
+  - image: {fileID: 21300000, guid: 41755661a7983bf4790d5807543cdb74, type: 3}
+    imageText: {fileID: 4900000, guid: 3525dd0f0e3a73143ac6032fb4f174b4, type: 3}
+  detailInfoImages:
+  - image: {fileID: 21300000, guid: 623575974a988f44b86a7555e46e14bd, type: 3}
+    imageText: {fileID: 4900000, guid: e1a6507adece6c2468d09b1d2e26e7ef, type: 3}
+  - image: {fileID: 21300000, guid: 280c2b2b496c5bd4e90ccec44f9a8164, type: 3}
+    imageText: {fileID: 4900000, guid: ca176ca4e214f114b9a732f4fc1ad984, type: 3}
+  detailInfoVideos:
+  - videoClip: {fileID: 32900000, guid: f73fcd7e0b2bb4848a596f9cfc3624f5, type: 3}
+    videoClipText: {fileID: 4900000, guid: e5129b324559e9f45933d63d601cc886, type: 3}
+    videoClipThumbnail: {fileID: 21300000, guid: ff672650ad0d4344388dca65ff229d99, type: 3}
+  - videoClip: {fileID: 32900000, guid: 41b93e7fd8dca0a4784078b71f319637, type: 3}
+    videoClipText: {fileID: 4900000, guid: 067ac443ea0e72d4a89809c1868eb2d3, type: 3}
+    videoClipThumbnail: {fileID: 21300000, guid: 9f901e9eba8eb674ca05af7058109d88, type: 3}
+  detailInfoRelatedItems:
+  - modelInfo:
+      model: {fileID: 5332482378613983781, guid: d809ab4439a272c438e87beb5008e99d, type: 3}
+      modelText: {fileID: 4900000, guid: 19c6e1bcf4ce7ae44a7646c1ccec8b9c, type: 3}
+      model2DPreviewSprite: {fileID: 21300000, guid: 0d4eea2e42f513044950c10ecb8eb6fc, type: 3}
+    imageInfo:
+      image: {fileID: 0}
+      imageText: {fileID: 0}
+    videoInfo:
+      videoClip: {fileID: 0}
+      videoClipText: {fileID: 0}
+      videoClipThumbnail: {fileID: 0}
+  - modelInfo:
+      model: {fileID: 0}
+      modelText: {fileID: 0}
+      model2DPreviewSprite: {fileID: 0}
+    imageInfo:
+      image: {fileID: 21300000, guid: 77ad280673548124db57c5a8ac03ec58, type: 3}
+      imageText: {fileID: 4900000, guid: c001f97d7bdb3414bb3304801018c93f, type: 3}
+    videoInfo:
+      videoClip: {fileID: 0}
+      videoClipText: {fileID: 0}
+      videoClipThumbnail: {fileID: 0}
