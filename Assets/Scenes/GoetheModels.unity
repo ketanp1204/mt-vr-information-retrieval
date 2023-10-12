@@ -402,7 +402,7 @@ MonoBehaviour:
   exitSphere: {fileID: 1904120714}
   sphereMaxScale: 0.7
   exitSphereScale: 0.03
-  menuItemLinearSpacing: 0.1
+  menuItemLinearSpacing: 0.15
   gripHoldTooltip:
     tooltipName: Grip Hold Pull Right
     actionButtonReference: 4
@@ -32165,7 +32165,7 @@ MonoBehaviour:
   exitSphere: {fileID: 1364700702}
   sphereMaxScale: 0.7
   exitSphereScale: 0.03
-  menuItemLinearSpacing: 0.1
+  menuItemLinearSpacing: 0.15
   gripHoldTooltip:
     tooltipName: Grip Hold Pull Right
     actionButtonReference: 4
@@ -51168,7 +51168,7 @@ MonoBehaviour:
   exitSphere: {fileID: 1996867216}
   sphereMaxScale: 0.7
   exitSphereScale: 0.03
-  menuItemLinearSpacing: 0.1
+  menuItemLinearSpacing: 0.15
   gripHoldTooltip:
     tooltipName: Grip Hold Pull Right
     actionButtonReference: 4

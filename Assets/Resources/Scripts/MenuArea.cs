@@ -309,14 +309,13 @@ public class MenuArea : XRSimpleInteractable
             {
                 case "Info":
                     
-                    /*
                     // Animate all items to the zero position
                     for (int i = 0; i < currentMenuLayer.items.Count; i++)
                     {
                        StartCoroutine(AnimateMenuItemToZero(i, true));         // Scaling to zero
                     }
-                    */
 
+                    /*
                     // Animate menu item to zero position
                     for (int i = 0; i  < currentMenuLayer.items.Count; i++)
                     {
@@ -325,6 +324,7 @@ public class MenuArea : XRSimpleInteractable
                             StartCoroutine(AnimateMenuItemToZero(i, true));  
                         }
                     }
+                    */
 
                     // Calculate description box rotation 
                     rot = menuRotationOffset.y == 180 ? menuElement.transform.localRotation : 
@@ -346,7 +346,7 @@ public class MenuArea : XRSimpleInteractable
                     // Set as sharable
                     descGO.GetComponent<ContentSharing>().SetSharable(true);
 
-                    // ExitMenu();
+                    ExitMenu();
 
                     break;
 
@@ -403,14 +403,13 @@ public class MenuArea : XRSimpleInteractable
 
                 case "Audio":
 
-                    /*
                     // Animate all items to the zero position
                     for (int i = 0; i < currentMenuLayer.items.Count; i++)
                     {
                         StartCoroutine(AnimateMenuItemToZero(i, true));         // Scaling to zero
                     }
-                    */
 
+                    /*
                     // Animate menu item to zero position
                     for (int i = 0; i < currentMenuLayer.items.Count; i++)
                     {
@@ -419,6 +418,7 @@ public class MenuArea : XRSimpleInteractable
                             StartCoroutine(AnimateMenuItemToZero(i, true));
                         }
                     }
+                    */
 
                     // Create audio box
                     rot = menuRotationOffset.y == 180 ? menuElement.transform.localRotation :

@@ -19,13 +19,15 @@ MonoBehaviour:
   basicInfoAudio: {fileID: 8300000, guid: 135dd00efabb48b45be1c3adc87ea746, type: 3}
   detailInfoAudio: {fileID: 8300000, guid: 716f27a61f840aa49be88ebbfc4d5219, type: 3}
   basicInfoImages:
-  - image: {fileID: 21300000, guid: c00d9b32f4dc3124299571beef5f3d73, type: 3}
-    imageText: {fileID: 4900000, guid: 2c78c390855f81c408303961be1f2298, type: 3}
+  - image: {fileID: 21300000, guid: 303d074c8c0a12245ad85df243687ba5, type: 3}
+    imageText: {fileID: 4900000, guid: 7c20e5326eacee448a3fdab0c2c4228f, type: 3}
+  - image: {fileID: 21300000, guid: d7b630cc2c785e449a6a59ef04360e8a, type: 3}
+    imageText: {fileID: 4900000, guid: 0b45968e186ddf645ab0647479bc5b13, type: 3}
   detailInfoImages:
   - image: {fileID: 21300000, guid: bd23656a2f3eb1f428e516829dee0b75, type: 3}
     imageText: {fileID: 4900000, guid: d875c40d1a8431a49a52203e0812a3c8, type: 3}
-  - image: {fileID: 21300000, guid: d7b630cc2c785e449a6a59ef04360e8a, type: 3}
-    imageText: {fileID: 4900000, guid: 0b45968e186ddf645ab0647479bc5b13, type: 3}
+  - image: {fileID: 21300000, guid: a5f9746d869914b4693d4596c169326d, type: 3}
+    imageText: {fileID: 4900000, guid: 8f59d5fb95d8c404ba355f857f2dcf10, type: 3}
   detailInfoVideos:
   - videoClip: {fileID: 32900000, guid: 605882f55182074459e0e84b58a07dd1, type: 3}
     videoClipText: {fileID: 4900000, guid: e0d8b4b06bb2c8842b3c29a72689caaa, type: 3}

@@ -21,11 +21,13 @@ MonoBehaviour:
   basicInfoImages:
   - image: {fileID: 21300000, guid: 3db48dde317cfbf4abd061b24786b731, type: 3}
     imageText: {fileID: 4900000, guid: 9d7440308d6bc254fa273b221f90ca31, type: 3}
-  detailInfoImages:
   - image: {fileID: 21300000, guid: 0499a1a805fb7e94fa1f26a8a2850696, type: 3}
     imageText: {fileID: 4900000, guid: 5af697d9a576f114187fa627ad7c40c2, type: 3}
+  detailInfoImages:
   - image: {fileID: 21300000, guid: 7548d458384099b4ab80475b192b64c1, type: 3}
     imageText: {fileID: 4900000, guid: 15eab32e325308d4d9d6dfde7ad5d755, type: 3}
+  - image: {fileID: 21300000, guid: c875533d471fd22459629876423b4ddf, type: 3}
+    imageText: {fileID: 4900000, guid: 17bad2e70faf9f9418df3828e167066a, type: 3}
   detailInfoVideos:
   - videoClip: {fileID: 32900000, guid: 61dfbd440f198a8499a062ddbf77b07d, type: 3}
     videoClipText: {fileID: 4900000, guid: 6e4530d01cc0f0441b6af5712aa6aa87, type: 3}
@@ -49,6 +51,17 @@ MonoBehaviour:
     imageInfo:
       image: {fileID: 0}
       imageText: {fileID: 0}
+    videoInfo:
+      videoClip: {fileID: 0}
+      videoClipText: {fileID: 0}
+      videoClipThumbnail: {fileID: 0}
+  - modelInfo:
+      model: {fileID: 0}
+      modelText: {fileID: 0}
+      model2DPreviewSprite: {fileID: 0}
+    imageInfo:
+      image: {fileID: 21300000, guid: dddc673f0cf3a3d44a077c6595c3b698, type: 3}
+      imageText: {fileID: 4900000, guid: f387f4cc345798745af3aeb5e4d8a483, type: 3}
     videoInfo:
       videoClip: {fileID: 0}
       videoClipText: {fileID: 0}
