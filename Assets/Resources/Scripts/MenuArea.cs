@@ -57,7 +57,7 @@ public class MenuArea : XRSimpleInteractable
     public float pullDistance = 0.3f;
     public float menuItemAnimDuration = 0.1f;
     public float layerLoadDuration = 0.05f;
-
+    public CanvasGroup gripHoldPrompt;
 
 
     // Private variables
@@ -84,99 +84,105 @@ public class MenuArea : XRSimpleInteractable
     private string imagePrefabLoc = "UtilityPrefabs/3DMenuPrefabs/ImagePrefab3D";
     private string descBoxPrefabLoc = "UtilityPrefabs/3DMenuPrefabs/DescBoxPrefab3D";
     private string audioPrefabLoc = "UtilityPrefabs/3DMenuPrefabs/AudioPrefab3D";
-
+    private float movementZ = 0f;
 
     private void Start()
     {
         col = GetComponent<BoxCollider>();
     }
-
+    
     private void Update()
     {
-        // Menu items animation
         if (menuOpen)
         {
-            if (currentPullDistance < 1f)
+            movementZ = controllerTransform.InverseTransformPoint(interactionInitialPos).z;
+            if (movementZ > 0f)
             {
-                if (currentMenuLayer.items.Count > 0)
+                if (currentPullDistance < 1f)
                 {
-                    // Calculate the distance that the controller has moved
-                    currentPullDistance = Vector3.Distance(controllerTransform.position, interactionInitialPos) / pullDistance;
-
-                    // Calculate the direction where the player is moving the controller
-                    float moveZ = controllerTransform.InverseTransformPoint(interactionInitialPos).z;
-
-                    // Move the menu items if pulling in
-                    if (moveZ > 0)
-                    {
-                        // Animation for the first menu layer
-                        if (!firstLayerOpen)
-                        {
-                            // Scaling the content sphere
-                            float currentSphereScale = math.remap(0f, 1f, 0f, sphereMaxScale, currentPullDistance);
-                            contentSphere.transform.localScale = Vector3.one * currentSphereScale;
-
-                            // Moving the content sphere
-                            float sphereZ = Mathf.Lerp(menuSphereInitialZ, menuSphereInitialZ + pullDistance, currentPullDistance);
-                            contentSphere.transform.localPosition = new Vector3(contentSphere.transform.localPosition.x, contentSphere.transform.localPosition.y, sphereZ);
-
-                            // Scaling the exit sphere
-                            exitSphere.transform.localScale = Vector3.one * exitSphereScale;
-                            Vector3 exitSphereFinalPos = new Vector3(-0.03f, -0.1f, pullDistance);
-                            exitSphere.transform.localPosition = Vector3.Lerp(Vector3.zero, exitSphereFinalPos, currentPullDistance);
-                        }
-
-                        // Calculating menu item scale
-                        float menuItemScale = math.remap(0f, 1f, 0f, currentMenuLayer.maxScaleValue, currentPullDistance);
-
-                        // Move and scale the menu items
-                        for (int i = 0; i < currentMenuLayer.items.Count; i++)
-                        {
-                            currentMenuLayer.items[i].transform.localPosition = Vector3.Lerp(Vector3.zero, menuItemFinalPositions[i], currentPullDistance);
-                            currentMenuLayer.items[i].transform.localScale = Vector3.one * menuItemScale;
-                        }
-                    }
-                }
-            }
-            else if (currentPullDistance > 1f)
-            {
-                if (!firstLayerOpen)
-                {
-                    firstLayerOpen = true;
-
-                    // Enable exit sphere collider
-                    exitSphere.GetComponent<SphereCollider>().enabled = true;
-
-                    // Show information visibility guide
-                    LoadGuide(infoVisibilityText, exitSphere.transform.position, Quaternion.identity, verticalOffset: -0.05f, destroyAfterDelay: 3f);
-                    
-                }
-                    
-
-                if (!currentMenuLayer.isAtFinalPos)
-                {
-                    currentMenuLayer.isAtFinalPos = true;
-
-                    // Enable item colliders
                     if (currentMenuLayer.items.Count > 0)
                     {
-                        foreach (GameObject item in currentMenuLayer.items)
+                        // Calculate the distance that the controller has moved
+                        currentPullDistance = Vector3.Distance(controllerTransform.position, interactionInitialPos) / pullDistance;
+                        Vector3 differenceDir = controllerTransform.position - interactionInitialPos;
+                        float differenceZ = differenceDir.magnitude;
+                        //Debug.Log(differenceZ);
+
+                        // Calculate the direction where the player is moving the controller
+                        float moveZ = controllerTransform.InverseTransformPoint(interactionInitialPos).z;                        
+
+                        // Move the menu items if pulling in
+                        if (moveZ > 0)
                         {
-                            if (item.GetComponent<Collider>() != null)
-                                item.GetComponent<Collider>().enabled = true;
+                            // Animation for the first menu layer
+                            if (!firstLayerOpen)
+                            {
+                                // Scaling the content sphere
+                                float currentSphereScale = math.remap(0f, 1f, 0f, sphereMaxScale, currentPullDistance);
+                                contentSphere.transform.localScale = Vector3.one * currentSphereScale;
+
+                                // Moving the content sphere
+                                float sphereZ = Mathf.Lerp(menuSphereInitialZ, menuSphereInitialZ + pullDistance, currentPullDistance);
+                                contentSphere.transform.localPosition = new Vector3(contentSphere.transform.localPosition.x, contentSphere.transform.localPosition.y, sphereZ);
+
+                                // Scaling the exit sphere
+                                exitSphere.transform.localScale = Vector3.one * exitSphereScale;
+                                Vector3 exitSphereFinalPos = new Vector3(-0.03f, -0.1f, pullDistance);
+                                exitSphere.transform.localPosition = Vector3.Lerp(Vector3.zero, exitSphereFinalPos, currentPullDistance);
+                            }
+
+                            // Calculating menu item scale
+                            float menuItemScale = math.remap(0f, 1f, 0f, currentMenuLayer.maxScaleValue, currentPullDistance);
+
+                            // Move and scale the menu items
+                            for (int i = 0; i < currentMenuLayer.items.Count; i++)
+                            {
+                                currentMenuLayer.items[i].transform.localPosition = Vector3.Lerp(Vector3.zero, menuItemFinalPositions[i], currentPullDistance);
+                                currentMenuLayer.items[i].transform.localScale = Vector3.one * menuItemScale;
+                            }
                         }
                     }
                 }
-            }
+                else if (currentPullDistance > 1f)
+                {
+                    if (!firstLayerOpen)
+                    {
+                        firstLayerOpen = true;
 
-            // Set line end position to the controller's position
-            if (controllerTransform != null && lR != null)
-            {
-                lR.SetPosition(1, controllerTransform.position);
+                        // Enable exit sphere collider
+                        exitSphere.GetComponent<SphereCollider>().enabled = true;
+
+                        // Show information visibility guide
+                        LoadGuide(infoVisibilityText, exitSphere.transform.position, Quaternion.identity, verticalOffset: -0.05f, destroyAfterDelay: 3f);
+
+                    }
+
+
+                    if (!currentMenuLayer.isAtFinalPos)
+                    {
+                        currentMenuLayer.isAtFinalPos = true;
+
+                        // Enable item colliders
+                        if (currentMenuLayer.items.Count > 0)
+                        {
+                            foreach (GameObject item in currentMenuLayer.items)
+                            {
+                                if (item.GetComponent<Collider>() != null)
+                                    item.GetComponent<Collider>().enabled = true;
+                            }
+                        }
+                    }
+                }
+
+                // Set line end position to the controller's position
+                if (controllerTransform != null && lR != null)
+                {
+                    lR.SetPosition(1, controllerTransform.position);
+                }
             }
         }
     }
-    
+
     private void LoadGuide(string guideText, Vector3 position, Quaternion rotation, float verticalOffset = 0f, float horizontalOffset = 0f, float destroyAfterDelay = 0f)
     {
         GameObject guide = Instantiate(Resources.Load("UtilityPrefabs/GuideCanvas") as GameObject,
@@ -187,7 +193,7 @@ public class MenuArea : XRSimpleInteractable
         StartCoroutine(FadeCanvasGroup(guide.GetComponent<CanvasGroup>(), 0f, 1f, menuItemAnimDuration, destroyAfterDelay));
     }
 
-    private IEnumerator FadeCanvasGroup(CanvasGroup cG, float startAlpha, float endAlpha, float duration, float destroyAfterDelay)
+    private IEnumerator FadeCanvasGroup(CanvasGroup cG, float startAlpha, float endAlpha, float duration, float destroyAfterDelay = 0f)
     {
         float t = 0f;
         while (t < duration)
@@ -218,8 +224,9 @@ public class MenuArea : XRSimpleInteractable
             tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
             tooltipHandler.ShowTooltip(gripHoldTooltip);
 
-            float hOffset = args.interactorObject.transform.name.Contains("Right") ? 0.1f : -0.1f;
-            LoadGuide(menuOpenGuideText, args.interactorObject.transform.position, args.interactorObject.transform.rotation, horizontalOffset: hOffset, destroyAfterDelay: 3f);
+            // float hOffset = args.interactorObject.transform.name.Contains("Right") ? 0.1f : -0.1f;
+            // LoadGuide(menuOpenGuideText, args.interactorObject.transform.position, args.interactorObject.transform.rotation, horizontalOffset: hOffset, destroyAfterDelay: 3f);
+            StartCoroutine(FadeCanvasGroup(gripHoldPrompt, 0f, 1f, menuItemAnimDuration));
         }
     }
 
@@ -233,6 +240,8 @@ public class MenuArea : XRSimpleInteractable
             // Hide the tooltip if not selected
             tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
             tooltipHandler.HideTooltip(gripHoldTooltip);
+
+            StartCoroutine(FadeCanvasGroup(gripHoldPrompt, 1f, 0f, menuItemAnimDuration));
         }
     }
 
@@ -257,9 +266,7 @@ public class MenuArea : XRSimpleInteractable
             menuOpen = true;
 
             // Hide Interaction Guide
-            // var iG = GetComponent<InteractionGuide>();
-            // iG.HideGuide();
-            // iG.isMenuOpen = true;
+            StartCoroutine(FadeCanvasGroup(gripHoldPrompt, 1f, 0f, menuItemAnimDuration));
 
             // Disable Menu Area Collider
             DisableCollider();
@@ -292,6 +299,23 @@ public class MenuArea : XRSimpleInteractable
             // Get the tooltip handler reference
             tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
             tooltipHandler.HideTooltip(gripHoldTooltip);
+        }
+    }
+
+    protected override void OnSelectExited(SelectExitEventArgs args)
+    {
+        base.OnSelectExited(args);
+
+        if (menuOpen)
+        {
+            if (!firstLayerOpen)
+            {
+                ResetMenu();
+
+                exitSphere.transform.localPosition = Vector3.zero;
+                exitSphere.transform.localScale = Vector3.zero;
+                exitSphere.GetComponent<SphereCollider>().enabled = false;
+            }
         }
     }
 
