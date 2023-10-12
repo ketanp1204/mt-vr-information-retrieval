@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 3114822912986851555}
   - component: {fileID: 7856455104535561452}
   - component: {fileID: 8690309152351137231}
+  - component: {fileID: 6519693476787893617}
   m_Layer: 8
   m_Name: AudioPrefab3D
   m_TagString: Untagged
@@ -446,6 +447,18 @@ MonoBehaviour:
   visibilityObject: {fileID: 4825156996491689814}
   guideSpawnOffset: {x: 0, y: 0, z: 0}
   guideText: Drag out to Share
+--- !u!114 &6519693476787893617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5438887212757216700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 149a94a40addad84198f69b951628daa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9196715599455002162
 GameObject:
   m_ObjectHideFlags: 0

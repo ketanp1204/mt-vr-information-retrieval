@@ -333,6 +333,7 @@ GameObject:
   - component: {fileID: 3086628531197291806}
   - component: {fileID: 7847600341979234577}
   - component: {fileID: 8752135120430475314}
+  - component: {fileID: 3678417167100193322}
   m_Layer: 8
   m_Name: DescBoxPrefab3D
   m_TagString: Untagged
@@ -404,7 +405,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &5374260822921144387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -680,6 +681,18 @@ MonoBehaviour:
   visibilityObject: {fileID: 4835067324000975531}
   guideSpawnOffset: {x: 0, y: 0, z: 0}
   guideText: Drag out to Share
+--- !u!114 &3678417167100193322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374260822921144385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 149a94a40addad84198f69b951628daa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8624325557817070576
 GameObject:
   m_ObjectHideFlags: 0

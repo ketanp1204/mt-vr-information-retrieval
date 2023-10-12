@@ -400,7 +400,7 @@ MonoBehaviour:
   menuRotationOffset: {x: 0, y: -90, z: 0}
   imageContainer: {fileID: 1626145827}
   exitSphere: {fileID: 1904120714}
-  sphereMaxScale: 0.7
+  sphereMaxScale: 0.9
   exitSphereScale: 0.03
   menuItemLinearSpacing: 0.15
   gripHoldTooltip:
@@ -32163,7 +32163,7 @@ MonoBehaviour:
   menuRotationOffset: {x: 0, y: 180, z: 0}
   imageContainer: {fileID: 1048000516}
   exitSphere: {fileID: 1364700702}
-  sphereMaxScale: 0.7
+  sphereMaxScale: 0.9
   exitSphereScale: 0.03
   menuItemLinearSpacing: 0.15
   gripHoldTooltip:
@@ -51166,7 +51166,7 @@ MonoBehaviour:
   menuRotationOffset: {x: 0, y: 90, z: 0}
   imageContainer: {fileID: 1410889086}
   exitSphere: {fileID: 1996867216}
-  sphereMaxScale: 0.7
+  sphereMaxScale: 0.9
   exitSphereScale: 0.03
   menuItemLinearSpacing: 0.15
   gripHoldTooltip:
