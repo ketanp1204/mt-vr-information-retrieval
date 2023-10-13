@@ -79,8 +79,8 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 
                     // Set Exhibit Info Data
                     ImagePrefab iP = image.GetComponent<ImagePrefab>();
-                    iP.SetImage(exhibitInfo.detailInfoImages[i].image);
-                    iP.SetText(exhibitInfo.detailInfoImages[i].imageText.text);                
+                    // iP.SetImage(exhibitInfo.detailInfoImages[i].image);
+                    // iP.SetText(exhibitInfo.detailInfoImages[i].imageText.text);                
                     iP.SetInfoFromExhibitInfo(itemName, i, 1);
 
                     // Add to detail view spawned objects list
@@ -96,9 +96,9 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 
                     // Set Exhibit Info Data
                     VideoPrefab vP = video.GetComponent<VideoPrefab>();
-                    vP.SetThumbnail(exhibitInfo.detailInfoVideos[i].videoClipThumbnail);
-                    vP.SetText(exhibitInfo.detailInfoVideos[i].videoClipText.text);
-                    vP.SetVideoClip(exhibitInfo.detailInfoVideos[i].videoClip);
+                    // vP.SetThumbnail(exhibitInfo.detailInfoVideos[i].videoClipThumbnail);
+                    // vP.SetText(exhibitInfo.detailInfoVideos[i].videoClipText.text);
+                    // vP.SetVideoClip(exhibitInfo.detailInfoVideos[i].videoClip);
                     vP.SetInfoFromExhibitInfo(itemName, i, 1);
 
                     // Add to detail view spawned objects list
@@ -118,8 +118,8 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 
                         // Set Exhibit Info Data
                         ImagePrefab iP = image.GetComponent<ImagePrefab>();
-                        iP.SetImage(exhibitInfo.detailInfoRelatedItems[i].imageInfo.image);
-                        iP.SetText(exhibitInfo.detailInfoRelatedItems[i].imageInfo.imageText.text);
+                        // iP.SetImage(exhibitInfo.detailInfoRelatedItems[i].imageInfo.image);
+                        // iP.SetText(exhibitInfo.detailInfoRelatedItems[i].imageInfo.imageText.text);
                         iP.SetInfoFromExhibitInfo(itemName, i, 2);
 
                         // Add to detail view spawned objects list
@@ -135,9 +135,9 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 
                         // Set Exhibit Info Data
                         VideoPrefab vP = video.GetComponent<VideoPrefab>();
-                        vP.SetThumbnail(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClipThumbnail);
-                        vP.SetText(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClipText.text);
-                        vP.SetVideoClip(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClip);
+                        // vP.SetThumbnail(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClipThumbnail);
+                        // vP.SetText(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClipText.text);
+                        // vP.SetVideoClip(exhibitInfo.detailInfoRelatedItems[i].videoInfo.videoClip);
                         vP.SetInfoFromExhibitInfo(itemName, i, 2);
 
                         // Add to detail view spawned objects list
@@ -153,8 +153,8 @@ public class DVAObject : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 
                         // Set Exhibit Info Data
                         ModelPrefab mP = model.GetComponent<ModelPrefab>();
-                        mP.SetModel(exhibitInfo.detailInfoRelatedItems[i].modelInfo.model);
-                        mP.SetText(exhibitInfo.detailInfoRelatedItems[i].modelInfo.modelText.text);
+                        // mP.SetModel(exhibitInfo.detailInfoRelatedItems[i].modelInfo.model);
+                        // mP.SetText(exhibitInfo.detailInfoRelatedItems[i].modelInfo.modelText.text);
                         mP.SetInfoFromExhibitInfo(itemName, i);
 
                         // Add to detail view spawned objects list

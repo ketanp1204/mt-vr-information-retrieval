@@ -361,7 +361,7 @@ public class MenuArea : XRSimpleInteractable
                     
                     // Set display text
                     DescBoxPrefab dBP = descGO.GetComponent<DescBoxPrefab>();
-                    dBP.SetText(exhibitInfo.basicInfoText.text);
+                    // dBP.SetText(exhibitInfo.basicInfoText.text);
                     dBP.SetInfoFromExhibitInfo(exhibitInfo.exhibitName);
 
                     // Set removable via button
@@ -399,8 +399,9 @@ public class MenuArea : XRSimpleInteractable
 
                         // Set and resize image
                         ImagePrefab iP = imageGO.GetComponent<ImagePrefab>();
-                        iP.SetImage(exhibitInfo.basicInfoImages[i].image);
-                        iP.SetText(exhibitInfo.basicInfoImages[i].imageText.text);
+                        // iP.SetImage(exhibitInfo.basicInfoImages[i].image);
+                        // iP.SetText(exhibitInfo.basicInfoImages[i].imageText.text);
+                        iP.SetInfoFromExhibitInfo(exhibitInfo.exhibitName, i, 0);
 
                         // MenuElement imageMA = imageGO.GetComponent<MenuElement>();
                         // imageMA.menuArea = this;

@@ -29,9 +29,7 @@ public class DescBoxPrefab : MonoBehaviourPunCallbacks
 
     public void SetInfoFromExhibitInfo(string exhibitName)
     {
-        SetExhibitInfo(exhibitName);
-
-        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.Others);
+        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.All, exhibitName);
     }
 
     private void SetExhibitInfo(string exhibitName)
@@ -50,8 +48,10 @@ public class DescBoxPrefab : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void SetInfoFromExhibitInfoRPC()
+    void SetInfoFromExhibitInfoRPC(string exhibitName)
     {
+        SetExhibitInfo(exhibitName);
+        
         // Set text value
         SetText(exhibitInfo.basicInfoText.text);
 
@@ -74,8 +74,6 @@ public class DescBoxPrefab : MonoBehaviourPunCallbacks
     [PunRPC]
     void SetLateJoinInfo(string exhibitName)
     {
-        SetExhibitInfo(exhibitName);
-
-        SetInfoFromExhibitInfoRPC();
+        SetInfoFromExhibitInfoRPC(exhibitName);
     }
 }

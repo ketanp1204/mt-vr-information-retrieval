@@ -59,9 +59,7 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
 
     public void SetInfoFromExhibitInfo(string exhibitName, int index, int contentType)
     {
-        SetExhibitInfo(exhibitName, index, contentType);
-
-        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.Others, index, contentType);
+        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.All, exhibitName, index, contentType);
     }
 
     private void SetExhibitInfo(string exhibitName, int index, int contentType)
@@ -82,9 +80,21 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void SetInfoFromExhibitInfoRPC(int index, int contentType)
+    void SetInfoFromExhibitInfoRPC(string exhibitName, int index, int contentType)
     {
-        if (contentType == 1)           // Image
+        SetExhibitInfo(exhibitName, index, contentType);
+
+        if (contentType == 0)               // Basic Info Images
+        {
+            // Set exhibit info values
+            SetImage(exhibitInfo.basicInfoImages[index].image);
+            SetText(exhibitInfo.basicInfoImages[index].imageText.text);
+
+            // Update GameObject name
+            gOName = "BImages" + index.ToString();
+            gameObject.name = gOName;
+        }
+        else if (contentType == 1)          // Detail Info Images
         {
             // Set exhibit info values
             SetImage(exhibitInfo.detailInfoImages[index].image);
@@ -94,7 +104,7 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
             gOName = "DVImages" + index.ToString();
             gameObject.name = gOName;
         }
-        else if (contentType == 2)      // Related Items Image
+        else if (contentType == 2)          // Related Items Image
         {
             // Set exhibit info values
             SetImage(exhibitInfo.detailInfoRelatedItems[index].imageInfo.image);
@@ -236,8 +246,6 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
     [PunRPC]
     void SetLateJoinInfo(string exhibitName, int exhibitInfoIndex, int exhibitInfoContentType)
     {
-        SetExhibitInfo(exhibitName, exhibitInfoIndex, exhibitInfoContentType);
-
-        SetInfoFromExhibitInfoRPC(exhibitInfoIndex, exhibitInfoContentType);
+        SetInfoFromExhibitInfoRPC(exhibitName, exhibitInfoIndex, exhibitInfoContentType);
     }
 }

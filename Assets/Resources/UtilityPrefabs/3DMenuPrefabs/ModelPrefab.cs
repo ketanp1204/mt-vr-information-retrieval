@@ -60,9 +60,7 @@ public class ModelPrefab : MonoBehaviourPunCallbacks
 
     public void SetInfoFromExhibitInfo(string exhibitName, int index)
     {
-        SetExhibitInfo(exhibitName, index);
-
-        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.Others, index);
+        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.All, exhibitName, index);
     }
 
     private void SetExhibitInfo(string exhibitName, int index)
@@ -82,8 +80,10 @@ public class ModelPrefab : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void SetInfoFromExhibitInfoRPC(int index)
+    void SetInfoFromExhibitInfoRPC(string exhibitName, int index)
     {
+        SetExhibitInfo(exhibitName, index);
+
         // Set exhibit info values
         gameObject.name = "DVRelatedItems" + index.ToString();
         SetModel(exhibitInfo.detailInfoRelatedItems[index].modelInfo.model);
@@ -223,8 +223,6 @@ public class ModelPrefab : MonoBehaviourPunCallbacks
     [PunRPC]
     void SetLateJoinInfo(string exhibitName, int exhibitInfoIndex)
     {
-        SetExhibitInfo(exhibitName, exhibitInfoIndex);
-
-        SetInfoFromExhibitInfoRPC(exhibitInfoIndex);
+        SetInfoFromExhibitInfoRPC(exhibitName, exhibitInfoIndex);
     }
 }

@@ -77,9 +77,7 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
 
     public void SetInfoFromExhibitInfo(string exhibitName, int index, int contentType)
     {
-        SetExhibitInfo(exhibitName, index, contentType);
-
-        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.Others, index, contentType);
+        photonView.RPC(nameof(SetInfoFromExhibitInfoRPC), RpcTarget.All, exhibitName, index, contentType);
     }
 
     private void SetExhibitInfo(string exhibitName, int index, int contentType)
@@ -100,8 +98,10 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void SetInfoFromExhibitInfoRPC(int index, int contentType)
+    void SetInfoFromExhibitInfoRPC(string exhibitName, int index, int contentType)
     {
+        SetExhibitInfo(exhibitName, index, contentType);
+
         if (contentType == 1)           // Video 
         {
             // Set exhibit info values
@@ -340,8 +340,6 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
     [PunRPC]
     void SetLateJoinInfo(string exhibitName, int exhibitInfoIndex, int exhibitInfoContentType)
     {
-        SetExhibitInfo(exhibitName, exhibitInfoIndex, exhibitInfoContentType);
-
-        SetInfoFromExhibitInfoRPC(exhibitInfoIndex, exhibitInfoContentType);
+        SetInfoFromExhibitInfoRPC(exhibitName, exhibitInfoIndex, exhibitInfoContentType);
     }
 }
