@@ -30,7 +30,7 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
     private string showTextString = "Show Info";
     private string hideTextString = "Hide Info";
     private string gOName = "";
-    private ExhibitInformation exhibitInfo = null;
+    public ExhibitInformation exhibitInfo = null;
     private string exhibitNameString = "";
     private int exhibitInfoItemIndex = 0;
     private int exhibitInfoContentType = 0;

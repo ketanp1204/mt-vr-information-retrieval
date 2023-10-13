@@ -334,6 +334,7 @@ GameObject:
   - component: {fileID: 7847600341979234577}
   - component: {fileID: 8752135120430475314}
   - component: {fileID: 3678417167100193322}
+  - component: {fileID: -1954598217819428979}
   m_Layer: 8
   m_Name: DescBoxPrefab3D
   m_TagString: Untagged
@@ -693,6 +694,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149a94a40addad84198f69b951628daa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-1954598217819428979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374260822921144385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f0cc5723640b3948837cf7e68a8e648, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textField: {fileID: 6347357449754582972}
 --- !u!1 &8624325557817070576
 GameObject:
   m_ObjectHideFlags: 0

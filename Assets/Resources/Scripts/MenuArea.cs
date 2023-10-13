@@ -358,11 +358,11 @@ public class MenuArea : XRSimpleInteractable
                                                                     menuElement.transform.position + new Vector3(0.04f, 0f, 0f),
                                                                     rot,
                                                                     data: contentSphereInfo);
-                    descGO.name = gameObject.name.Replace("MA_", "DB_");
-
+                    
                     // Set display text
-                    TextMeshProUGUI displayText = GetChildWithName(descGO, "DescBoxText").GetComponent<TextMeshProUGUI>();
-                    displayText.text = exhibitInfo.basicInfoText.text;
+                    DescBoxPrefab dBP = descGO.GetComponent<DescBoxPrefab>();
+                    dBP.SetText(exhibitInfo.basicInfoText.text);
+                    dBP.SetInfoFromExhibitInfo(exhibitInfo.exhibitName);
 
                     // Set removable via button
                     descGO.GetComponent<RemoveObject>().SetRemovableStatus(true);
