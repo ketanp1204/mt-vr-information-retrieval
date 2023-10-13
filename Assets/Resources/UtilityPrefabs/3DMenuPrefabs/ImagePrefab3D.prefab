@@ -1485,3 +1485,4 @@ MonoBehaviour:
     tooltipText: Show Info
     hand: 2
   showTextInputAction: {fileID: -3444445515797504187, guid: 4f33c6c7022992b4da7a524a26f680f1, type: 3}
+  exhibitInfo: {fileID: 0}

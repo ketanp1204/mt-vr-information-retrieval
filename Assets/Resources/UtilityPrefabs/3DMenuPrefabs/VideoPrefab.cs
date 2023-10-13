@@ -130,6 +130,8 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
     {
         if (isHoveringRight)
         {
+            photonView.RPC(nameof(UpdateTextPanel), RpcTarget.All, isTextVisible);
+            /*
             if (!isTextVisible)
             {
                 // Show Text Panel
@@ -148,6 +150,30 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
                 // Change tooltip string
                 showTextTooltip.tooltipText = showTextString;
             }
+            */
+        }
+    }
+
+    [PunRPC]
+    void UpdateTextPanel(bool visibility)
+    {
+        if (visibility)
+        {
+            // Show Text Panel
+            StartCoroutine(FadeCanvasGroup(textPanelCG, 0f, 1f, 0.1f, enableInteraction: true));
+            isTextVisible = true;
+
+            // Change tooltip string
+            showTextTooltip.tooltipText = hideTextString;
+        }
+        else
+        {
+            // Hide Text Panel
+            StartCoroutine(FadeCanvasGroup(textPanelCG, 1f, 0f, 0.1f, enableInteraction: false));
+            isTextVisible = false;
+
+            // Change tooltip string
+            showTextTooltip.tooltipText = showTextString;
         }
     }
 
