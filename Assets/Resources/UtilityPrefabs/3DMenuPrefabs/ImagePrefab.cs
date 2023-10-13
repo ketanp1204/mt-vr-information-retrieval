@@ -26,6 +26,7 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
     private bool isHovering = false;
     private bool enableTextTooltip = false;
     private bool isTextVisible = false;
+    private bool isDataSet = false;
     private TooltipHandler tooltipHandler;
     private string showTextString = "Show Info";
     private string hideTextString = "Hide Info";
@@ -49,12 +50,16 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
         BoxCollider c = imageComp.GetComponent<BoxCollider>();
         RectTransform rt = imageComp.GetComponent<RectTransform>();
         c.size = new Vector3(rt.rect.width, rt.rect.height, c.size.z);
+
+        isDataSet = true;
     }
 
     public void SetText(string text)
     {
         textField.text = text;
         enableTextTooltip = true;
+
+        isDataSet = true;
     }
 
     public void SetInfoFromExhibitInfo(string exhibitName, int index, int contentType)
@@ -116,66 +121,81 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
         }
     }
 
-    public void ShowText(InputAction.CallbackContext obj)
+    public void ShowHideText(InputAction.CallbackContext obj)
     {
         if (isHovering)
         {
-            StartCoroutine(FadeCanvasGroup(textPanelCG, 0f, 1f, 0.1f, enableInteraction: true));
-            isTextVisible = true;
+            if (!isTextVisible)
+            {
+                // Show Text Panel
+                StartCoroutine(FadeCanvasGroup(textPanelCG, 0f, 1f, 0.1f, enableInteraction: true));
+                isTextVisible = true;
 
-            // Remove show text input action
-            showTextInputAction.action.performed -= ShowText;
+                // Change tooltip string
+                showTextTooltip.tooltipText = hideTextString;
+            }
+            else
+            {
+                // Hide Text Panel
+                StartCoroutine(FadeCanvasGroup(textPanelCG, 1f, 0f, 0.1f, enableInteraction: false));
+                isTextVisible = false;
 
-            // Change tooltip string
-            showTextTooltip.tooltipText = hideTextString;
+                // Change tooltip string
+                showTextTooltip.tooltipText = showTextString;
+            }
 
-            // Add hide text input action
-            showTextInputAction.action.performed += HideText;
+            photonView.RPC(nameof(UpdateTextPanel), RpcTarget.Others, isTextVisible);
         }
     }
 
-    public void HideText(InputAction.CallbackContext obj)
+    [PunRPC]
+    void UpdateTextPanel(bool visibility)
     {
-        if (isHovering)
+        if (visibility)
         {
+            // Show Text Panel
+            StartCoroutine(FadeCanvasGroup(textPanelCG, 0f, 1f, 0.1f, enableInteraction: true));
+            isTextVisible = true;
+
+            // Change tooltip string
+            showTextTooltip.tooltipText = hideTextString;
+        }
+        else
+        {
+            // Hide Text Panel
             StartCoroutine(FadeCanvasGroup(textPanelCG, 1f, 0f, 0.1f, enableInteraction: false));
             isTextVisible = false;
 
-            // Remove hide text input action
-            showTextInputAction.action.performed -= HideText;
-
             // Change tooltip string
             showTextTooltip.tooltipText = showTextString;
-
-            // Add show text input action
-            showTextInputAction.action.performed += ShowText;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check for controller
-        if (other.GetComponent<XRDirectInteractor>() != null)
+        if (enableTextTooltip)
         {
-            isHovering = true;
-
-            if (enableTextTooltip)
+            // Check for controller
+            if (other.GetComponent<XRDirectInteractor>() != null)
             {
-                tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
-                tooltipHandler.ShowTooltip(showTextTooltip);
+                isHovering = true;
 
-                showTextInputAction.action.Enable();
-                if (!isTextVisible)
+                if (isDataSet)
                 {
-                    showTextTooltip.tooltipText = showTextString;
-                    showTextInputAction.action.performed -= ShowText;
-                    showTextInputAction.action.performed += ShowText;
-                }
-                else
-                {
-                    showTextTooltip.tooltipText = hideTextString;
-                    showTextInputAction.action.performed -= HideText;
-                    showTextInputAction.action.performed += HideText;                   
+                    // Display Tooltip
+                    tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
+                    tooltipHandler.ShowTooltip(showTextTooltip);
+
+                    // Set Tooltip String
+                    if (!isTextVisible)
+                        showTextTooltip.tooltipText = showTextString;
+                    else
+                        showTextTooltip.tooltipText = hideTextString;
+
+                    // Subscribe to Input Action
+                    showTextInputAction.action.Enable();
+                    showTextInputAction.action.performed -= ShowHideText;
+                    showTextInputAction.action.performed += ShowHideText;
                 }
             }
         }
@@ -183,24 +203,34 @@ public class ImagePrefab : MonoBehaviourPunCallbacks
 
     private void OnTriggerExit(Collider other)
     {
-        // Check for controller
-        if (other.GetComponent<XRDirectInteractor>() != null)
+        if (enableTextTooltip)
         {
-            isHovering = false;
-
-            if (enableTextTooltip)
+            // Check for controller
+            if (other.GetComponent<XRDirectInteractor>() != null)
             {
-                tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
-                tooltipHandler.HideTooltip(showTextTooltip);
+                isHovering = false;
 
-                showTextInputAction.action.Disable();
-                if (!isTextVisible)
-                    showTextInputAction.action.performed -= ShowText;
-                else
-                    showTextInputAction.action.performed -= HideText;
+                if (isDataSet)
+                {
+                    // Hide Tooltip
+                    tooltipHandler = other.transform.root.GetComponent<TooltipHandler>();
+                    tooltipHandler.HideTooltip(showTextTooltip);
+
+                    // Unsubscribe to Input Action
+                    showTextInputAction.action.performed -= ShowHideText;
+                    StartCoroutine(DisableInputActionAfterDelay(showTextInputAction));
+                }
             }
         }
     }
+
+    private IEnumerator DisableInputActionAfterDelay(InputActionReference inputAction)
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        inputAction.action.Disable();
+    }
+
 
     private IEnumerator FadeCanvasGroup(CanvasGroup cG, float startAlpha, float endAlpha, float duration, float startDelay = 0f, bool enableInteraction = false)
     {

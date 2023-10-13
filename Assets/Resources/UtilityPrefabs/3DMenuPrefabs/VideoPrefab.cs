@@ -130,8 +130,6 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
     {
         if (isHoveringRight)
         {
-            photonView.RPC(nameof(UpdateTextPanel), RpcTarget.All, isTextVisible);
-            /*
             if (!isTextVisible)
             {
                 // Show Text Panel
@@ -150,7 +148,8 @@ public class VideoPrefab : MonoBehaviourPunCallbacks
                 // Change tooltip string
                 showTextTooltip.tooltipText = showTextString;
             }
-            */
+
+            photonView.RPC(nameof(UpdateTextPanel), RpcTarget.Others, isTextVisible);
         }
     }
 
