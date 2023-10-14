@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class StudyMenu : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class StudyMenu : MonoBehaviour
     [Space(20)]
     [Header("Interaction Properties")]
     public CanvasGroup studyMenuPanelCG;
+    public CanvasGroup studySphereTextPanelCG;
     public CanvasGroup topCG;
     public CanvasGroup controllerInstructionsCG;
     public CanvasGroup nextButtonCG;
@@ -24,6 +26,7 @@ public class StudyMenu : MonoBehaviour
     public float fadeInDuration = 0.5f;
     public float fadeOutDuration = 0.1f;
     public float beginInstructionsDelay = 3f;
+    public Tooltip showStudyMenuTooltip;
 
     [Space(20)]
     [Header("Tutorial Content")]
@@ -32,12 +35,11 @@ public class StudyMenu : MonoBehaviour
 
     [Space(20)]
     [Header("Study Selection")]
-    public GameObject study1PracticeExhibit;
-    public GameObject study2PracticeExhibit;
-    public GameObject study1Exhibit1;
-    public GameObject study1Exhibit2;
-    public GameObject study2Exhibit1;
-    public GameObject study2Exhibit2;
+    public GameObject study1PracticeGO;
+    public GameObject study2PracticeGO;
+    public GameObject study1GO;
+    public GameObject study2GO;
+    public GameObject studySphere;
 
 
     // Private Variables //
@@ -45,13 +47,9 @@ public class StudyMenu : MonoBehaviour
     private bool playerJoinedRoom = false;
     private int tutorialLayer = 1;
     private int selectedStudy = 0;
-    
+    private TooltipHandler tooltipHandler;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
     private void Update()
     {
@@ -187,7 +185,7 @@ public class StudyMenu : MonoBehaviour
         else if (selectedStudy == 1)
         {
             // Enable GameObject
-            study1PracticeExhibit.SetActive(true);
+            study1PracticeGO.SetActive(true);
 
             // Hide study menu
             HideStudyMenu();
@@ -195,7 +193,7 @@ public class StudyMenu : MonoBehaviour
         else if (selectedStudy == 2)
         {
             // Enable GameObject
-            study2PracticeExhibit.SetActive(true);
+            study2PracticeGO.SetActive(true);
 
             // Hide study menu
             HideStudyMenu();
@@ -214,8 +212,7 @@ public class StudyMenu : MonoBehaviour
         else if (selectedStudy == 1)
         {
             // Enable GameObjects
-            study1Exhibit1.SetActive(true);
-            study1Exhibit2.SetActive(true);
+            study1GO.SetActive(true);
 
             // Hide study menu
             HideStudyMenu();
@@ -223,8 +220,7 @@ public class StudyMenu : MonoBehaviour
         else if (selectedStudy == 2)
         {
             // Enable GameObjects
-            study2Exhibit1.SetActive(true);
-            study2Exhibit2.SetActive(true);
+            study2GO.SetActive(true);
 
             // Hide study menu
             HideStudyMenu();
@@ -234,6 +230,15 @@ public class StudyMenu : MonoBehaviour
     private void HideStudyMenu()
     {
         StartCoroutine(FadeCanvasGroup(studyMenuPanelCG, 1f, 0f, fadeOutDuration, enableInteraction: false));
+
+        StartCoroutine(EnableGOAfterDelay(studySphere, 3f));
+    }
+
+    private IEnumerator EnableGOAfterDelay(GameObject gO, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        gO.SetActive(true);
     }
 
     private IEnumerator SetButtonInteractableAfterDelay(Button button, float delay)
@@ -241,6 +246,48 @@ public class StudyMenu : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         button.interactable = true;
+    }
+
+    public void OnSphereHoverEntered(HoverEnterEventArgs args)
+    {
+        // Show  tooltip
+        tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
+        tooltipHandler.ShowTooltip(showStudyMenuTooltip);
+
+        // Show text panel
+        StartCoroutine(FadeCanvasGroup(studySphereTextPanelCG, 0f, 1f, fadeOutDuration));
+    }
+
+    public void OnSphereHoverExited(HoverExitEventArgs args)
+    {
+        // Hide  tooltip
+        tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
+        tooltipHandler.HideTooltip(showStudyMenuTooltip);
+
+        // Hide text panel
+        StartCoroutine(FadeCanvasGroup(studySphereTextPanelCG, 1f, 0f, fadeOutDuration));
+    }
+
+    public void OnSphereSelectEntered(SelectEnterEventArgs args)
+    {
+        // Hide  tooltip
+        tooltipHandler = args.interactorObject.transform.root.GetComponent<TooltipHandler>();
+        tooltipHandler.HideTooltip(showStudyMenuTooltip);
+
+        // Hide text panel
+        StartCoroutine(FadeCanvasGroup(studySphereTextPanelCG, 1f, 0f, fadeOutDuration));
+
+        // Show study menu
+        StartCoroutine(FadeCanvasGroup(studyMenuPanelCG, 0f, 1f, fadeInDuration, enableInteraction: true));
+
+        // Hide Sphere
+        studySphere.SetActive(false);
+
+        // Disable all menu GOs
+        study1PracticeGO.SetActive(false);
+        study2PracticeGO.SetActive(false);
+        study1GO.SetActive(false);
+        study2GO.SetActive(false);
     }
 
 
